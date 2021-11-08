@@ -1,0 +1,2 @@
+# Shooterman
+Softwareprojekt für Softwareprojektmanagement
