@@ -14,6 +14,7 @@ public class Shooterman extends ApplicationAdapter {
 	Texture map;
 	OrthographicCamera camera;
 	Sprite sprite;
+	Player player1;
 
 	@Override
 	public void create () {
@@ -23,6 +24,7 @@ public class Shooterman extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		map = new Texture("Spielfeld.png");
 		sprite = new Sprite(TextureRegion.split(map, map.getWidth(), map.getHeight())[0][0]);
+		player1 = new Player();
 	}
 
 	@Override
@@ -35,6 +37,7 @@ public class Shooterman extends ApplicationAdapter {
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
 		batch.draw(map, 0, 0);
+		player1.getSprite().draw(batch);
 		batch.end();
 	}
 
