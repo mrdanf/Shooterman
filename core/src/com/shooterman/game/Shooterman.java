@@ -37,7 +37,8 @@ public class Shooterman extends ApplicationAdapter {
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
 		batch.draw(map, 0, 0);
-		player1.getSprite().draw(batch);
+		Sprite p1 = player1.getSprite();
+		batch.draw(p1, 100, 100, p1.getWidth()/4, p1.getHeight()/4);
 		batch.end();
 	}
 

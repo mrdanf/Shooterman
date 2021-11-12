@@ -25,12 +25,11 @@ public class Player {
                 sprite.setRegion(regions[row][column]);
             }
         }, 0, 1 / 10f);
-
-        sprite.setX(100);
-        sprite.setY(200);
     }
 
     public Sprite getSprite() {
         return sprite;
     }
+
+
 }
