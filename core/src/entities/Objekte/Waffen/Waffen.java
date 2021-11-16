@@ -1,6 +1,10 @@
 package entities.Objekte.Waffen;
 
-import entities.Entities;
+import entities.Entity;
 
-public class Waffen extends Entities {
+public class Waffen extends Entity {
+    @Override
+    public void update() {
+
+    }
 }

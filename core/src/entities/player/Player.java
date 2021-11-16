@@ -1,17 +1,13 @@
 package entities.player;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.utils.Timer;
-import entities.Entities;
+import entities.Entity;
 
 import java.util.ArrayList;
 
 
-public class Player extends Entities {
+public class Player extends Entity {
     Playermovment move = new Playermovment();
     PlayerSprits spritegenerat = new PlayerSprits();
     private int health;
@@ -30,14 +26,16 @@ public class Player extends Entities {
         input();
 
     }
-/**Weist  dem Player die richtigen tasten zu um das spiel spielen zu können
- * 1.add Nach Rechts bewegen
- * 2.add Nach Rechts bewegen
- * 3.add Nach Rechts bewegen
- * 4.add Nach Rechts bewegen
- *
- * @Author Marcel SAnder
- * */
+
+    /**
+     * Weist  dem Player die richtigen tasten zu um das spiel spielen zu können
+     * 1.add Nach Rechts bewegen
+     * 2.add Nach Rechts bewegen
+     * 3.add Nach Rechts bewegen
+     * 4.add Nach Rechts bewegen
+     *
+     * @Author Marcel SAnder
+     */
     public void input() {
         if (player == 1) {
             //Nach rechts gehen
@@ -56,6 +54,7 @@ public class Player extends Entities {
         }
     }
 
+    @Override
     public void update() {
         move.move(this);
     }

@@ -8,8 +8,11 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.ScreenUtils;
+import entities.Entity;
 import entities.player.Player;
-import entities.player.PlayerSprits;
+
+import java.util.ArrayList;
+
 
 public class Shooterman extends ApplicationAdapter {
     SpriteBatch batch;
@@ -18,6 +21,7 @@ public class Shooterman extends ApplicationAdapter {
     Sprite sprite;
     Player player1;
     Player player2;
+    ArrayList<Entity> entities = new ArrayList<>();
 
     @Override
     public void create() {
@@ -32,20 +36,24 @@ public class Shooterman extends ApplicationAdapter {
         camera.position.x = sprite.getX() + sprite.getOriginX();
         camera.position.y = sprite.getY() + sprite.getOriginY();
         camera.zoom = 1000f; // Je größer der Zoom, desto weiterweg ist die Kamera
+        entities.add(player1);
+        entities.add(player2);
+
     }
 
     @Override
     public void render() {
         ScreenUtils.clear(0.1f, 0.35f, 0.1f, 1);
-        camera.update();
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         batch.draw(map, 0, 0);
-        batch.draw(player1.getSprite(), player1.getX(), player1.getY(), player1.getSprite().getWidth()/1.5f, player1.getSprite().getHeight()/1.5f);
-        batch.draw(player2.getSprite(), player2.getX(), player2.getY(), player2.getSprite().getWidth()/1.5f, player2.getSprite().getHeight()/1.5f);
+        batch.draw(player1.getSprite(), player1.getX(), player1.getY(), player1.getSprite().getWidth() / 1.5f, player1.getSprite().getHeight() / 1.5f);
+        batch.draw(player2.getSprite(), player2.getX(), player2.getY(), player2.getSprite().getWidth() / 1.5f, player2.getSprite().getHeight() / 1.5f);
         batch.end();
-        player1.update();
-        player2.update();
+        camera.update();
+        for (Entity entity : entities) {
+            entity.update();
+        }
     }
 
     @Override
