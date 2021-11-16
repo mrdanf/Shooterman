@@ -1,13 +1,12 @@
 package entities;
 
-public class Entities {
+import com.badlogic.gdx.ApplicationAdapter;
+import com.shooterman.game.Shooterman;
 
-
+public abstract class Entities extends Shooterman {
     public float x;
-
-
-
     public float y;
+
     public float getX() {
         return x;
     }
@@ -22,4 +21,5 @@ public class Entities {
     public void setY(float y) {
         this.y = y;
     }
+
 }

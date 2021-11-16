@@ -2,6 +2,7 @@ package com.shooterman.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -15,6 +16,7 @@ public class Shooterman extends ApplicationAdapter {
 	OrthographicCamera camera;
 	Sprite sprite;
 	Player player1;
+    entities.Player player2;
 
 	@Override
 	public void create () {
@@ -25,6 +27,7 @@ public class Shooterman extends ApplicationAdapter {
 		map = new Texture("Spielfeld.png");
 		sprite = new Sprite(TextureRegion.split(map, map.getWidth(), map.getHeight())[0][0]);
 		player1 = new Player();
+       player2 = new entities.Player(100);
 	}
 
 	@Override
@@ -39,7 +42,10 @@ public class Shooterman extends ApplicationAdapter {
 		batch.draw(map, 0, 0);
 		Sprite p1 = player1.getSprite();
 		batch.draw(p1, 100, 100, p1.getWidth()/4, p1.getHeight()/4);
+        batch.draw(p1, player2.getX(), player2.getY(), p1.getWidth()/4, p1.getHeight()/4);
 		batch.end();
+        player2.update();
+
 	}
 
 	@Override
@@ -47,5 +53,6 @@ public class Shooterman extends ApplicationAdapter {
 		batch.dispose();
 		map.dispose();
 	}
+
 
 }
