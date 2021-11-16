@@ -1,4 +1,4 @@
-package entities;
+package entities.player;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -6,25 +6,22 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Timer;
-
-
+import entities.Entities;
 
 
 public class Player extends Entities {
-    int health;
-    float Movement = 1f;
-    int player;
-    private int column = 0;
-    private int row = 0;
-
+    PlayerSprits spritegenerat = new PlayerSprits();
+    private int health;
+    private float Movement = 1f;
+    private int player;
     private Sprite sprite;
-    private TextureRegion[][] regions;
 
-    public Player(int health, int player,float startx, float starty) {
+    public Player(int health, int player, float startx, float starty) {
         this.health = health;
         this.player = player;
         setX(startx);
         setY(starty);
+        spritegenerat.Sprite(this);
     }
 
     public void update() {
@@ -63,24 +60,18 @@ public class Player extends Entities {
         }
     }
 
-
-    public void Sprite() {
-        regions = TextureRegion.split(new Texture("playerWalkAnimation.png"), 213, 390);
-        sprite = new Sprite(regions[row][column]);
-        Timer.schedule(new Timer.Task() {
-            @Override
-            public void run() {
-                column++;
-                if (column > 5) {
-                    column = 0;
-                }
-                sprite.setRegion(regions[row][column]);
-            }
-        }, 0, 1 / 10f);
+    public int getPlayer() {
+        return player;
     }
 
     public Sprite getSprite() {
         return sprite;
     }
+
+    public void setSprite(Sprite sprite) {
+        this.sprite = sprite;
+    }
+
+
 }
 

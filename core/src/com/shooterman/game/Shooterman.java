@@ -8,53 +8,52 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.ScreenUtils;
+import entities.player.Player;
+import entities.player.PlayerSprits;
 
 public class Shooterman extends ApplicationAdapter {
-	SpriteBatch batch;
-	Texture map;
-	OrthographicCamera camera;
-	Sprite sprite;
-    entities.Player player1;
-    entities.Player player2;
+    SpriteBatch batch;
+    Texture map;
+    OrthographicCamera camera;
+    Sprite sprite;
+    Player player1;
+    Player player2;
 
-	@Override
-	public void create () {
-		float w = Gdx.graphics.getWidth();
-		float h = Gdx.graphics.getHeight();
-		camera = new OrthographicCamera(1, h/w);
-		batch = new SpriteBatch();
-		map = new Texture("Spielfeld.png");
-		sprite = new Sprite(TextureRegion.split(map, map.getWidth(), map.getHeight())[0][0]);
-        player1 = new entities.Player(100,1 ,100f,100f);
-       player2 = new entities.Player(100,2,600f,600f);
-       player1.Sprite();
-       player2.Sprite();
-	}
+    @Override
+    public void create() {
+        float w = Gdx.graphics.getWidth();
+        float h = Gdx.graphics.getHeight();
+        camera = new OrthographicCamera(1, h / w);
+        batch = new SpriteBatch();
+        map = new Texture("Spielfeld.png");
+        sprite = new Sprite(TextureRegion.split(map, map.getWidth(), map.getHeight())[0][0]);
+        player1 = new Player(100, 1, 100f, 100f);
+        player2 = new Player(100, 2, 600f, 600f);
 
-	@Override
-	public void render () {
-		ScreenUtils.clear(0.1f, 0.35f, 0.1f, 1);
-		camera.position.x = sprite.getX() + sprite.getOriginX();
-		camera.position.y = sprite.getY() + sprite.getOriginY();
-		camera.zoom = 1200f; // Je größer der Zoom, desto weiterweg ist die Kamera
-		camera.update();
-		batch.setProjectionMatrix(camera.combined);
-		batch.begin();
-		batch.draw(map, 0, 0);
-		Sprite p1 = player1.getSprite();
-		batch.draw(p1, player1.getX(), player1.getY(), p1.getWidth()/4, p1.getHeight()/4);
-        batch.draw(p1, player2.getX(), player2.getY(), p1.getWidth()/4, p1.getHeight()/4);
-		batch.end();
+    }
+
+    @Override
+    public void render() {
+        ScreenUtils.clear(0.1f, 0.35f, 0.1f, 1);
+        camera.position.x = sprite.getX() + sprite.getOriginX();
+        camera.position.y = sprite.getY() + sprite.getOriginY();
+        camera.zoom = 1200f; // Je größer der Zoom, desto weiterweg ist die Kamera
+        camera.update();
+        batch.setProjectionMatrix(camera.combined);
+        batch.begin();
+        batch.draw(map, 0, 0);
+        batch.draw(player1.getSprite(), player1.getX(), player1.getY(), player1.getSprite().getWidth() / 4, player1.getSprite().getHeight() / 4);
+        batch.draw(player2.getSprite(), player2.getX(), player2.getY(), player2.getSprite().getWidth() / 4, player2.getSprite().getHeight() / 4);
+        batch.end();
         player1.update();
         player2.update();
+    }
 
-	}
-
-	@Override
-	public void dispose () {
-		batch.dispose();
-		map.dispose();
-	}
+    @Override
+    public void dispose() {
+        batch.dispose();
+        map.dispose();
+    }
 
 
 }
