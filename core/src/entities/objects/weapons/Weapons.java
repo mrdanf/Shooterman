@@ -1,8 +1,8 @@
-package entities.Objekte.Waffen;
+package entities.objects.weapons;
 
 import entities.Entity;
 
-public class Waffen extends Entity {
+public class Weapons extends Entity {
     @Override
     public void update() {
 

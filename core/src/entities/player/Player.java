@@ -8,13 +8,13 @@ import java.util.ArrayList;
 
 
 public class Player extends Entity {
-    Playermovment move = new Playermovment();
-    PlayerSprits spritegenerat = new PlayerSprits();
+    PlayerMovement move = new PlayerMovement();
+    PlayerSprites spriteGenerator = new PlayerSprites();
     private int health;
     private float movement = 1f;
     private int player;
     private Sprite sprite;
-    ArrayList<Integer> playerinput = new ArrayList();
+    private ArrayList<Integer> playerInput = new ArrayList();
 
 
     public Player(int health, int player, float startx, float starty) {
@@ -22,7 +22,7 @@ public class Player extends Entity {
         this.player = player;
         setX(startx);
         setY(starty);
-        spritegenerat.Sprite(this);
+        spriteGenerator.Sprite(this);
         input();
 
     }
@@ -34,23 +34,23 @@ public class Player extends Entity {
      * 3.add Nach Rechts bewegen
      * 4.add Nach Rechts bewegen
      *
-     * @Author Marcel SAnder
+     * @Author Marcel Sander
      */
     public void input() {
         if (player == 1) {
             //Nach rechts gehen
-            playerinput.add(Input.Keys.D);
+            playerInput.add(Input.Keys.D);
             //Nach oben gehen
-            playerinput.add(Input.Keys.W);
+            playerInput.add(Input.Keys.W);
             //Nach links gehen
-            playerinput.add(Input.Keys.A);
+            playerInput.add(Input.Keys.A);
             //Nach unten gehen
-            playerinput.add(Input.Keys.S);
+            playerInput.add(Input.Keys.S);
         } else if (player == 2) {
-            playerinput.add(Input.Keys.L);
-            playerinput.add(Input.Keys.I);
-            playerinput.add(Input.Keys.J);
-            playerinput.add(Input.Keys.K);
+            playerInput.add(Input.Keys.L);
+            playerInput.add(Input.Keys.I);
+            playerInput.add(Input.Keys.J);
+            playerInput.add(Input.Keys.K);
         }
     }
 
@@ -75,8 +75,8 @@ public class Player extends Entity {
         return movement;
     }
 
-    public ArrayList<Integer> getPlayerinput() {
-        return playerinput;
+    public ArrayList<Integer> getPlayerInput() {
+        return playerInput;
     }
 
 }

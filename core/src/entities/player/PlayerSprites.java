@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Timer;
 
-public class PlayerSprits {
+public class PlayerSprites {
 
     private int column = 0;
     private int row = 0;
@@ -20,6 +20,7 @@ public class PlayerSprits {
             regions = TextureRegion.split(new Texture("player2WalkAnimation.png"), 77, 136);
         }
         sprite = new Sprite(regions[row][column]);
+        sprite.setScale(0.5f);
         Timer.schedule(new Timer.Task() {
             @Override
             public void run() {
