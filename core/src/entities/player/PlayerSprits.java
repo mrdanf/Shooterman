@@ -14,10 +14,10 @@ public class PlayerSprits {
 
     public void Sprite(Player player) {
         if (player.getPlayer() == 1) {
-            regions = TextureRegion.split(new Texture("playerWalkAnimation.png"), 213, 390);
+            regions = TextureRegion.split(new Texture("player1WalkAnimation.png"), 77, 136);
         }
         if (player.getPlayer() == 2) {
-            regions = TextureRegion.split(new Texture("playerWalkAnimation.png"), 213, 390);
+            regions = TextureRegion.split(new Texture("player2WalkAnimation.png"), 77, 136);
         }
         sprite = new Sprite(regions[row][column]);
         Timer.schedule(new Timer.Task() {
