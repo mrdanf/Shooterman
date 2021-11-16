@@ -29,14 +29,14 @@ public class Shooterman extends ApplicationAdapter {
         sprite = new Sprite(TextureRegion.split(map, map.getWidth(), map.getHeight())[0][0]);
         player1 = new Player(100, 1, 100f, 850f);
         player2 = new Player(100, 2, 850f, 100f);
+        camera.position.x = sprite.getX() + sprite.getOriginX();
+        camera.position.y = sprite.getY() + sprite.getOriginY();
+        camera.zoom = 1000f; // Je größer der Zoom, desto weiterweg ist die Kamera
     }
 
     @Override
     public void render() {
         ScreenUtils.clear(0.1f, 0.35f, 0.1f, 1);
-        camera.position.x = sprite.getX() + sprite.getOriginX();
-        camera.position.y = sprite.getY() + sprite.getOriginY();
-        camera.zoom = 1000f; // Je größer der Zoom, desto weiterweg ist die Kamera
         camera.update();
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
