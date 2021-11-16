@@ -30,7 +30,14 @@ public class Player extends Entities {
         input();
 
     }
-
+/**Weist  dem Player die richtigen tasten zu um das spiel spielen zu können
+ * 1.add Nach Rechts bewegen
+ * 2.add Nach Rechts bewegen
+ * 3.add Nach Rechts bewegen
+ * 4.add Nach Rechts bewegen
+ *
+ * @Author Marcel SAnder
+ * */
     public void input() {
         if (player == 1) {
             //Nach rechts gehen
