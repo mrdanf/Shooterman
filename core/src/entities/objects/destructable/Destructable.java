@@ -1,6 +1,6 @@
-package entities.Objekte.Zerstörbar;
+package entities.objects.destructable;
 
-import entities.Objekte.Waffen.Waffen;
+import entities.objects.weapons.Weapons;
 
-public class Zerstörbar extends Waffen {
+public class Destructable extends Weapons {
 }

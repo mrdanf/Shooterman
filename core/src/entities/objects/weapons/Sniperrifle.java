@@ -1,4 +1,4 @@
-package entities.Objekte.Waffen;
+package entities.objects.weapons;
 
-public class Scharfschützengewehr extends Waffen{
+public class Sniperrifle extends Weapons {
 }

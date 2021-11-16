@@ -21,7 +21,7 @@ public class Shooterman extends ApplicationAdapter {
     Sprite sprite;
     Player player1;
     Player player2;
-    ArrayList<Entity> entities = new ArrayList<>();
+    ArrayList<Player> players = new ArrayList<>();
 
     @Override
     public void create() {
@@ -31,28 +31,42 @@ public class Shooterman extends ApplicationAdapter {
         batch = new SpriteBatch();
         map = new Texture("Spielfeld.png");
         sprite = new Sprite(TextureRegion.split(map, map.getWidth(), map.getHeight())[0][0]);
-        player1 = new Player(100, 1, 100f, 850f);
-        player2 = new Player(100, 2, 850f, 100f);
+        player1 = new Player(100, 1, 100f, 800f);
+        player2 = new Player(100, 2, 800f, 100f);
         camera.position.x = sprite.getX() + sprite.getOriginX();
         camera.position.y = sprite.getY() + sprite.getOriginY();
         camera.zoom = 1000f; // Je größer der Zoom, desto weiterweg ist die Kamera
-        entities.add(player1);
-        entities.add(player2);
+        players.add(player1);
+        players.add(player2);
 
     }
 
     @Override
     public void render() {
-        ScreenUtils.clear(0.1f, 0.35f, 0.1f, 1);
+        updateAll();
+
+        batch();
+    }
+
+    private void batch() {
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
+
         batch.draw(map, 0, 0);
-        batch.draw(player1.getSprite(), player1.getX(), player1.getY(), player1.getSprite().getWidth() / 1.5f, player1.getSprite().getHeight() / 1.5f);
-        batch.draw(player2.getSprite(), player2.getX(), player2.getY(), player2.getSprite().getWidth() / 1.5f, player2.getSprite().getHeight() / 1.5f);
+        for (Player player : players) {
+            Sprite sprite = player.getSprite();
+            sprite.setX(player.getX());
+            sprite.setY(player.getY());
+            sprite.draw(batch);
+        }
+
         batch.end();
+    }
+
+    private void updateAll() {
         camera.update();
-        for (Entity entity : entities) {
-            entity.update();
+        for (Player player : players) {
+            player.update();
         }
     }
 

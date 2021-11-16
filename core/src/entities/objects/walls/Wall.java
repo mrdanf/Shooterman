@@ -1,6 +1,6 @@
-package entities.Objekte.Wände;
+package entities.objects.walls;
 
-import entities.Objekte.Waffen.Waffen;
+import entities.objects.weapons.Weapons;
 
-public class Wand extends Waffen {
+public class Wall extends Weapons {
 }

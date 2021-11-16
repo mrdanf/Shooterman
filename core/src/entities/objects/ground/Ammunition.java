@@ -1,6 +1,6 @@
-package entities.Objekte.Boden;
+package entities.objects.ground;
 
-import entities.Objekte.Waffen.Waffen;
+import entities.objects.weapons.Weapons;
 
-public class Muniton extends Waffen {
+public class Ammunition extends Weapons {
 }

@@ -1,6 +1,4 @@
-package entities.Objekte.Zerstörbar;
+package entities.objects.destructable;
 
-import entities.Objekte.Waffen.Waffen;
-
-public class Kiste extends Zerstörbar {
+public class Box extends Destructable {
 }
