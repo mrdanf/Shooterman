@@ -2,7 +2,6 @@ package com.shooterman.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -15,7 +14,7 @@ public class Shooterman extends ApplicationAdapter {
 	Texture map;
 	OrthographicCamera camera;
 	Sprite sprite;
-	Player player1;
+    entities.Player player1;
     entities.Player player2;
 
 	@Override
@@ -26,8 +25,10 @@ public class Shooterman extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		map = new Texture("Spielfeld.png");
 		sprite = new Sprite(TextureRegion.split(map, map.getWidth(), map.getHeight())[0][0]);
-		player1 = new Player();
-       player2 = new entities.Player(100);
+        player1 = new entities.Player(100,1 ,100f,100f);
+       player2 = new entities.Player(100,2,600f,600f);
+       player1.Sprite();
+       player2.Sprite();
 	}
 
 	@Override
@@ -41,9 +42,10 @@ public class Shooterman extends ApplicationAdapter {
 		batch.begin();
 		batch.draw(map, 0, 0);
 		Sprite p1 = player1.getSprite();
-		batch.draw(p1, 100, 100, p1.getWidth()/4, p1.getHeight()/4);
+		batch.draw(p1, player1.getX(), player1.getY(), p1.getWidth()/4, p1.getHeight()/4);
         batch.draw(p1, player2.getX(), player2.getY(), p1.getWidth()/4, p1.getHeight()/4);
 		batch.end();
+        player1.update();
         player2.update();
 
 	}
