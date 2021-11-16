@@ -8,13 +8,17 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Timer;
 import entities.Entities;
 
+import java.util.ArrayList;
+
 
 public class Player extends Entities {
+    Playermovment move = new Playermovment();
     PlayerSprits spritegenerat = new PlayerSprits();
     private int health;
-    private float Movement = 1f;
+    private float movement = 1f;
     private int player;
     private Sprite sprite;
+    ArrayList<Integer> playerinput = new ArrayList();
 
 
     public Player(int health, int player, float startx, float starty) {
@@ -23,42 +27,30 @@ public class Player extends Entities {
         setX(startx);
         setY(starty);
         spritegenerat.Sprite(this);
+        input();
+
+    }
+
+    public void input() {
+        if (player == 1) {
+            //Nach rechts gehen
+            playerinput.add(Input.Keys.D);
+            //Nach oben gehen
+            playerinput.add(Input.Keys.W);
+            //Nach links gehen
+            playerinput.add(Input.Keys.A);
+            //Nach unten gehen
+            playerinput.add(Input.Keys.S);
+        } else if (player == 2) {
+            playerinput.add(Input.Keys.L);
+            playerinput.add(Input.Keys.I);
+            playerinput.add(Input.Keys.J);
+            playerinput.add(Input.Keys.K);
+        }
     }
 
     public void update() {
-        move();
-    }
-
-    public void move() {
-        if (player == 1) {
-            if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-                setX(getX() + Movement);
-            }
-
-            if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-                setY(getY() + Movement);
-            }
-            if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-                setX(getX() - Movement);
-            }
-            if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-                setY(getY() - Movement);
-            }
-        }
-        if (player == 2) {
-            if (Gdx.input.isKeyPressed(Input.Keys.L)) {
-                setX(getX() + Movement);
-            }
-            if (Gdx.input.isKeyPressed(Input.Keys.I)) {
-                setY(getY() + Movement);
-            }
-            if (Gdx.input.isKeyPressed(Input.Keys.J)) {
-                setX(getX() - Movement);
-            }
-            if (Gdx.input.isKeyPressed(Input.Keys.K)) {
-                setY(getY() - Movement);
-            }
-        }
+        move.move(this);
     }
 
     public int getPlayer() {
@@ -73,6 +65,13 @@ public class Player extends Entities {
         this.sprite = sprite;
     }
 
+    public float getMovement() {
+        return movement;
+    }
+
+    public ArrayList<Integer> getPlayerinput() {
+        return playerinput;
+    }
 
 }
 
