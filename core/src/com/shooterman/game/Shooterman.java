@@ -27,9 +27,8 @@ public class Shooterman extends ApplicationAdapter {
         batch = new SpriteBatch();
         map = new Texture("Spielfeld.png");
         sprite = new Sprite(TextureRegion.split(map, map.getWidth(), map.getHeight())[0][0]);
-        player1 = new Player(100, 1, 100f, 100f);
-        player2 = new Player(100, 2, 600f, 600f);
-
+        player1 = new Player(100, 1, 100f, 850f);
+        player2 = new Player(100, 2, 850f, 100f);
     }
 
     @Override
@@ -37,7 +36,7 @@ public class Shooterman extends ApplicationAdapter {
         ScreenUtils.clear(0.1f, 0.35f, 0.1f, 1);
         camera.position.x = sprite.getX() + sprite.getOriginX();
         camera.position.y = sprite.getY() + sprite.getOriginY();
-        camera.zoom = 1200f; // Je größer der Zoom, desto weiterweg ist die Kamera
+        camera.zoom = 1000f; // Je größer der Zoom, desto weiterweg ist die Kamera
         camera.update();
         batch.setProjectionMatrix(camera.combined);
         batch.begin();

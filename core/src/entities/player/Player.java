@@ -16,6 +16,7 @@ public class Player extends Entities {
     private int player;
     private Sprite sprite;
 
+
     public Player(int health, int player, float startx, float starty) {
         this.health = health;
         this.player = player;
