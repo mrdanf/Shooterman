@@ -7,9 +7,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.utils.ScreenUtils;
-import entities.Entity;
 import entities.player.Player;
+import entities.projektile.Projektile;
 
 import java.util.ArrayList;
 
@@ -51,7 +50,6 @@ public class Shooterman extends ApplicationAdapter {
     private void batch() {
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
-
         batch.draw(map, 0, 0);
         for (Player player : players) {
             Sprite sprite = player.getSprite();
@@ -59,7 +57,14 @@ public class Shooterman extends ApplicationAdapter {
             sprite.setY(player.getY());
             sprite.draw(batch);
         }
-
+        for (Player player : players) {
+            for (Projektile projektile : player.getProjektileArrayList()) {
+                Sprite sprite = projektile.getSprite();
+                sprite.setX(projektile.getX());
+                sprite.setY(projektile.getY());
+                sprite.draw(batch);
+            }
+        }
         batch.end();
     }
 
@@ -68,13 +73,18 @@ public class Shooterman extends ApplicationAdapter {
         for (Player player : players) {
             player.update();
         }
+        for (Player player : players) {
+            for (Projektile projektile : player.getProjektileArrayList()) {
+                projektile.update();
+            }
+        }
+
     }
+
 
     @Override
     public void dispose() {
         batch.dispose();
         map.dispose();
     }
-
-
 }
