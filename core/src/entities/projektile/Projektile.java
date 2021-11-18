@@ -1,6 +1,7 @@
 package entities.projektile;
 
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import entities.Entity;
 import funktions.KolisionCheck;
@@ -14,40 +15,72 @@ public class Projektile extends Entity {
     float speed = 5f;
     int direction;
     private Sprite sprite;
-    boolean deleteble=false;
+    boolean deleteble = false;
 
-    public Projektile(int direction, float x, float y,Player player) {
+    public Projektile(int direction, float x, float y, Player player) {
         spriteGenerator.Sprite(this);
         setX(x);
         setY(y);
         this.direction = direction;
-        this.player=player;
+        this.player = player;
     }
 
     @Override
     public void update() {
-        float projektileXY = 0f;
-        if (direction == 0) {
-            setX(getX() + speed);
-            projektileXY = getX();
-        }
+        float projektileX = getX();
+        float projektileY = getY();
         //Nach oben gehen
-        if (direction == 1) {
+        if (direction == 0) {
             setY(getY() + speed);
-            projektileXY = getY();
+            projektileY = getY();
         }
         //Nach links gehen
-        if (direction == 2) {
+        if (direction == 1) {
             setX(getX() - speed);
-            projektileXY = getX();
+            projektileX = getX();
         }
         //Nach unten gehen
-        if (direction == 3) {
+        if (direction == 2) {
             setY(getY() - speed);
-            projektileXY = getY();
+            projektileY = getY();
         }
-        if (!kolisionCheck.wallCheck(projektileXY)) {
-        deleteble=true;
+        //Nach rechts gehen
+        if (direction == 3) {
+            setX(getX() + speed);
+            projektileX = getX();
+        }
+        //Oben Links
+        if (direction == 4) {
+            setY(getY() + speed);
+            setX(getX() - speed);
+            projektileX = getX();
+            projektileY = getY();
+        }
+        // Unten Links
+        if (direction == 5) {
+            setY(getY() - speed);
+            setX(getX() - speed);
+            projektileX = getX();
+            projektileY = getY();
+        }
+        // Unten Rechts
+        if (direction == 6) {
+            setY(getY() - speed);
+            setX(getX() + speed);
+            projektileX = getX();
+            projektileY = getY();
+        }
+        //Oben Rechts
+        if (direction == 7) {
+            setY(getY() + speed);
+            setX(getX() + speed);
+            projektileX = getX();
+            projektileY = getY();
+        }
+
+
+        if (!kolisionCheck.wallCheck(projektileX) && !kolisionCheck.wallCheck(projektileY)) {
+            deleteble = true;
         }
 
     }
@@ -59,6 +92,7 @@ public class Projektile extends Entity {
     public void setSprite(Sprite sprite) {
         this.sprite = sprite;
     }
+
     public boolean isDeleteble() {
         return deleteble;
     }
