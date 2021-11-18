@@ -20,7 +20,7 @@ public class KolisionCheck {
             for (Projektile projektile : player.getProjektileArrayList()) {
                 for (Player playerhit : players) {
                     if (projektile.getPlayer() != playerhit) {
-                        if (mathCheck(playerhit, projektile)) {
+                        if (mathCheckProjektiles(playerhit, projektile)) {
                             return projektile;
                         }
                     }
@@ -30,10 +30,10 @@ public class KolisionCheck {
         return null;
     }
 
-    public boolean mathCheck(Player player, Projektile projektile) {
+    public boolean mathCheckProjektiles(Player player, Projektile projektile) {
         if (projektile.getX() >= player.getX() - 68f) {
             if (projektile.getX() <= player.getX() + 68) {
-                if (projektile.getY() <= player.getY() + 68) {
+                if (projektile.getY() >= player.getY() - 68) {
                     if (projektile.getY() <= player.getY() + 68) {
                         return true;
                     }
@@ -42,5 +42,31 @@ public class KolisionCheck {
             }
         }
         return false;
+    }
+
+    public boolean playerCheck(float X ,float Y,Player player,ArrayList<Player> players){
+        for (Player enemyplayer:players){
+            if(player!=enemyplayer){
+                if(mathCheckPlayers(X,Y,enemyplayer)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+
+    public boolean mathCheckPlayers(float X ,float Y, Player enemyplayer) {
+        if (X >= enemyplayer.getX() - 68f) {
+            if (X <= enemyplayer.getX() + 68) {
+                if (Y <= enemyplayer.getY() + 68) {
+                    if (Y >= enemyplayer.getY() - 68) {
+                        return false;
+                    }
+                }
+
+            }
+        }
+        return true;
     }
 }

@@ -46,7 +46,7 @@ public class Projektile extends Entity {
             setY(getY() - speed);
             projektileXY = getY();
         }
-        if (!kolisionCheck.wallCheck(projektileXY)) {
+        if (kolisionCheck.wallCheck(projektileXY)) {
         deleteble=true;
         }
 

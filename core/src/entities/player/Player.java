@@ -21,6 +21,7 @@ public class Player extends Entity {
     private ArrayList<Integer> playerInput = new ArrayList();
     private int viewDirection = 0;
     ArrayList<Projektile> projektileArrayList = new ArrayList<>();
+    ArrayList<Player> players;
 
 
     public Player(int health, int player, float startx, float starty) {
@@ -30,7 +31,6 @@ public class Player extends Entity {
         setY(starty);
         spriteGenerator.Sprite(this);
         input();
-
     }
 
     /**
@@ -66,7 +66,7 @@ public class Player extends Entity {
 
     @Override
     public void update() {
-        move.move(this);
+        move.move(this,players);
     }
 
     public void Shoot() {
@@ -108,6 +108,9 @@ public class Player extends Entity {
 
     public void setProjektileArrayList(ArrayList<Projektile> projektileArrayList) {
         this.projektileArrayList = projektileArrayList;
+    }
+    public void setPlayers(ArrayList<Player> players) {
+        this.players = players;
     }
 
 

@@ -41,6 +41,10 @@ public class Shooterman extends ApplicationAdapter {
         camera.zoom = 1000f; // Je größer der Zoom, desto weiterweg ist die Kamera
         players.add(player1);
         players.add(player2);
+        for (Player player:players) {
+           player.setPlayers(players);
+        }
+
     }
 
     @Override
