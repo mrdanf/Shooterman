@@ -1,10 +1,6 @@
 package entities;
 
-import com.badlogic.gdx.ApplicationAdapter;
-import com.shooterman.game.Shooterman;
-import funktions.KolisionCheck;
-
-public abstract class Entity extends Shooterman {
+public abstract class Entity {
     public float x;
     public float y;
 
