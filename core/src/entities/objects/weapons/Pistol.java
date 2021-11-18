@@ -6,8 +6,8 @@ public class Pistol extends Weapon {
 
     public static String name = "Pistole";
 
-    public Pistol(int power, int totalAmmunition, int magazineSize, int roundsPerMinute, int reloadTime) {
-        super(power, 999, magazineSize, roundsPerMinute, reloadTime);
+    public Pistol() {
+        super(3, 999, 10, 5, 2f);
     }
 
 }

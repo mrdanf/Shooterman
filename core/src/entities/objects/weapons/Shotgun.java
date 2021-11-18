@@ -6,8 +6,8 @@ public class Shotgun extends Weapon {
 
     public final static String spriteName = "PumpgunKiste30x60";
 
-    public Shotgun(int power, int totalAmmunition, int magazineSize, int roundsPerMinute, int reloadTime) {
-        super(power, totalAmmunition, magazineSize, roundsPerMinute, reloadTime);
+    public Shotgun() {
+        super(10, 30, 20, 10, 3f);
     }
 
 }

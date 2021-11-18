@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import entities.Entity;
+import entities.objects.weapons.Pistol;
+import entities.objects.weapons.Weapon;
 import entities.projektile.Projektile;
 
 import java.awt.*;
@@ -21,6 +23,9 @@ public class Player extends Entity {
     private int viewDirection = 0;
     ArrayList<Projektile> projektileArrayList = new ArrayList<>();
     ArrayList<Player> players;
+
+    private Weapon pistol = new Pistol();
+    private Weapon weapon2;
 
 
     public Player(int health, int player, float startx, float starty) {
@@ -69,8 +74,10 @@ public class Player extends Entity {
     }
 
     public void Shoot() {
-        Projektile projektile = new Projektile(viewDirection, getX(), getY(), this);
-        projektileArrayList.add(projektile);
+        if (pistol.shoot()) { // testweise erst nur pistol shoot, später allgemein -> currentWeapon.shoot()
+            Projektile projektile = new Projektile(viewDirection, getX(), getY(), this);
+            projektileArrayList.add(projektile);
+        }
     }
 
     public int getPlayer() {

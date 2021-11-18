@@ -6,8 +6,8 @@ public class Sniperrifle extends Weapon {
 
     public final static String spriteName = "AWPKiste30x70";
 
-    public Sniperrifle(int power, int totalAmmunition, int magazineSize, int roundsPerMinute, int reloadTime) {
-        super(power, totalAmmunition, magazineSize, roundsPerMinute, reloadTime);
+    public Sniperrifle() {
+        super(15, 10, 5, 2, 3f);
     }
 
 }
