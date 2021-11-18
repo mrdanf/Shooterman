@@ -1,8 +1,10 @@
 package entities.player;
 
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import entities.Entity;
+import hud.HealthBar;
 
 import java.util.ArrayList;
 
@@ -15,10 +17,11 @@ public class Player extends Entity {
     private int player;
     private Sprite sprite;
     private ArrayList<Integer> playerInput = new ArrayList();
-
+    private HealthBar healthBar;
 
     public Player(int health, int player, float startx, float starty) {
         this.health = health;
+        healthBar = new HealthBar(health);
         this.player = player;
         setX(startx);
         setY(starty);
@@ -56,6 +59,10 @@ public class Player extends Entity {
 
     @Override
     public void update() {
+        // Only for testing HealthBar
+        if (Math.random()*10 >= 4) health--;
+        if (health <= 0) health = 100;
+
         move.move(this);
     }
 
@@ -79,5 +86,8 @@ public class Player extends Entity {
         return playerInput;
     }
 
+    public Texture[] getHealthBar() {
+        return healthBar.getHBTexture(health);
+    }
 }
 

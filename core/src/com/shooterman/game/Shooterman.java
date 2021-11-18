@@ -2,11 +2,12 @@ package com.shooterman.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
 import entities.Entity;
 import entities.player.Player;
@@ -44,20 +45,22 @@ public class Shooterman extends ApplicationAdapter {
     @Override
     public void render() {
         updateAll();
-
         batch();
     }
 
     private void batch() {
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
-
         batch.draw(map, 0, 0);
+
         for (Player player : players) {
             Sprite sprite = player.getSprite();
             sprite.setX(player.getX());
             sprite.setY(player.getY());
             sprite.draw(batch);
+
+            batch.draw(player.getHealthBar()[1], player.getX(), player.getY());
+            batch.draw(player.getHealthBar()[0], player.getX(), player.getY());
         }
 
         batch.end();
