@@ -1,10 +1,13 @@
 package entities.player;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import entities.Entity;
 import entities.projektile.Projektile;
 
+import java.awt.*;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 
@@ -16,7 +19,7 @@ public class Player extends Entity {
     private int player;
     private Sprite sprite;
     private ArrayList<Integer> playerInput = new ArrayList();
-    private int viewDirection=0;
+    private int viewDirection = 0;
     ArrayList<Projektile> projektileArrayList = new ArrayList<>();
 
 
@@ -67,7 +70,7 @@ public class Player extends Entity {
     }
 
     public void Shoot() {
-        Projektile projektile = new Projektile(viewDirection, getX(), getY());
+        Projektile projektile = new Projektile(viewDirection, getX(), getY(),this);
         projektileArrayList.add(projektile);
     }
 

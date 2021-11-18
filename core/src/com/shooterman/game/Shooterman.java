@@ -2,6 +2,7 @@ package com.shooterman.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -9,7 +10,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import entities.player.Player;
 import entities.projektile.Projektile;
+import funktions.KolisionCheck;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 
@@ -21,6 +24,7 @@ public class Shooterman extends ApplicationAdapter {
     Player player1;
     Player player2;
     ArrayList<Player> players = new ArrayList<>();
+    KolisionCheck kolisionCheck=new KolisionCheck();
 
     @Override
     public void create() {
@@ -37,13 +41,11 @@ public class Shooterman extends ApplicationAdapter {
         camera.zoom = 1000f; // Je größer der Zoom, desto weiterweg ist die Kamera
         players.add(player1);
         players.add(player2);
-
     }
 
     @Override
     public void render() {
         updateAll();
-
         batch();
     }
 
@@ -66,9 +68,14 @@ public class Shooterman extends ApplicationAdapter {
             }
         }
         batch.end();
+        if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
+
+            System.out.println("X:" + player1.getX() + " Y:" + player1.getY());
+        }
     }
 
     private void updateAll() {
+        Projektile delete = null;
         camera.update();
         for (Player player : players) {
             player.update();
@@ -76,9 +83,18 @@ public class Shooterman extends ApplicationAdapter {
         for (Player player : players) {
             for (Projektile projektile : player.getProjektileArrayList()) {
                 projektile.update();
+                if (projektile.isDeleteble()) {
+                   delete = projektile;
+                }
+            }
+            if (delete != null) {
+                player.getProjektileArrayList().remove(delete);
+            }
+            delete=kolisionCheck.hitCheck(players);
+            if (delete != null) {
+                player.getProjektileArrayList().remove(delete);
             }
         }
-
     }
 
 
