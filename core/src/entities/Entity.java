@@ -21,5 +21,6 @@ public abstract class Entity extends Shooterman {
     public void setY(float y) {
         this.y = y;
     }
+
     public abstract void update();
 }

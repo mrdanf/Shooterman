@@ -1,9 +1,13 @@
 package entities.player;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import entities.Entity;
+import entities.projektile.Projektile;
 
+import java.awt.*;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 
@@ -14,6 +18,9 @@ public class Player extends Entity {
     private float movement = 1f;
     private int player;
     private ArrayList<Integer> playerInput = new ArrayList();
+    private int viewDirection = 0;
+    ArrayList<Projektile> projektileArrayList = new ArrayList<>();
+    ArrayList<Player> players;
 
 
     public Player(int health, int player, float startx, float starty) {
@@ -23,15 +30,15 @@ public class Player extends Entity {
         setY(starty);
         spriteGenerator.Sprite(this);
         input();
-
     }
 
     /**
      * Weist  dem Player die richtigen tasten zu um das spiel spielen zu können
+     * 0.add Nach Rechts bewegen
      * 1.add Nach Rechts bewegen
      * 2.add Nach Rechts bewegen
      * 3.add Nach Rechts bewegen
-     * 4.add Nach Rechts bewegen
+     * 4.add Schießen
      *
      * @Author Marcel Sander
      */
@@ -45,17 +52,25 @@ public class Player extends Entity {
             playerInput.add(Input.Keys.A);
             //Nach unten gehen
             playerInput.add(Input.Keys.S);
+            //Schießen
+            playerInput.add(Input.Keys.CONTROL_LEFT);
         } else if (player == 2) {
             playerInput.add(Input.Keys.L);
             playerInput.add(Input.Keys.I);
             playerInput.add(Input.Keys.J);
             playerInput.add(Input.Keys.K);
+            playerInput.add(Input.Keys.SHIFT_RIGHT);
         }
     }
 
     @Override
     public void update() {
-        move.move(this);
+        move.move(this,players);
+    }
+
+    public void Shoot() {
+        Projektile projektile = new Projektile(viewDirection, getX(), getY(),this);
+        projektileArrayList.add(projektile);
     }
 
     public int getPlayer() {
@@ -73,6 +88,26 @@ public class Player extends Entity {
     public ArrayList<Integer> getPlayerInput() {
         return playerInput;
     }
+
+    public int getViewdirection() {
+        return viewDirection;
+    }
+
+    public void setViewdirection(int viewdirection) {
+        this.viewDirection = viewdirection;
+    }
+
+    public ArrayList<Projektile> getProjektileArrayList() {
+        return projektileArrayList;
+    }
+
+    public void setProjektileArrayList(ArrayList<Projektile> projektileArrayList) {
+        this.projektileArrayList = projektileArrayList;
+    }
+    public void setPlayers(ArrayList<Player> players) {
+        this.players = players;
+    }
+
 
 }
 
