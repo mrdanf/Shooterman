@@ -1,8 +1,8 @@
 package entities.objects.weapons;
 
-public class Shotgun extends Weapon {
+import com.badlogic.gdx.graphics.g2d.Sprite;
 
-    public static final String name = "Schrotgewehr";
+public class Shotgun extends Weapon {
 
     public static final String spriteName = "PumpgunKiste30x60.png";
 

@@ -1,8 +1,8 @@
 package entities.objects.weapons;
 
-public class Sniperrifle extends Weapon {
+import com.badlogic.gdx.graphics.g2d.Sprite;
 
-    public static final String name = "Scharfschützengewehr";
+public class Sniperrifle extends Weapon {
 
     public static final String spriteName = "AWPKiste30x70.png";
 

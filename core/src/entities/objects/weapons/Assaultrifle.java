@@ -2,8 +2,6 @@ package entities.objects.weapons;
 
 public class Assaultrifle extends Weapon {
 
-    public static final String name = "Sturmgewehr";
-
     public static final String spriteName = "AK47Kiste30x60.png";
 
     public Assaultrifle() {

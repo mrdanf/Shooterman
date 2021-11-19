@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 public class KolisionCheck {
 
+    private float collisionBoxSize = 42f;
 
     public boolean wallCheck(float XY) {
         if (XY <= 56f || XY >= 836f) {
@@ -31,10 +32,10 @@ public class KolisionCheck {
     }
 
     public boolean mathCheckProjektiles(Player player, Projektile projektile) {
-        if (projektile.getX() >= player.getX() - 68f) {
-            if (projektile.getX() <= player.getX() + 68) {
-                if (projektile.getY() >= player.getY() - 68) {
-                    if (projektile.getY() <= player.getY() + 68) {
+        if (projektile.getX() >= player.getX() - collisionBoxSize) {
+            if (projektile.getX() <= player.getX() + collisionBoxSize) {
+                if (projektile.getY() >= player.getY() - collisionBoxSize) {
+                    if (projektile.getY() <= player.getY() + collisionBoxSize) {
                         return true;
                     }
                 }
@@ -57,10 +58,10 @@ public class KolisionCheck {
 
 
     public boolean mathCheckPlayers(float X ,float Y, Player enemyplayer) {
-        if (X >= enemyplayer.getX() - 68f) {
-            if (X <= enemyplayer.getX() + 68) {
-                if (Y <= enemyplayer.getY() + 68) {
-                    if (Y >= enemyplayer.getY() - 68) {
+        if (X >= enemyplayer.getX() - collisionBoxSize) {
+            if (X <= enemyplayer.getX() + collisionBoxSize) {
+                if (Y <= enemyplayer.getY() + collisionBoxSize) {
+                    if (Y >= enemyplayer.getY() - collisionBoxSize) {
                         return false;
                     }
                 }

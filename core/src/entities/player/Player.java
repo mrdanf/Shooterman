@@ -1,6 +1,5 @@
 package entities.player;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import entities.Entity;
@@ -8,8 +7,6 @@ import entities.objects.weapons.Pistol;
 import entities.objects.weapons.Weapon;
 import entities.projektile.Projektile;
 
-import java.awt.*;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 
@@ -17,7 +14,7 @@ public class Player extends Entity {
     PlayerMovement move = new PlayerMovement();
     PlayerSprites spriteGenerator = new PlayerSprites();
     private int health;
-    private float movement = 1f;
+    private float movement = 2f;
     private int player;
     private ArrayList<Integer> playerInput = new ArrayList();
     private int viewDirection = 0;

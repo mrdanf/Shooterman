@@ -1,5 +1,6 @@
 package entities.objects.weapons;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.utils.Timer;
 import entities.Entity;
 
@@ -11,7 +12,6 @@ public abstract class Weapon extends Entity {
     private int magazineSize;
     private int roundsPerMinute;
     private float reloadTime;
-
     private boolean insideReload;
 
     public Weapon(int power, int totalAmmunition, int magazineSize, int roundsPerMinute, float reloadTime) {
@@ -21,7 +21,6 @@ public abstract class Weapon extends Entity {
         this.currentAmmunition = magazineSize;
         this.roundsPerMinute = roundsPerMinute;
         this.reloadTime = reloadTime;
-
         insideReload = false;
     }
 
@@ -31,20 +30,21 @@ public abstract class Weapon extends Entity {
     }
 
     public boolean shoot() {
-        if (currentAmmunition > 0) {
+        if (totalAmmunition > 0) {
+            if (currentAmmunition > 0) {
 
-            currentAmmunition--;
-            totalAmmunition--;
+                currentAmmunition--;
+                totalAmmunition--;
 
-            if (currentAmmunition == 0) {
-                reload();
+                if (currentAmmunition == 0) {
+                    reload();
+                }
+
+                return true;
             }
-
-            return true;
-        } else {
-            return false;
         }
 
+        return false;
     }
 
     private void reload() {
