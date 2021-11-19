@@ -1,9 +1,9 @@
 package entities;
 
-import com.badlogic.gdx.ApplicationAdapter;
-import com.shooterman.game.Shooterman;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 
-public abstract class Entity extends Shooterman {
+public abstract class Entity {
+    protected Sprite sprite;
     public float x;
     public float y;
 
@@ -23,4 +23,12 @@ public abstract class Entity extends Shooterman {
     }
 
     public abstract void update();
+
+    public Sprite getSprite() {
+        return sprite;
+    }
+
+    public void setSprite(Sprite sprite) {
+        this.sprite = sprite;
+    }
 }

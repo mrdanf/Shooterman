@@ -1,6 +1,13 @@
 package entities.objects.ground;
 
-import entities.objects.weapons.Weapons;
+import entities.Entity;
 
-public class HealthOrb extends Weapons {
+public class HealthOrb extends Entity {
+
+    private int healthAmount;
+
+    @Override
+    public void update() {
+
+    }
 }

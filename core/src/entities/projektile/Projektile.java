@@ -1,7 +1,6 @@
 package entities.projektile;
 
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import entities.Entity;
 import funktions.KolisionCheck;
@@ -79,7 +78,7 @@ public class Projektile extends Entity {
         }
 
 
-        if (!kolisionCheck.wallCheck(projektileX) && !kolisionCheck.wallCheck(projektileY)) {
+        if (!kolisionCheck.wallCheck(projektileX) || !kolisionCheck.wallCheck(projektileY)) {
             deleteble = true;
         }
 
