@@ -50,7 +50,9 @@ public class Player extends Entity {
      * 2.add Nach unten bewegen
      * 3.add Nach rechts bewegen
      * 4.add Schießen
-     *
+     * 5.add Aufheben
+     * 6.add Waffenslot1
+     * 7.add Waffenslot2
      * @Author Marcel Sander
      */
     public void input() {
@@ -65,12 +67,21 @@ public class Player extends Entity {
             playerInput.add(Input.Keys.D);
             //Schießen
             playerInput.add(Input.Keys.CONTROL_LEFT);
+            //Aufheben
+            playerInput.add(Input.Keys.E);
+            //Waffenslot1
+            playerInput.add(Input.Keys.NUM_1);
+            //Waffenslot2
+            playerInput.add(Input.Keys.NUM_2);
         } else if (player == 2) {
             playerInput.add(Input.Keys.I);
             playerInput.add(Input.Keys.J);
             playerInput.add(Input.Keys.K);
             playerInput.add(Input.Keys.L);
             playerInput.add(Input.Keys.SHIFT_RIGHT);
+            playerInput.add(Input.Keys.O);
+            playerInput.add(Input.Keys.NUM_7);
+            playerInput.add(Input.Keys.NUM_8);
         }
     }
 
