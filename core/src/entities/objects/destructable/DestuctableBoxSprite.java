@@ -7,14 +7,19 @@ import com.badlogic.gdx.utils.Timer;
 import entities.player.Player;
 
 public class DestuctableBoxSprite {
-
-    private int column = 0;
-    private int row = 0;
     private Sprite sprite;
 
-    public void Sprite(Player player) {
-        sprite = new Sprite(new Texture("palette.png"));
+    public void Sprite(DestructableBox palette, int i) {
+        if (i % 2 == 0) {
+            sprite = new Sprite(new Texture("palette.png"));
+            sprite.setScale(2f);
+        }
+        else{
+            sprite = new Sprite(new Texture("Palettemitkartons.png"));
+            sprite.setScale(1f);
+        }
     }
+
 
     public Sprite getSprite() {
         return sprite;

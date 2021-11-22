@@ -7,6 +7,7 @@ import entities.Entity;
 import entities.objects.destructable.Box;
 import hud.HealthBar;
 import hud.Status;
+import entities.objects.destructable.DestructableBox;
 import entities.objects.weapons.Pistol;
 import entities.objects.weapons.Weapon;
 import entities.projektile.Projektile;
@@ -26,6 +27,7 @@ public class Player extends Entity {
     ArrayList<Projektile> projektileArrayList = new ArrayList<>();
     ArrayList<Player> players;
     ArrayList<Box> boxes = new ArrayList<>();
+    ArrayList<DestructableBox> paletten = new ArrayList<>();
 
     private Weapon pistol = new Pistol();
     private Weapon weapon2;
@@ -75,8 +77,6 @@ public class Player extends Entity {
     @Override
     public void update() {
         move.move(this, players,boxes);
-        status.update(health);
-        move.move(this, players);
     }
 
     public void Shoot() {
@@ -132,6 +132,10 @@ public class Player extends Entity {
 
     public void setBoxes(ArrayList<Box> boxes) {
         this.boxes = boxes;
+    }
+
+    public void setPaletten(ArrayList<DestructableBox> paletten) {
+        this.paletten = paletten;
     }
 }
 

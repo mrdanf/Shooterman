@@ -3,6 +3,7 @@ package funktions;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import entities.objects.destructable.Box;
+import entities.objects.destructable.DestructableBox;
 import entities.player.Player;
 import entities.projektile.Projektile;
 
@@ -99,8 +100,6 @@ public class KolisionCheck {
 
 
     public boolean mathCheckbox(float X ,float Y, Box box) {
-
-        System.out.println("X:"+X+" Y:"+Y+" BoxX:"+box.getX()+" BoxY:"+box.getY()+" Spritegrößex:"+box.getSpritegrößex()+" Spritegrößey:"+box.getSpritegrößey());
         if (X >= box.getX() - box.getSpritegrößex()) {
             if (X <= box.getX() + box.getSpritegrößex()) {
                 if (Y >= box.getY() - box.getSpritegrößey()) {
@@ -131,6 +130,64 @@ public class KolisionCheck {
             if (projektile.getX() <= box.getX() + box.getSpritegrößex()) {
                 if (projektile.getY() >= box.getY() - box.getSpritegrößey()) {
                     if (projektile.getY() <= box.getY() + box.getSpritegrößey()/2) {
+                        return true;
+                    }
+                }
+
+            }
+        }
+        return false;
+    }
+
+    /**Paletten
+     *
+     * @param X
+     * @param Y
+     * @param
+     * @return
+     */
+    public boolean playerCheckpallette(float X ,float Y,ArrayList<DestructableBox> paletten){
+        for (DestructableBox palette:paletten){
+            if(mathCheckpalette(X,Y,palette)){
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    public boolean mathCheckpalette(float X ,float Y, DestructableBox palette) {
+        if (X >= palette.getX() - palette.getSpritegrößex()) {
+            if (X <= palette.getX() + palette.getSpritegrößex()) {
+                if (Y >= palette.getY() - palette.getSpritegrößey()) {
+                    if (Y <= palette.getY() + palette.getSpritegrößey()/2) {
+                        return true;
+                    }
+                }
+
+            }
+        }
+        return false;
+    }
+    public Projektile hitCheckpalette(ArrayList<DestructableBox> paletten,ArrayList<Player> players) {
+        for (Player player : players) {
+            for (Projektile projektile : player.getProjektileArrayList()) {
+                for (DestructableBox palette : paletten) {
+                    if (mathCheckProjektilespalette(palette, projektile)) {
+                        palette.setHealth(palette.getHealth()-20);
+                        return projektile;
+
+                    }
+                }
+            }
+        }
+        return null;
+    }
+    public boolean mathCheckProjektilespalette(DestructableBox palette, Projektile projektile) {
+        if (projektile.getX() >= palette.getX() - palette.getSpritegrößex()) {
+            if (projektile.getX() <= palette.getX() + palette.getSpritegrößex()) {
+                if (projektile.getY() >= palette.getY() - palette.getSpritegrößey()) {
+                    if (projektile.getY() <= palette.getY() + palette.getSpritegrößey()/2) {
                         return true;
                     }
                 }

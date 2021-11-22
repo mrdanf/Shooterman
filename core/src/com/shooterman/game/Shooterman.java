@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import entities.objects.destructable.Box;
+import entities.objects.destructable.DestructableBox;
 import entities.player.Player;
 import hud.Status;
 import entities.projektile.Projektile;
@@ -26,15 +27,10 @@ public class Shooterman extends ApplicationAdapter {
     Sprite sprite;
     Player player1;
     Player player2;
-    Box box1;
-    Box box2;
-    Box box3;
-    Box box4;
-    Box box5;
-    Box box6;
     ArrayList<Player> players = new ArrayList<>();
     KolisionCheck kolisionCheck = new KolisionCheck();
     ArrayList<Box> boxes = new ArrayList<>();
+    ArrayList<DestructableBox> paletten = new ArrayList<>();
 
     @Override
     public void create() {
@@ -46,29 +42,27 @@ public class Shooterman extends ApplicationAdapter {
         sprite = new Sprite(TextureRegion.split(map, map.getWidth(), map.getHeight())[0][0]);
         player1 = new Player(100, 1, 100f, 800f);
         player2 = new Player(100, 2, 800f, 100f);
-        box1 = new Box();
-        box2 = new Box();
-        box3 = new Box();
-        box4 = new Box();
-        box5 = new Box();
-        box6 = new Box();
         camera.position.x = sprite.getX() + sprite.getOriginX();
         camera.position.y = sprite.getY() + sprite.getOriginY();
         camera.zoom = 1000f; // Je größer der Zoom, desto weiterweg ist die Kamera
         players.add(player1);
         players.add(player2);
-        boxes.add(box1);
-        boxes.add(box2);
-        boxes.add(box3);
-        boxes.add(box4);
-        boxes.add(box5);
-        boxes.add(box6);
+        for (int i = 0; i <3; i++) {
+            boxes.add(new Box());
+        }
+        for (int i = 0; i < 6; i++) {
+            paletten.add(new DestructableBox(i));
+        }
         for (Box box : boxes) {
             box.randomposition(boxes);
+        }
+        for (DestructableBox palette : paletten) {
+            palette.randomposition(boxes,paletten);
         }
         for (Player player : players) {
             player.setPlayers(players);
             player.setBoxes(boxes);
+            player.setPaletten(paletten);
         }
     }
 
@@ -108,6 +102,11 @@ public class Shooterman extends ApplicationAdapter {
             sprite.setY(box.getY());
             sprite.draw(batch);
         }
+        for (DestructableBox palette : paletten) {
+            Sprite sprite = palette.getSprite();
+            sprite.setX(palette.getX());
+            sprite.setY(palette.getY());
+            sprite.draw(batch);}
         batch.end();
     }
 
@@ -136,11 +135,24 @@ public class Shooterman extends ApplicationAdapter {
             if (delete != null) {
                 player.getProjektileArrayList().remove(delete);
             }
-            delete = kolisionCheck.hitCheck(boxes,players);
+            delete = kolisionCheck.hitCheck(boxes, players);
             if (delete != null) {
                 player.getProjektileArrayList().remove(delete);
             }
+            delete = kolisionCheck.hitCheckpalette(paletten, players);
+            if (delete != null) {
+                player.getProjektileArrayList().remove(delete);
+            }
+
         }
+        DestructableBox deletpalette=null;
+        for (DestructableBox palette:paletten) {
+            if (palette.getHealth()<=0){
+                deletpalette=palette;
+            }
+        }
+        if (deletpalette != null) {
+            paletten.remove(deletpalette);}
     }
 
 /*

@@ -10,7 +10,6 @@ public class Box extends Entity {
     BoxSprite sprite = new BoxSprite();
     float spritegrößex = 81f;
     float spritegrößey = 85f;
-    ArrayList<Box> boxes = new ArrayList<>();
 
     public Box() {
         sprite.Sprite(this);
@@ -32,11 +31,8 @@ public class Box extends Entity {
                 possible=true;
             }
         }
-
         setX(x);
         setY(y);
-        System.out.println(getX());
-        System.out.println(getY());
     }
 
     public boolean PlacmentPossible(ArrayList<Box> boxes, float x, float y) {
