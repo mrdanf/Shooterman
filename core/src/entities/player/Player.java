@@ -4,6 +4,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import entities.Entity;
+import entities.objects.destructable.Box;
 import hud.HealthBar;
 import hud.Status;
 import entities.objects.weapons.Pistol;
@@ -24,6 +25,7 @@ public class Player extends Entity {
     private int viewDirection = 0;
     ArrayList<Projektile> projektileArrayList = new ArrayList<>();
     ArrayList<Player> players;
+    ArrayList<Box> boxes = new ArrayList<>();
 
     private Weapon pistol = new Pistol();
     private Weapon weapon2;
@@ -72,6 +74,7 @@ public class Player extends Entity {
 
     @Override
     public void update() {
+        move.move(this, players,boxes);
         status.update(health);
         move.move(this, players);
     }
@@ -127,5 +130,8 @@ public class Player extends Entity {
     }
 
 
+    public void setBoxes(ArrayList<Box> boxes) {
+        this.boxes = boxes;
+    }
 }
 

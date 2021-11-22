@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import entities.objects.destructable.Box;
 import entities.player.Player;
 import hud.Status;
 import entities.projektile.Projektile;
@@ -25,8 +26,15 @@ public class Shooterman extends ApplicationAdapter {
     Sprite sprite;
     Player player1;
     Player player2;
+    Box box1;
+    Box box2;
+    Box box3;
+    Box box4;
+    Box box5;
+    Box box6;
     ArrayList<Player> players = new ArrayList<>();
-    KolisionCheck kolisionCheck=new KolisionCheck();
+    KolisionCheck kolisionCheck = new KolisionCheck();
+    ArrayList<Box> boxes = new ArrayList<>();
 
     @Override
     public void create() {
@@ -38,15 +46,30 @@ public class Shooterman extends ApplicationAdapter {
         sprite = new Sprite(TextureRegion.split(map, map.getWidth(), map.getHeight())[0][0]);
         player1 = new Player(100, 1, 100f, 800f);
         player2 = new Player(100, 2, 800f, 100f);
+        box1 = new Box();
+        box2 = new Box();
+        box3 = new Box();
+        box4 = new Box();
+        box5 = new Box();
+        box6 = new Box();
         camera.position.x = sprite.getX() + sprite.getOriginX();
         camera.position.y = sprite.getY() + sprite.getOriginY();
         camera.zoom = 1000f; // Je größer der Zoom, desto weiterweg ist die Kamera
         players.add(player1);
         players.add(player2);
-        for (Player player:players) {
-           player.setPlayers(players);
+        boxes.add(box1);
+        boxes.add(box2);
+        boxes.add(box3);
+        boxes.add(box4);
+        boxes.add(box5);
+        boxes.add(box6);
+        for (Box box : boxes) {
+            box.randomposition(boxes);
         }
-
+        for (Player player : players) {
+            player.setPlayers(players);
+            player.setBoxes(boxes);
+        }
     }
 
     @Override
@@ -79,11 +102,13 @@ public class Shooterman extends ApplicationAdapter {
                 sprite.draw(batch);
             }
         }
-        batch.end();
-        if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
-
-            System.out.println("X:" + player1.getX() + " Y:" + player1.getY());
+        for (Box box : boxes) {
+            Sprite sprite = box.getSprite();
+            sprite.setX(box.getX());
+            sprite.setY(box.getY());
+            sprite.draw(batch);
         }
+        batch.end();
     }
 
     private void updateAll() {
@@ -107,7 +132,14 @@ public class Shooterman extends ApplicationAdapter {
             if (delete != null) {
                 player.getProjektileArrayList().remove(delete);
             }
-
+            delete = kolisionCheck.hitCheck(players);
+            if (delete != null) {
+                player.getProjektileArrayList().remove(delete);
+            }
+            delete = kolisionCheck.hitCheck(boxes,players);
+            if (delete != null) {
+                player.getProjektileArrayList().remove(delete);
+            }
         }
     }
 

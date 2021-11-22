@@ -1,6 +1,7 @@
 package entities.player;
 
 import com.badlogic.gdx.Gdx;
+import entities.objects.destructable.Box;
 import funktions.KolisionCheck;
 
 import java.util.ArrayList;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 public class PlayerMovement {
     KolisionCheck kolision = new KolisionCheck();
 
-    public void move(Player player, ArrayList<Player> players) {
+    public void move(Player player, ArrayList<Player> players, ArrayList<Box> boxes) {
         float playerX = player.getX();
         float playerY = player.getY();
         //Oben Links
@@ -68,9 +69,10 @@ public class PlayerMovement {
         if (Gdx.input.isKeyJustPressed(player.getPlayerInput().get(4))) {
             player.Shoot();
         }
-        if (kolision.wallCheck(playerY) && kolision.wallCheck(playerX) && kolision.playerCheck(playerX, playerY, player, players)) {
+        if (kolision.wallCheck(playerY) && kolision.wallCheck(playerX) && kolision.playerCheck(playerX, playerY, player, players)  ) {
+            if(kolision.playerCheckbox(playerX, playerY, boxes)){
             player.setX(playerX);
-            player.setY(playerY);
+            player.setY(playerY);}
         }
     }
 }
