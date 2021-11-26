@@ -148,5 +148,13 @@ public class Player extends Entity {
     public void setPaletten(ArrayList<DestructableBox> paletten) {
         this.paletten = paletten;
     }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
 }
 

@@ -19,13 +19,20 @@ public class KolisionCheck {
         }
         return true;
     }
-                  
+
+    /**
+     *
+     * @param players
+     * @return
+     *
+     */
     public Projektile hitCheck(ArrayList<Player> players) {
         for (Player player : players) {
             for (Projektile projektile : player.getProjektileArrayList()) {
                 for (Player playerhit : players) {
                     if (projektile.getPlayer() != playerhit) {
                         if (mathCheckProjektiles(playerhit, projektile)) {
+                            playerhit.setHealth(playerhit.getHealth()/*TODO-player.getwaffenschaden*/);
                             return projektile;
                         }
                     }
@@ -117,8 +124,8 @@ public class KolisionCheck {
             for (Projektile projektile : player.getProjektileArrayList()) {
                 for (Box box : boxes) {
                     if (mathCheckProjektilesbox(box, projektile)) {
-                        return projektile;
 
+                        return projektile;
                     }
                 }
             }
@@ -174,7 +181,7 @@ public class KolisionCheck {
             for (Projektile projektile : player.getProjektileArrayList()) {
                 for (DestructableBox palette : paletten) {
                     if (mathCheckProjektilespalette(palette, projektile)) {
-                        palette.setHealth(palette.getHealth()-20);
+                        palette.setHealth(palette.getHealth()-20/*TODO waffenschaden*/);
                         return projektile;
 
                     }
