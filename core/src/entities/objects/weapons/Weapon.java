@@ -1,6 +1,5 @@
 package entities.objects.weapons;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.utils.Timer;
 import entities.Entity;
 
@@ -8,7 +7,7 @@ public abstract class Weapon extends Entity {
 
     private int power;
     private int totalAmmunition;
-    private int currentAmmunition;
+    protected int currentAmmunition;
     private int magazineSize;
     private int roundsPerMinute;
     private float reloadTime;
@@ -47,7 +46,7 @@ public abstract class Weapon extends Entity {
         return false;
     }
 
-    private void reload() {
+    protected void reload() {
         insideReload = true;
 
         Timer.schedule(new Timer.Task() {
