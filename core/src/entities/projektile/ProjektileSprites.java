@@ -1,26 +1,24 @@
-package entities.player;
+package entities.projektile;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Timer;
+import entities.player.Player;
 
-public class PlayerSprites {
+public class ProjektileSprites {
 
     private int column = 0;
     private int row = 0;
     private Sprite sprite;
     private TextureRegion[][] regions;
 
-    public void Sprite(Player player) {
-        if (player.getPlayer() == 1) {
-            regions = TextureRegion.split(new Texture("player1WalkAnimation.png"), 77, 136);
-        }
-        if (player.getPlayer() == 2) {
-            regions = TextureRegion.split(new Texture("player2WalkAnimation.png"), 77, 136);
-        }
+    public void Sprite(Projektile projektile) {
+
+        regions = TextureRegion.split(new Texture("player2WalkAnimation.png"), 77, 136);
+
         sprite = new Sprite(regions[row][column]);
-        sprite.setScale(0.5f);
+        sprite.setScale(0.1f);
         Timer.schedule(new Timer.Task() {
             @Override
             public void run() {
@@ -31,10 +29,6 @@ public class PlayerSprites {
                 sprite.setRegion(regions[row][column]);
             }
         }, 0, 1 / 10f);
-    }
-
-
-    public Sprite getSprite() {
-        return sprite;
+        projektile.setSprite(sprite);
     }
 }

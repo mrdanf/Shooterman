@@ -1,6 +1,13 @@
 package entities.objects.ground;
 
-import entities.objects.weapons.Weapons;
+import entities.Entity;
 
-public class Ammunition extends Weapons {
+public class Ammunition extends Entity {
+
+    private int ammunitionAmount;
+
+    @Override
+    public void update() {
+
+    }
 }
