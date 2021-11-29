@@ -6,11 +6,8 @@ import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.ScreenUtils;
-import entities.Entity;
 import entities.player.Player;
+import hud.Status;
 
 import java.util.ArrayList;
 
@@ -59,10 +56,11 @@ public class Shooterman extends ApplicationAdapter {
             sprite.setY(player.getY());
             sprite.draw(batch);
 
-            batch.draw(player.getHealthBar()[1], player.getX(), player.getY());
-            batch.draw(player.getHealthBar()[0], player.getX(), player.getY());
+            Status status = player.getStatus();
+            status.getPlayerLabel().draw(batch,1 );
+            batch.draw(status.getHealthBar()[0], status.getxPostion(), status.getyPosition()-35);
+            batch.draw(status.getHealthBar()[1], status.getxPostion(), status.getyPosition()-35);
         }
-
         batch.end();
     }
 

@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import entities.Entity;
 import hud.HealthBar;
+import hud.Status;
 
 import java.util.ArrayList;
 
@@ -17,12 +18,12 @@ public class Player extends Entity {
     private int player;
     private Sprite sprite;
     private ArrayList<Integer> playerInput = new ArrayList();
-    private HealthBar healthBar;
+    private Status status;
 
     public Player(int health, int player, float startx, float starty) {
         this.health = health;
-        healthBar = new HealthBar(health);
         this.player = player;
+        this.status = new Status(player);
         setX(startx);
         setY(starty);
         spriteGenerator.Sprite(this);
@@ -62,7 +63,7 @@ public class Player extends Entity {
         // Only for testing HealthBar
         if (Math.random()*10 >= 4) health--;
         if (health <= 0) health = 100;
-
+        status.update(health);
         move.move(this);
     }
 
@@ -86,8 +87,8 @@ public class Player extends Entity {
         return playerInput;
     }
 
-    public Texture[] getHealthBar() {
-        return healthBar.getHBTexture(health);
+    public Status getStatus() {
+        return status;
     }
 }
 
