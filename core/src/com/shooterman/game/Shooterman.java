@@ -96,20 +96,28 @@ public class Shooterman extends ApplicationAdapter {
             for (Projektile projektile : player.getProjektileArrayList()) {
                 projektile.update();
                 if (projektile.isDeleteble()) {
-                   delete = projektile;
+                    delete = projektile;
+                }
+                Player playerhit = kolisionCheck.hitCheck(players, projektile);
+                if (playerhit != null) {
+                    delete = projektile;
+                    playerhit.decreaseHeath(10); // TODO Waffenschaden einfügen, anstatt 10
                 }
             }
             if (delete != null) {
                 player.getProjektileArrayList().remove(delete);
             }
-            delete=kolisionCheck.hitCheck(players);
-            if (delete != null) {
-                player.getProjektileArrayList().remove(delete);
-            }
+
         }
     }
 
-
+/*
+* Player playerhit = kolisionCheck.hitCheck(this.players , projektile);
+                if (playerhit != null) {
+                    player.getProjektileArrayList().remove(projektile);
+                    playerhit.decreaseHeath(10); // TODO Waffenschaden einfügen, anstatt 10
+                }
+* */
     @Override
     public void dispose() {
         batch.dispose();
