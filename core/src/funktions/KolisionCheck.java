@@ -16,15 +16,11 @@ public class KolisionCheck {
         return true;
     }
 
-    public Projektile hitCheck(ArrayList<Player> players) {
-        for (Player player : players) {
-            for (Projektile projektile : player.getProjektileArrayList()) {
-                for (Player playerhit : players) {
-                    if (projektile.getPlayer() != playerhit) {
-                        if (mathCheckProjektiles(playerhit, projektile)) {
-                            return projektile;
-                        }
-                    }
+    public Player hitCheck(ArrayList<Player> players, Projektile projektile) {
+        for (Player playerhit : players) {
+            if (projektile.getPlayer() != playerhit) {
+                if (mathCheckProjektiles(playerhit, projektile)) {
+                    return playerhit;
                 }
             }
         }

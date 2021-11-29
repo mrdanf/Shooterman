@@ -10,6 +10,7 @@ public class Status {
     private final float xPostion;
     private final float yPosition = 80;
     private final  HealthBar healthBar;
+    private Label ammoLabel;
 
     public Status(int player) {
         // Screenwidth - (Labelsize*NumberOfPlayers)/2 + LabelSize*(playerNumber-1)

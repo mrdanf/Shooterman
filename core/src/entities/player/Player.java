@@ -72,11 +72,7 @@ public class Player extends Entity {
 
     @Override
     public void update() {
-        // Only for testing HealthBar
-        if (Math.random()*10 >= 4) health--;
-        if (health <= 0) health = 100;
         status.update(health);
-        move.move(this);
         move.move(this, players);
     }
 
@@ -124,6 +120,10 @@ public class Player extends Entity {
 
     public void setPlayers(ArrayList<Player> players) {
         this.players = players;
+    }
+
+    public void decreaseHeath (int amount) {
+        this.health -= amount;
     }
 
 
