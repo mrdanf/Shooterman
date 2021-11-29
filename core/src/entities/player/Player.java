@@ -1,8 +1,11 @@
 package entities.player;
 
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import entities.Entity;
+import hud.HealthBar;
+import hud.Status;
 import entities.objects.weapons.Pistol;
 import entities.objects.weapons.Weapon;
 import entities.projektile.Projektile;
@@ -17,6 +20,7 @@ public class Player extends Entity {
     private float movement = 2f;
     private int player;
     private ArrayList<Integer> playerInput = new ArrayList();
+    private Status status;
     private int viewDirection = 0;
     ArrayList<Projektile> projektileArrayList = new ArrayList<>();
     ArrayList<Player> players;
@@ -28,6 +32,7 @@ public class Player extends Entity {
     public Player(int health, int player, float startx, float starty) {
         this.health = health;
         this.player = player;
+        this.status = new Status(player);
         setX(startx);
         setY(starty);
         spriteGenerator.Sprite(this);
@@ -67,6 +72,11 @@ public class Player extends Entity {
 
     @Override
     public void update() {
+        // Only for testing HealthBar
+        if (Math.random()*10 >= 4) health--;
+        if (health <= 0) health = 100;
+        status.update(health);
+        move.move(this);
         move.move(this, players);
     }
 
@@ -93,6 +103,9 @@ public class Player extends Entity {
         return playerInput;
     }
 
+    public Status getStatus() {
+        return status;
+    }
     public int getViewdirection() {
         return viewDirection;
     }

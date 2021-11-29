@@ -2,6 +2,7 @@ package com.shooterman.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -9,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import entities.player.Player;
+import hud.Status;
 import entities.projektile.Projektile;
 import funktions.KolisionCheck;
 
@@ -57,11 +59,17 @@ public class Shooterman extends ApplicationAdapter {
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         batch.draw(map, 0, 0);
+
         for (Player player : players) {
             Sprite sprite = player.getSprite();
             sprite.setX(player.getX());
             sprite.setY(player.getY());
             sprite.draw(batch);
+
+            Status status = player.getStatus();
+            status.getPlayerLabel().draw(batch,1 );
+            batch.draw(status.getHealthBar()[0], status.getxPostion(), status.getyPosition()-35);
+            batch.draw(status.getHealthBar()[1], status.getxPostion(), status.getyPosition()-35);
         }
         for (Player player : players) {
             for (Projektile projektile : player.getProjektileArrayList()) {
