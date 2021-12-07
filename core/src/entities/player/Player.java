@@ -31,6 +31,7 @@ public class Player extends Entity {
 
     private Weapon pistol = new Pistol();
     private Weapon weapon2;
+    private Weapon activeWeapon;
 
 
     public Player(int health, int player, float startx, float starty) {
@@ -41,6 +42,7 @@ public class Player extends Entity {
         setY(starty);
         spriteGenerator.Sprite(this);
         input();
+        this.activeWeapon= this.pistol;
     }
 
     /**
@@ -87,7 +89,8 @@ public class Player extends Entity {
 
     @Override
     public void update() {
-        move.move(this, players,boxes);
+        status.update(health);
+        move.move(this, players,boxes,paletten);
     }
 
     public void Shoot() {
@@ -155,6 +158,14 @@ public class Player extends Entity {
 
     public void setHealth(int health) {
         this.health = health;
+    }
+
+    public Weapon getActiveWeapon() {
+        return activeWeapon;
+    }
+
+    public void setActiveWeapon(Weapon activeWeapon) {
+        this.activeWeapon = activeWeapon;
     }
 }
 

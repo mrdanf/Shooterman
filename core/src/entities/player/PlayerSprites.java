@@ -17,7 +17,7 @@ public class PlayerSprites {
             regions = TextureRegion.split(new Texture("player1WalkAnimation.png"), 77, 136);
         }
         if (player.getPlayer() == 2) {
-            regions = TextureRegion.split(new Texture("player2WalkAnimation.png"), 77, 136);
+            regions = TextureRegion.split(new Texture("Spieler1AWPLaufen.png"), (420/6), 173);
         }
         sprite = new Sprite(regions[row][column]);
         sprite.setScale(0.5f);

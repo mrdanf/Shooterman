@@ -122,11 +122,6 @@ public class Shooterman extends ApplicationAdapter {
                 if (projektile.isDeleteble()) {
                     delete = projektile;
                 }
-                Player playerhit = kolisionCheck.hitCheck(players, projektile);
-                if (playerhit != null) {
-                    delete = projektile;
-                    playerhit.decreaseHeath(10); // TODO Waffenschaden einfügen, anstatt 10
-                }
             }
             if (delete != null) {
                 player.getProjektileArrayList().remove(delete);
@@ -155,13 +150,6 @@ public class Shooterman extends ApplicationAdapter {
             paletten.remove(deletpalette);}
     }
 
-/*
-* Player playerhit = kolisionCheck.hitCheck(this.players , projektile);
-                if (playerhit != null) {
-                    player.getProjektileArrayList().remove(projektile);
-                    playerhit.decreaseHeath(10); // TODO Waffenschaden einfügen, anstatt 10
-                }
-* */
     @Override
     public void dispose() {
         batch.dispose();
