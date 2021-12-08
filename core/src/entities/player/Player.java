@@ -89,7 +89,7 @@ public class Player extends Entity {
 
     @Override
     public void update() {
-        status.update(health);
+        status.update(health, activeWeapon);
         move.move(this, players,boxes,paletten);
     }
 
