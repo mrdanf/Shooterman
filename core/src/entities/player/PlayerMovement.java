@@ -3,6 +3,7 @@ package entities.player;
 import com.badlogic.gdx.Gdx;
 import entities.objects.destructable.Box;
 import entities.objects.destructable.DestructableBox;
+import entities.objects.weapons.Weapon;
 import funktions.KolisionCheck;
 
 import java.util.ArrayList;
@@ -11,7 +12,8 @@ import java.util.ArrayList;
 public class PlayerMovement {
     KolisionCheck kolision = new KolisionCheck();
 
-    public void move(Player player, ArrayList<Player> players, ArrayList<Box> boxes, ArrayList<DestructableBox> paletten) {
+    public void move(Player player, ArrayList<Player> players, ArrayList<Box> boxes,
+                     ArrayList<DestructableBox> paletten, ArrayList<Weapon> weapons) {
         float playerX = player.getX();
         float playerY = player.getY();
         //Oben Links
@@ -74,6 +76,17 @@ public class PlayerMovement {
             if(kolision.playerCheckbox(playerX, playerY, boxes)&&kolision.playerCheckpallette(playerX, playerY,paletten)){
             player.setX(playerX);
             player.setY(playerY);}
+        }
+
+        // Waffe aufheben
+        if (Gdx.input.isKeyJustPressed(player.getPlayerInput().get(5))) {
+            for (Weapon weapon : weapons) {
+                if (kolision.playerCheckWeapon(playerX, playerY, weapon)) {
+                    // Waffe wird aufgehoben
+                    player.setWeapon2(weapon);
+                    player.setActiveWeapon(weapon);
+                }
+            }
         }
     }
 }

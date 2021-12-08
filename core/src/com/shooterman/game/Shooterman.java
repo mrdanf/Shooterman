@@ -11,6 +11,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import entities.objects.destructable.Box;
 import entities.objects.destructable.DestructableBox;
+import entities.objects.weapons.Assaultrifle;
+import entities.objects.weapons.Shotgun;
+import entities.objects.weapons.Sniperrifle;
+import entities.objects.weapons.Weapon;
 import entities.player.Player;
 import hud.Status;
 import entities.projektile.Projektile;
@@ -31,6 +35,7 @@ public class Shooterman extends ApplicationAdapter {
     KolisionCheck kolisionCheck = new KolisionCheck();
     ArrayList<Box> boxes = new ArrayList<>();
     ArrayList<DestructableBox> paletten = new ArrayList<>();
+    ArrayList<Weapon> weapons = new ArrayList<>();
 
     @Override
     public void create() {
@@ -59,10 +64,21 @@ public class Shooterman extends ApplicationAdapter {
         for (DestructableBox palette : paletten) {
             palette.randomposition(boxes,paletten);
         }
+
+        // Create weapons on start
+        weapons.add(new Assaultrifle());
+        weapons.add(new Shotgun());
+        weapons.add(new Sniperrifle());
+
+        for (Weapon weapon : weapons) {
+            weapon.randomposition(boxes, paletten, weapons);
+        }
+
         for (Player player : players) {
             player.setPlayers(players);
             player.setBoxes(boxes);
             player.setPaletten(paletten);
+            player.setWeapons(weapons);
         }
     }
 
@@ -108,6 +124,13 @@ public class Shooterman extends ApplicationAdapter {
             sprite.setX(palette.getX());
             sprite.setY(palette.getY());
             sprite.draw(batch);}
+
+        for (Weapon weapon : weapons) {
+            Sprite sprite = weapon.getSprite();
+            sprite.setX(weapon.getX());
+            sprite.setY(weapon.getY());
+            sprite.draw(batch);
+        }
         batch.end();
     }
 
