@@ -3,12 +3,12 @@ package entities.objects.weapons;
 public class Pistol extends Weapon {
 
     public Pistol() {
-        super(3, 999, 10, 5, 2f);
+        super(3, 999, 10, 30, 2f);
     }
 
     @Override
     public boolean shoot() {
-        if (currentAmmunition > 0) {
+        if (cooldown <= 0 && currentAmmunition > 0) {
 
             currentAmmunition--;
 
@@ -16,6 +16,7 @@ public class Pistol extends Weapon {
                 reload();
             }
 
+            cooldown = Math.max(50 - roundsPerMinute, 0) + 1;
             return true;
         }
 

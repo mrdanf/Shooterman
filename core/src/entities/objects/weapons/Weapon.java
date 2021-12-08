@@ -9,7 +9,8 @@ public abstract class Weapon extends Entity {
     private int totalAmmunition;
     protected int currentAmmunition;
     private int magazineSize;
-    private int roundsPerMinute;
+    protected int roundsPerMinute;
+    protected int cooldown;
     private float reloadTime;
     private boolean insideReload;
 
@@ -25,11 +26,11 @@ public abstract class Weapon extends Entity {
 
     @Override
     public void update() {
-
+        cooldown--;
     }
 
     public boolean shoot() {
-        if (totalAmmunition > 0) {
+        if (cooldown <= 0 && totalAmmunition > 0) {
             if (currentAmmunition > 0) {
 
                 currentAmmunition--;
@@ -39,11 +40,16 @@ public abstract class Weapon extends Entity {
                     reload();
                 }
 
+                cooldown = roundsPerMinute;
                 return true;
+            } else {
+                // Can't shoot because of reloading
+                return false;
             }
+        } else {
+            // Weapon on cooldown or no ammo left
+            return false;
         }
-
-        return false;
     }
 
     protected void reload() {
@@ -65,6 +71,7 @@ public abstract class Weapon extends Entity {
 
     /**
      * For visual representation.
+     *
      * @return total ammo
      */
     public int getTotalAmmunition() {
@@ -73,6 +80,7 @@ public abstract class Weapon extends Entity {
 
     /**
      * For visual representation.
+     *
      * @return current ammo in magazine
      */
     public int getCurrentAmmunition() {
@@ -86,7 +94,7 @@ public abstract class Weapon extends Entity {
     /**
      * For visual representation of the reloading state.
      *
-     * @return  true - when inside reload
+     * @return true - when inside reload
      * <br/>    false - when not reloading
      */
     public boolean isInsideReload() {

@@ -92,6 +92,7 @@ public class Player extends Entity {
     @Override
     public void update() {
         status.update(health, activeWeapon);
+        activeWeapon.update();
         if (alive) {
             move.move(this, players, boxes, paletten);
         }

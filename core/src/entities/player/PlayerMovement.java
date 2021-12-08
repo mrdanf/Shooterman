@@ -67,7 +67,7 @@ public class PlayerMovement {
             playerX += player.getMovement();
             player.getSprite().setRotation(270f);
         }
-        if (Gdx.input.isKeyJustPressed(player.getPlayerInput().get(4))) {
+        if (Gdx.input.isKeyPressed(player.getPlayerInput().get(4))) {
             player.Shoot();
         }
         if (kolision.wallCheck(playerY) && kolision.wallCheck(playerX) && kolision.playerCheck(playerX, playerY, player, players)  ) {
