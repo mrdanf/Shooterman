@@ -19,6 +19,7 @@ public class Player extends Entity {
     PlayerMovement move = new PlayerMovement();
     PlayerSprites spriteGenerator = new PlayerSprites();
     private int health;
+    boolean alive;
     private float movement = 2f;
     private int player;
     private ArrayList<Integer> playerInput = new ArrayList();
@@ -36,6 +37,7 @@ public class Player extends Entity {
 
     public Player(int health, int player, float startx, float starty) {
         this.health = health;
+        this.alive = true;
         this.player = player;
         this.status = new Status(player);
         setX(startx);
@@ -90,7 +92,9 @@ public class Player extends Entity {
     @Override
     public void update() {
         status.update(health, activeWeapon);
-        move.move(this, players,boxes,paletten);
+        if (alive) {
+            move.move(this, players, boxes, paletten);
+        }
     }
 
     public void Shoot() {
@@ -139,11 +143,6 @@ public class Player extends Entity {
         this.players = players;
     }
 
-    public void decreaseHeath (int amount) {
-        this.health -= amount;
-    }
-
-
     public void setBoxes(ArrayList<Box> boxes) {
         this.boxes = boxes;
     }
@@ -166,6 +165,10 @@ public class Player extends Entity {
 
     public void setActiveWeapon(Weapon activeWeapon) {
         this.activeWeapon = activeWeapon;
+    }
+
+    public void kill() {
+        this.alive = false;
     }
 }
 

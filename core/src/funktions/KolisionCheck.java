@@ -32,7 +32,11 @@ public class KolisionCheck {
                 for (Player playerhit : players) {
                     if (projektile.getPlayer() != playerhit) {
                         if (mathCheckProjektiles(playerhit, projektile)) {
-                            playerhit.setHealth(playerhit.getHealth()-player.getActiveWeapon().getPower());
+                            int currentHealth = playerhit.getHealth()-player.getActiveWeapon().getPower();
+                            if (currentHealth <= 0) {
+                                playerhit.kill();
+                            }
+                            playerhit.setHealth(currentHealth);
                             return projektile;
                         }
                     }

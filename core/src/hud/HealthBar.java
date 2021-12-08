@@ -25,9 +25,16 @@ public class HealthBar {
     }
 
     public void updateHealth(int health) {
-        hbPixmap.setColor(Color.CLEAR);
-        hbPixmap.fill();
-        hbPixmap.setColor(Color.GREEN);
-        hbPixmap.fillRectangle(0,0,health,20);
+        if (health > 0) {
+            hbPixmap.setColor(Color.CLEAR);
+            hbPixmap.fill();
+            hbPixmap.setColor(Color.GREEN);
+            hbPixmap.fillRectangle(0, 0, health, 20);
+        } else {
+            hbPixmap = new Pixmap( 150, 50, Pixmap.Format.RGBA8888 );
+            hbPixmap.setColor( .5f, .1f, .1f, 1f );
+            hbPixmap.fill();
+        }
+
     }
 }

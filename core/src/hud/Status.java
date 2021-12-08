@@ -9,7 +9,7 @@ import entities.objects.weapons.Weapon;
 public class Status {
     private final Label PlayerLabel;
     private final float xPostion;
-    private final float yPosition = 80;
+    private float yPosition = 80;
     private final  HealthBar healthBar;
     private Label ammoLabel;
 
@@ -52,9 +52,14 @@ public class Status {
         if (activeWeapon.getTotalAmmunition() >= 999) {
             total = "INF";
         } else {
-            total = String.valueOf(activeWeapon.getCurrentAmmunition());
+            total = String.valueOf(activeWeapon.getTotalAmmunition());
         }
-        ammoLabel.setText(activeWeapon.getCurrentAmmunition() +" / "+total);
+        if (health > 0) {
+            ammoLabel.setText(activeWeapon.getCurrentAmmunition() + " / " + total);
+        } else {
+            yPosition = 80-35;
+            ammoLabel.setText("  DEAD");
+        }
     }
 
     public float getxPostion() {

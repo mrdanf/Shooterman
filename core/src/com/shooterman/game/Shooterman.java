@@ -85,9 +85,9 @@ public class Shooterman extends ApplicationAdapter {
 
             Status status = player.getStatus();
             status.getPlayerLabel().draw(batch,1 );
-            status.getAmmoLabel().draw(batch,1 );
             batch.draw(status.getHealthBar()[0], status.getxPostion(), status.getyPosition()-35);
             batch.draw(status.getHealthBar()[1], status.getxPostion(), status.getyPosition()-35);
+            status.getAmmoLabel().draw(batch,1 );
         }
         for (Player player : players) {
             for (Projektile projektile : player.getProjektileArrayList()) {
