@@ -172,6 +172,17 @@ public class Shooterman extends ApplicationAdapter {
         }
         if (deletpalette != null) {
             paletten.remove(deletpalette);}
+
+        Weapon deleteWeapon = null;
+        for (Weapon weapon : weapons) {
+            if (weapon.isOnGround() == false) {
+                deleteWeapon = weapon;
+            }
+        }
+
+        weapons.remove(deleteWeapon);
+
+       // TODO: gucken was damit ist: weapons.removeIf(weapon -> weapon.isOnGround() == false);
     }
 
     @Override

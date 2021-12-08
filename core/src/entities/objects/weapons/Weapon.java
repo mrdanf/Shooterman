@@ -22,6 +22,8 @@ public abstract class Weapon extends Entity {
     private float spritegrößex = 60f;
     private float spritegrößey = 60f;
 
+    private boolean isOnGround = true;
+
     private WeaponSprite sprite;
 
 
@@ -185,5 +187,13 @@ public abstract class Weapon extends Entity {
             }
         }
         return true;
+    }
+
+    public boolean isOnGround() {
+        return isOnGround;
+    }
+
+    public void setOnGround(boolean onGround) {
+        isOnGround = onGround;
     }
 }

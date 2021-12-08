@@ -85,6 +85,7 @@ public class PlayerMovement {
                     // Waffe wird aufgehoben
                     player.setWeapon2(weapon);
                     player.setActiveWeapon(weapon);
+                    weapon.setOnGround(false);
                 }
             }
         }

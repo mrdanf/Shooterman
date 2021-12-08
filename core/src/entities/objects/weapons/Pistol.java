@@ -3,7 +3,7 @@ package entities.objects.weapons;
 public class Pistol extends Weapon {
 
     public Pistol() {
-        super(3, 999, 10, 30, 2f, null);
+        super(15, 999, 10, 30, 2f, null);
     }
 
     @Override

@@ -5,6 +5,6 @@ public class Assaultrifle extends Weapon {
     public static final String spriteName = "AK47Kiste30x60.png";
 
     public Assaultrifle() {
-        super(10, 30, 20, 45, 3f, spriteName);
+        super(15, 40, 20, 45, 3f, spriteName);
     }
 }
