@@ -182,7 +182,6 @@ public class Shooterman extends ApplicationAdapter {
 
         weapons.remove(deleteWeapon);
 
-       // TODO: gucken was damit ist: weapons.removeIf(weapon -> weapon.isOnGround() == false);
     }
 
     @Override
