@@ -83,11 +83,15 @@ public class PlayerMovement {
             for (Weapon weapon : weapons) {
                 if (kolision.playerCheckWeapon(playerX, playerY, weapon)) {
                     // Waffe wird aufgehoben
-                    player.setWeapon2(weapon);
-                    player.setActiveWeapon(weapon);
+                    player.pickUpWeapon(weapon);
                     weapon.setOnGround(false);
                 }
             }
+        }
+
+        // Slot wechseln
+        if (Gdx.input.isKeyJustPressed(player.getPlayerInput().get(6))) {
+            player.switchWeapon();
         }
     }
 }
