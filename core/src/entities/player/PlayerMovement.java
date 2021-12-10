@@ -17,59 +17,59 @@ public class PlayerMovement {
         float playerX = player.getX();
         float playerY = player.getY();
         //Oben Links
-        if (Gdx.input.isKeyPressed(player.getPlayerInput().get(0)) && Gdx.input.isKeyPressed(player.getPlayerInput().get(1))) {
+        if (Gdx.input.isKeyPressed(player.getPlayerInput().get(Input.MOVE_UP)) && Gdx.input.isKeyPressed(player.getPlayerInput().get(Input.MOVE_LEFT))) {
             player.setViewdirection(4);
             playerY += player.getMovement();
             playerX -= player.getMovement();
             player.getSprite().setRotation(45f);
         }
         // Unten Links
-        else if (Gdx.input.isKeyPressed(player.getPlayerInput().get(2)) && Gdx.input.isKeyPressed(player.getPlayerInput().get(1))) {
+        else if (Gdx.input.isKeyPressed(player.getPlayerInput().get(Input.MOVE_DOWN)) && Gdx.input.isKeyPressed(player.getPlayerInput().get(Input.MOVE_LEFT))) {
             player.setViewdirection(5);
             playerY -= player.getMovement();
             playerX -= player.getMovement();
             player.getSprite().setRotation(135f);
         }
         // Unten Rechts
-        else if (Gdx.input.isKeyPressed(player.getPlayerInput().get(2)) && Gdx.input.isKeyPressed(player.getPlayerInput().get(3))) {
+        else if (Gdx.input.isKeyPressed(player.getPlayerInput().get(Input.MOVE_DOWN)) && Gdx.input.isKeyPressed(player.getPlayerInput().get(Input.MOVE_RIGHT))) {
             player.setViewdirection(6);
             playerY -= player.getMovement();
             playerX += player.getMovement();
             player.getSprite().setRotation(225f);
         }
         //Oben Rechts
-        else if (Gdx.input.isKeyPressed(player.getPlayerInput().get(0)) && Gdx.input.isKeyPressed(player.getPlayerInput().get(3))) {
+        else if (Gdx.input.isKeyPressed(player.getPlayerInput().get(Input.MOVE_UP)) && Gdx.input.isKeyPressed(player.getPlayerInput().get(Input.MOVE_RIGHT))) {
             player.setViewdirection(7);
             playerY += player.getMovement();
             playerX += player.getMovement();
             player.getSprite().setRotation(315f);
         }
         //Nach oben gehen
-        else if (Gdx.input.isKeyPressed(player.getPlayerInput().get(0))) {
+        else if (Gdx.input.isKeyPressed(player.getPlayerInput().get(Input.MOVE_UP))) {
             player.setViewdirection(0);
             playerY += player.getMovement();
             player.getSprite().setRotation(0f);
         }
         //Nach links gehen
-        else if (Gdx.input.isKeyPressed(player.getPlayerInput().get(1))) {
+        else if (Gdx.input.isKeyPressed(player.getPlayerInput().get(Input.MOVE_LEFT))) {
             player.setViewdirection(1);
             playerX -= player.getMovement();
             player.getSprite().setRotation(90f);
         }
         //Nach unten gehen
-        else if (Gdx.input.isKeyPressed(player.getPlayerInput().get(2))) {
+        else if (Gdx.input.isKeyPressed(player.getPlayerInput().get(Input.MOVE_DOWN))) {
             player.setViewdirection(2);
             playerY -= player.getMovement();
             player.getSprite().setRotation(180f);
         }
 
         //Nach rechts gehen
-        else if (Gdx.input.isKeyPressed(player.getPlayerInput().get(3))) {
+        else if (Gdx.input.isKeyPressed(player.getPlayerInput().get(Input.MOVE_RIGHT))) {
             player.setViewdirection(3);
             playerX += player.getMovement();
             player.getSprite().setRotation(270f);
         }
-        if (Gdx.input.isKeyPressed(player.getPlayerInput().get(4))) {
+        if (Gdx.input.isKeyPressed(player.getPlayerInput().get(Input.SHOOT))) {
             player.Shoot();
         }
         if (kolision.wallCheck(playerY) && kolision.wallCheck(playerX) && kolision.playerCheck(playerX, playerY, player, players)  ) {
@@ -79,7 +79,7 @@ public class PlayerMovement {
         }
 
         // Waffe aufheben
-        if (Gdx.input.isKeyJustPressed(player.getPlayerInput().get(5))) {
+        if (Gdx.input.isKeyJustPressed(player.getPlayerInput().get(Input.PICK_UP))) {
             for (Weapon weapon : weapons) {
                 if (kolision.playerCheckWeapon(playerX, playerY, weapon)) {
                     // Waffe wird aufgehoben
@@ -90,7 +90,7 @@ public class PlayerMovement {
         }
 
         // Slot wechseln
-        if (Gdx.input.isKeyJustPressed(player.getPlayerInput().get(6))) {
+        if (Gdx.input.isKeyJustPressed(player.getPlayerInput().get(Input.CHANGE_WEAPON))) {
             player.switchWeapon();
         }
     }

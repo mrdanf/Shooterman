@@ -9,7 +9,7 @@ import entities.objects.weapons.Weapon;
 public class Status {
     private final Label PlayerLabel;
     private final float xPostion;
-    private float yPosition = 80;
+    private float yPosition = 75;
     private final  HealthBar healthBar;
     private Label ammoLabel;
 

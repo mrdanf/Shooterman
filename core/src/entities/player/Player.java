@@ -56,8 +56,7 @@ public class Player extends Entity {
      * 3.add Nach rechts bewegen
      * 4.add Schießen
      * 5.add Aufheben
-     * 6.add Waffenslot1
-     * 7.add Waffenslot2
+     * 6.add Waffe wechseln
      * @Author Marcel Sander
      */
     public void input() {
