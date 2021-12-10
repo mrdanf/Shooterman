@@ -25,10 +25,11 @@ public class Player extends Entity {
     private ArrayList<Integer> playerInput = new ArrayList();
     private Status status;
     private int viewDirection = 0;
-    ArrayList<Projektile> projektileArrayList = new ArrayList<>();
-    ArrayList<Player> players;
-    ArrayList<Box> boxes = new ArrayList<>();
-    ArrayList<DestructableBox> paletten = new ArrayList<>();
+    private ArrayList<Projektile> projektileArrayList = new ArrayList<>();
+    private ArrayList<Player> players;
+    private ArrayList<Box> boxes = new ArrayList<>();
+    private ArrayList<DestructableBox> paletten = new ArrayList<>();
+    private ArrayList<Weapon> weapons;
 
     private Weapon pistol = new Pistol();
     private Weapon weapon2;
@@ -73,10 +74,8 @@ public class Player extends Entity {
             playerInput.add(Input.Keys.CONTROL_LEFT);
             //Aufheben
             playerInput.add(Input.Keys.E);
-            //Waffenslot1
+            //Waffenslot wechseln
             playerInput.add(Input.Keys.NUM_1);
-            //Waffenslot2
-            playerInput.add(Input.Keys.NUM_2);
         } else if (player == 2) {
             playerInput.add(Input.Keys.I);
             playerInput.add(Input.Keys.J);
@@ -85,20 +84,20 @@ public class Player extends Entity {
             playerInput.add(Input.Keys.SHIFT_RIGHT);
             playerInput.add(Input.Keys.O);
             playerInput.add(Input.Keys.NUM_7);
-            playerInput.add(Input.Keys.NUM_8);
         }
     }
 
     @Override
     public void update() {
         status.update(health, activeWeapon);
+        activeWeapon.update();
         if (alive) {
-            move.move(this, players, boxes, paletten);
+            move.move(this, players, boxes, paletten, weapons);
         }
     }
 
     public void Shoot() {
-        if (pistol.shoot()) { // testweise erst nur pistol shoot, später allgemein -> currentWeapon.shoot()
+        if (activeWeapon.shoot()) {
             Projektile projektile = new Projektile(viewDirection, getX(), getY(), this);
             projektileArrayList.add(projektile);
         }
@@ -139,6 +138,10 @@ public class Player extends Entity {
         this.projektileArrayList = projektileArrayList;
     }
 
+    public void setWeapons(ArrayList<Weapon> weapons) {
+        this.weapons = weapons;
+    }
+
     public void setPlayers(ArrayList<Player> players) {
         this.players = players;
     }
@@ -163,12 +166,23 @@ public class Player extends Entity {
         return activeWeapon;
     }
 
-    public void setActiveWeapon(Weapon activeWeapon) {
-        this.activeWeapon = activeWeapon;
-    }
-
     public void kill() {
         this.alive = false;
+    }
+
+    public void switchWeapon() {
+        if (weapon2 != null) {
+            if (activeWeapon == pistol) {
+                activeWeapon = weapon2;
+            } else {
+                activeWeapon = pistol;
+            }
+        }
+    }
+
+    public void pickUpWeapon(Weapon weapon) {
+        this.weapon2 = weapon;
+        this.activeWeapon = weapon;
     }
 }
 

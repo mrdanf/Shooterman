@@ -3,6 +3,7 @@ package entities.player;
 import com.badlogic.gdx.Gdx;
 import entities.objects.destructable.Box;
 import entities.objects.destructable.DestructableBox;
+import entities.objects.weapons.Weapon;
 import funktions.KolisionCheck;
 
 import java.util.ArrayList;
@@ -11,7 +12,8 @@ import java.util.ArrayList;
 public class PlayerMovement {
     KolisionCheck kolision = new KolisionCheck();
 
-    public void move(Player player, ArrayList<Player> players, ArrayList<Box> boxes, ArrayList<DestructableBox> paletten) {
+    public void move(Player player, ArrayList<Player> players, ArrayList<Box> boxes,
+                     ArrayList<DestructableBox> paletten, ArrayList<Weapon> weapons) {
         float playerX = player.getX();
         float playerY = player.getY();
         //Oben Links
@@ -67,13 +69,29 @@ public class PlayerMovement {
             playerX += player.getMovement();
             player.getSprite().setRotation(270f);
         }
-        if (Gdx.input.isKeyJustPressed(player.getPlayerInput().get(4))) {
+        if (Gdx.input.isKeyPressed(player.getPlayerInput().get(4))) {
             player.Shoot();
         }
         if (kolision.wallCheck(playerY) && kolision.wallCheck(playerX) && kolision.playerCheck(playerX, playerY, player, players)  ) {
             if(kolision.playerCheckbox(playerX, playerY, boxes)&&kolision.playerCheckpallette(playerX, playerY,paletten)){
             player.setX(playerX);
             player.setY(playerY);}
+        }
+
+        // Waffe aufheben
+        if (Gdx.input.isKeyJustPressed(player.getPlayerInput().get(5))) {
+            for (Weapon weapon : weapons) {
+                if (kolision.playerCheckWeapon(playerX, playerY, weapon)) {
+                    // Waffe wird aufgehoben
+                    player.pickUpWeapon(weapon);
+                    weapon.setOnGround(false);
+                }
+            }
+        }
+
+        // Slot wechseln
+        if (Gdx.input.isKeyJustPressed(player.getPlayerInput().get(6))) {
+            player.switchWeapon();
         }
     }
 }
