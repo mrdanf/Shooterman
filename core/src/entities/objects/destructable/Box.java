@@ -9,7 +9,7 @@ import java.util.Random;
 public class Box extends Entity {
     BoxSprite sprite = new BoxSprite();
     float spritegrößex = 81f;
-    float spritegrößey = 85f;
+    float spritegrößey = 81f;
 
     public Box() {
         sprite.Sprite(this);

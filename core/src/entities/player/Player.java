@@ -76,8 +76,6 @@ public class Player extends Entity {
             playerInput.add(Input.Keys.E);
             //Waffenslot wechseln
             playerInput.add(Input.Keys.NUM_1);
-            //Waffenslot2
-            playerInput.add(Input.Keys.NUM_2); // TODO: Rausnehmen?
         } else if (player == 2) {
             playerInput.add(Input.Keys.I);
             playerInput.add(Input.Keys.J);
@@ -86,7 +84,6 @@ public class Player extends Entity {
             playerInput.add(Input.Keys.SHIFT_RIGHT);
             playerInput.add(Input.Keys.O);
             playerInput.add(Input.Keys.NUM_7);
-            playerInput.add(Input.Keys.NUM_8); // TODO: Rausnehmen?
         }
     }
 
