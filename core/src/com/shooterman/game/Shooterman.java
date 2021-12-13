@@ -11,6 +11,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import entities.objects.destructable.Box;
 import entities.objects.destructable.DestructableBox;
+import entities.objects.ground.Ammunition;
+import entities.objects.ground.HealthOrb;
 import entities.objects.weapons.Assaultrifle;
 import entities.objects.weapons.Shotgun;
 import entities.objects.weapons.Sniperrifle;
@@ -36,6 +38,8 @@ public class Shooterman extends ApplicationAdapter {
     ArrayList<Box> boxes = new ArrayList<>();
     ArrayList<DestructableBox> paletten = new ArrayList<>();
     ArrayList<Weapon> weapons = new ArrayList<>();
+    ArrayList<Ammunition> ammunitions = new ArrayList<>();
+    ArrayList<HealthOrb> healthOrbs = new ArrayList<>();
 
     @Override
     public void create() {
@@ -69,16 +73,27 @@ public class Shooterman extends ApplicationAdapter {
         weapons.add(new Assaultrifle());
         weapons.add(new Shotgun());
         weapons.add(new Sniperrifle());
+        ammunitions.add(new Ammunition());
+        healthOrbs.add(new HealthOrb());
 
         for (Weapon weapon : weapons) {
             weapon.randomposition(boxes, paletten, weapons);
         }
+        for (Ammunition ammunition : ammunitions) {
+            ammunition.randomposition(boxes, paletten,weapons,ammunitions);
+        }
+        for (HealthOrb healthOrb : healthOrbs) {
+            healthOrb.randomposition(boxes, paletten,weapons,ammunitions,healthOrbs);
+        }
+
 
         for (Player player : players) {
             player.setPlayers(players);
             player.setBoxes(boxes);
             player.setPaletten(paletten);
             player.setWeapons(weapons);
+            player.setAmmoBoxes(ammunitions);
+            player.setHealthBoxes(healthOrbs);
         }
     }
 
@@ -129,6 +144,18 @@ public class Shooterman extends ApplicationAdapter {
             Sprite sprite = weapon.getSprite();
             sprite.setX(weapon.getX());
             sprite.setY(weapon.getY());
+            sprite.draw(batch);
+        }
+        for (Ammunition ammunition : ammunitions) {
+            Sprite sprite = ammunition.getSprite();
+            sprite.setX(ammunition.getX());
+            sprite.setY(ammunition.getY());
+            sprite.draw(batch);
+        }
+        for (HealthOrb healthOrb : healthOrbs) {
+            Sprite sprite = healthOrb.getSprite();
+            sprite.setX(healthOrb.getX());
+            sprite.setY(healthOrb.getY());
             sprite.draw(batch);
         }
         batch.end();

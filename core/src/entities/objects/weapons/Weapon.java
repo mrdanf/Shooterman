@@ -5,6 +5,8 @@ import com.badlogic.gdx.utils.Timer;
 import entities.Entity;
 import entities.objects.destructable.Box;
 import entities.objects.destructable.DestructableBox;
+import entities.objects.ground.Ammunition;
+import entities.objects.ground.HealthOrb;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -131,7 +133,7 @@ public abstract class Weapon extends Entity {
         return this.sprite.getSprite();
     }
 
-    public void randomposition(ArrayList<Box> boxes,ArrayList<DestructableBox> paletten, ArrayList<Weapon> weapons) {
+    public void randomposition(ArrayList<Box> boxes, ArrayList<DestructableBox> paletten, ArrayList<Weapon> weapons) {
         int max = 736;
         int min = 156;
         float x = 0;

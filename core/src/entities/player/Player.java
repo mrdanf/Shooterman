@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import entities.Entity;
 import entities.objects.destructable.Box;
+import entities.objects.ground.Ammunition;
+import entities.objects.ground.HealthOrb;
 import hud.HealthBar;
 import hud.Status;
 import entities.objects.destructable.DestructableBox;
@@ -30,6 +32,8 @@ public class Player extends Entity {
     private ArrayList<Box> boxes = new ArrayList<>();
     private ArrayList<DestructableBox> paletten = new ArrayList<>();
     private ArrayList<Weapon> weapons;
+    private ArrayList<Ammunition> ammunitions;
+    private ArrayList<HealthOrb> healthOrbs;
 
     private Weapon pistol = new Pistol();
     private Weapon weapon2;
@@ -139,6 +143,13 @@ public class Player extends Entity {
 
     public void setWeapons(ArrayList<Weapon> weapons) {
         this.weapons = weapons;
+    }
+
+    public void setAmmoBoxes(ArrayList<Ammunition> ammunitions) {
+        this.ammunitions = ammunitions;
+    }
+    public void setHealthBoxes(ArrayList<HealthOrb> healthOrbs) {
+        this.healthOrbs = healthOrbs;
     }
 
     public void setPlayers(ArrayList<Player> players) {
