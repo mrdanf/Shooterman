@@ -1,26 +1,21 @@
 package entities.objects.ground;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import entities.NonVisualEntity;
+import com.badlogic.gdx.graphics.Texture;
+import entities.VisualEntity;
 import entities.objects.destructable.Box;
-import entities.objects.destructable.DestructableBox;
+import entities.objects.destructable.DestructibleBox;
 import entities.objects.weapons.Weapon;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Ammunition extends NonVisualEntity {
-    AmmunitionSprite ammoSprite = new AmmunitionSprite();
-    float spriteSizeX = 50;
-    float spriteSizeY = 50;
+public class Ammunition extends VisualEntity {
 
     public Ammunition(){
-        ammoSprite.Sprite(this);
-        setY(0);
-        setX(0);
+        super(0, 0, new Texture("AmmoBox.png"));
     }
 
-    public void randomposition(ArrayList<Box> boxes, ArrayList<DestructableBox> paletten,ArrayList<Weapon> weapons, ArrayList<Ammunition> ammunitions) {
+    public void randomposition(ArrayList<Box> boxes, ArrayList<DestructibleBox> paletten, ArrayList<Weapon> weapons, ArrayList<Ammunition> ammunitions) {
         int max = 736;
         int min = 156;
         float x = 0;
@@ -38,25 +33,25 @@ public class Ammunition extends NonVisualEntity {
         setY(y);
     }
 
-    public boolean PlacmentPossible(ArrayList<Box> boxes, float x, float y,ArrayList<DestructableBox> paletten,
+    public boolean PlacmentPossible(ArrayList<Box> boxes, float x, float y,ArrayList<DestructibleBox> paletten,
                                     ArrayList<Weapon> weapons, ArrayList<Ammunition> ammunitions) {
         boolean boxok=false;
         for (Box box : boxes) {
-            if (x <= box.getX() + (box.getSpritegrößex()/2 )) {
-                if (x >= box.getX() - (box.getSpritegrößex()/2)) {
-                    if (y <= box.getY() + (box.getSpritegrößex()/2 )) {
-                        if (y >= box.getY() - (box.getSpritegrößex()/2 )) {
+            if (x <= box.getX() + (box.getSprite().getWidth() / 2)) {
+                if (x >= box.getX() - (box.getSprite().getWidth() / 2)) {
+                    if (y <= box.getY() + (box.getSprite().getHeight() / 2)) {
+                        if (y >= box.getY() - (box.getSprite().getHeight() / 2)) {
                             return false;
                         }
                     }
                 }
             }
         }
-        for (DestructableBox palette : paletten) {
-            if (x <= palette.getX() + (palette.getSpritegrößex()/2 )) {
-                if (x >= palette.getX() - (palette.getSpritegrößex()/2 )) {
-                    if (y <= palette.getY() + (palette.getSpritegrößex()/2 )) {
-                        if (y >= palette.getY() - (palette.getSpritegrößex()/2 )) {
+        for (DestructibleBox palette : paletten) {
+            if (x <= palette.getX() + (palette.getSprite().getWidth() / 2)) {
+                if (x >= palette.getX() - (palette.getSprite().getWidth() / 2)) {
+                    if (y <= palette.getY() + (palette.getSprite().getHeight() / 2)) {
+                        if (y >= palette.getY() - (palette.getSprite().getHeight() / 2)) {
                             return false;
                         }
                     }
@@ -64,10 +59,10 @@ public class Ammunition extends NonVisualEntity {
             }
         }
         for (Weapon weapon : weapons) {
-            if (x <= weapon.getX() + (weapon.getSpritegrößex()/2 )) {
-                if (x >= weapon.getX() - (weapon.getSpritegrößex()/2 )) {
-                    if (y <= weapon.getY() + (weapon.getSpritegrößey()/2 )) {
-                        if (y >= weapon.getY() - (weapon.getSpritegrößey()/2 )) {
+            if (x <= weapon.getX() + (weapon.getSprite().getWidth() / 2)) {
+                if (x >= weapon.getX() - (weapon.getSprite().getWidth() / 2)) {
+                    if (y <= weapon.getY() + (weapon.getSprite().getHeight() / 2)) {
+                        if (y >= weapon.getY() - (weapon.getSprite().getHeight() / 2)) {
                             return false;
                         }
                     }
@@ -75,10 +70,10 @@ public class Ammunition extends NonVisualEntity {
             }
         }
         for (Ammunition ammunition : ammunitions) {
-            if (x <= ammunition.getX() + (spriteSizeX/2 )) {
-                if (x >= ammunition.getX() - (spriteSizeX/2 )) {
-                    if (y <= ammunition.getY() + (spriteSizeY/2 )) {
-                        if (y >= ammunition.getY() - (spriteSizeY/2 )) {
+            if (x <= ammunition.getX() + (getSprite().getWidth() / 2)) {
+                if (x >= ammunition.getX() - (getSprite().getWidth() / 2)) {
+                    if (y <= ammunition.getY() + (getSprite().getHeight() / 2)) {
+                        if (y >= ammunition.getY() - (getSprite().getHeight() / 2)) {
                             return false;
                         }
                     }
@@ -95,16 +90,4 @@ public class Ammunition extends NonVisualEntity {
 
     }
 
-    @Override
-    public Sprite getSprite() {
-        return ammoSprite.getSprite();
-    }
-
-    public float getSpriteSizeX() {
-        return spriteSizeX;
-    }
-
-    public float getSpriteSizeY() {
-        return spriteSizeY;
-    }
 }

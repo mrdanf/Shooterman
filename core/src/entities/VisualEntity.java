@@ -7,9 +7,17 @@ public abstract class VisualEntity extends NonVisualEntity {
 
     private Sprite sprite;
 
+    public VisualEntity(Texture texture) {
+        if (texture != null) {
+            sprite = new Sprite(texture);
+        }
+    }
+
     public VisualEntity(float x, float y, Texture texture) {
         super(x, y);
-        sprite = new Sprite(texture);
+        if (texture != null) {
+            sprite = new Sprite(texture);
+        }
     }
 
     public Sprite getSprite() {

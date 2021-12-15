@@ -2,7 +2,7 @@ package entities.player;
 
 import com.badlogic.gdx.Gdx;
 import entities.objects.destructable.Box;
-import entities.objects.destructable.DestructableBox;
+import entities.objects.destructable.DestructibleBox;
 import entities.objects.weapons.Weapon;
 import funktions.KolisionCheck;
 
@@ -13,7 +13,7 @@ public class PlayerMovement {
     KolisionCheck kolision = new KolisionCheck();
 
     public void move(Player player, ArrayList<Player> players, ArrayList<Box> boxes,
-                     ArrayList<DestructableBox> paletten, ArrayList<Weapon> weapons) {
+                     ArrayList<DestructibleBox> paletten, ArrayList<Weapon> weapons) {
         float playerX = player.getX();
         float playerY = player.getY();
         //Oben Links

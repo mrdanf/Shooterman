@@ -2,13 +2,12 @@ package entities.player;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import entities.AnimatingEntity;
 import entities.objects.destructable.Box;
 import entities.objects.ground.Ammunition;
 import entities.objects.ground.HealthOrb;
 import hud.Status;
-import entities.objects.destructable.DestructableBox;
+import entities.objects.destructable.DestructibleBox;
 import entities.objects.weapons.Pistol;
 import entities.objects.weapons.Weapon;
 import entities.projektile.Projektile;
@@ -28,7 +27,7 @@ public class Player extends AnimatingEntity {
     private ArrayList<Projektile> projektileArrayList = new ArrayList<>();
     private ArrayList<Player> players;
     private ArrayList<Box> boxes = new ArrayList<>();
-    private ArrayList<DestructableBox> paletten = new ArrayList<>();
+    private ArrayList<DestructibleBox> paletten = new ArrayList<>();
     private ArrayList<Weapon> weapons;
     private ArrayList<Ammunition> ammunitions;
     private ArrayList<HealthOrb> healthOrbs;
@@ -154,7 +153,7 @@ public class Player extends AnimatingEntity {
         this.boxes = boxes;
     }
 
-    public void setPaletten(ArrayList<DestructableBox> paletten) {
+    public void setPaletten(ArrayList<DestructibleBox> paletten) {
         this.paletten = paletten;
     }
 

@@ -4,6 +4,10 @@ public abstract class NonVisualEntity {
     protected float x;
     protected float y;
 
+    public NonVisualEntity() {
+
+    }
+
     public NonVisualEntity(float x, float y) {
         this.x = x;
         this.y = y;

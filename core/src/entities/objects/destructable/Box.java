@@ -1,20 +1,16 @@
 package entities.objects.destructable;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import entities.NonVisualEntity;
+import entities.VisualEntity;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Box extends NonVisualEntity {
-    BoxSprite sprite = new BoxSprite();
-    float spritegrößex = 81f;
-    float spritegrößey = 81f;
+public class Box extends VisualEntity {
 
     public Box() {
-        sprite.Sprite(this);
-        setY(0);
-        setX(0);
+        super(0, 0, new Texture("Sandsacke.png"));
     }
 
     public void randomposition(ArrayList<Box> boxes) {
@@ -38,10 +34,10 @@ public class Box extends NonVisualEntity {
     public boolean PlacmentPossible(ArrayList<Box> boxes, float x, float y) {
         for (Box box : boxes) {
             if (box != this) {
-                if (x <= box.getX() + (spritegrößex )) {
-                    if (x >= box.getX() - (spritegrößex )) {
-                        if (y <= box.getY() + (spritegrößey )) {
-                            if (y >= box.getY() - (spritegrößey )) {
+                if (x <= box.getX() + (getSprite().getWidth())) {
+                    if (x >= box.getX() - (getSprite().getWidth())) {
+                        if (y <= box.getY() + (getSprite().getHeight())) {
+                            if (y >= box.getY() - (getSprite().getHeight())) {
                                 return false;
                             }
                         }
@@ -57,16 +53,4 @@ public class Box extends NonVisualEntity {
 
     }
 
-    @Override
-    public Sprite getSprite() {
-        return sprite.getSprite();
-    }
-
-    public float getSpritegrößex() {
-        return spritegrößex;
-    }
-
-    public float getSpritegrößey() {
-        return spritegrößey;
-    }
 }

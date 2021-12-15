@@ -1,10 +1,10 @@
 package entities.objects.weapons;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.Timer;
 import entities.VisualEntity;
 import entities.objects.destructable.Box;
-import entities.objects.destructable.DestructableBox;
+import entities.objects.destructable.DestructibleBox;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -19,18 +19,12 @@ public abstract class Weapon extends VisualEntity {
     protected int cooldown;
     private float reloadTime;
     private boolean insideReload;
-    private float spritegrößex = 60f;
-    private float spritegrößey = 60f;
 
     private boolean isOnGround = true;
 
-    private WeaponSprite sprite;
-
-
     public Weapon(int power, int totalAmmunition, int magazineSize, int roundsPerMinute, float reloadTime,
-                  String spritePath) {
-        super();
-        // TODO: Weapon braucht x und y vom Player
+                  Texture texture) {
+        super(texture);
         this.power = power;
         this.totalAmmunition = totalAmmunition;
         this.magazineSize = magazineSize;
@@ -39,9 +33,6 @@ public abstract class Weapon extends VisualEntity {
         this.reloadTime = reloadTime;
         insideReload = false;
 
-        if (spritePath != null) {
-            this.sprite = new WeaponSprite(spritePath);
-        }
     }
 
     @Override
@@ -121,19 +112,7 @@ public abstract class Weapon extends VisualEntity {
         return insideReload;
     }
 
-    public float getSpritegrößex() {
-        return spritegrößex;
-    }
-
-    public float getSpritegrößey() {
-        return spritegrößey;
-    }
-
-    public Sprite getSprite() {
-        return sprite.getSprite();
-    }
-
-    public void randomposition(ArrayList<Box> boxes, ArrayList<DestructableBox> paletten, ArrayList<Weapon> weapons) {
+    public void randomposition(ArrayList<Box> boxes, ArrayList<DestructibleBox> paletten, ArrayList<Weapon> weapons) {
         int max = 736;
         int min = 156;
         float x = 0;
@@ -152,25 +131,25 @@ public abstract class Weapon extends VisualEntity {
     }
 
 
-    public boolean PlacmentPossible(ArrayList<Box> boxes, float x, float y,ArrayList<DestructableBox> paletten,
+    public boolean PlacmentPossible(ArrayList<Box> boxes, float x, float y,ArrayList<DestructibleBox> paletten,
                                     ArrayList<Weapon> weapons) {
         boolean boxok=false;
         for (Box box : boxes) {
-            if (x <= box.getX() + (box.getSpritegrößex()/2 )) {
-                if (x >= box.getX() - (box.getSpritegrößex()/2)) {
-                    if (y <= box.getY() + (box.getSpritegrößex()/2 )) {
-                        if (y >= box.getY() - (box.getSpritegrößex()/2 )) {
+            if (x <= box.getX() + (box.getSprite().getWidth() / 2)) {
+                if (x >= box.getX() - (box.getSprite().getWidth() / 2)) {
+                    if (y <= box.getY() + (box.getSprite().getHeight() / 2)) {
+                        if (y >= box.getY() - (box.getSprite().getHeight() / 2)) {
                             return false;
                         }
                     }
                 }
             }
         }
-        for (DestructableBox palette : paletten) {
-            if (x <= palette.getX() + (palette.getSpritegrößex()/2 )) {
-                if (x >= palette.getX() - (palette.getSpritegrößex()/2 )) {
-                    if (y <= palette.getY() + (palette.getSpritegrößex()/2 )) {
-                        if (y >= palette.getY() - (palette.getSpritegrößex()/2 )) {
+        for (DestructibleBox palette : paletten) {
+            if (x <= palette.getX() + (palette.getSprite().getWidth() / 2)) {
+                if (x >= palette.getX() - (palette.getSprite().getWidth() / 2)) {
+                    if (y <= palette.getY() + (palette.getSprite().getHeight() / 2)) {
+                        if (y >= palette.getY() - (palette.getSprite().getHeight() / 2)) {
                             return false;
                         }
                     }
@@ -178,10 +157,10 @@ public abstract class Weapon extends VisualEntity {
             }
         }
         for (Weapon weapon : weapons) {
-            if (x <= weapon.getX() + (spritegrößex/2 )) {
-                if (x >= weapon.getX() - (spritegrößex/2 )) {
-                    if (y <= weapon.getY() + (spritegrößey/2 )) {
-                        if (y >= weapon.getY() - (spritegrößey/2 )) {
+            if (x <= weapon.getX() + (getSprite().getWidth() / 2)) {
+                if (x >= weapon.getX() - (getSprite().getWidth() / 2)) {
+                    if (y <= weapon.getY() + (getSprite().getHeight() / 2)) {
+                        if (y >= weapon.getY() - (getSprite().getHeight() / 2)) {
                             return false;
                         }
                     }

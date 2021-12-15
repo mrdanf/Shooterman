@@ -2,15 +2,13 @@ package com.shooterman.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.*;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import entities.objects.destructable.Box;
-import entities.objects.destructable.DestructableBox;
+import entities.objects.destructable.DestructibleBox;
 import entities.objects.ground.Ammunition;
 import entities.objects.ground.HealthOrb;
 import entities.objects.weapons.Assaultrifle;
@@ -22,7 +20,6 @@ import hud.Status;
 import entities.projektile.Projektile;
 import funktions.KolisionCheck;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 
@@ -36,7 +33,7 @@ public class Shooterman extends ApplicationAdapter {
     ArrayList<Player> players = new ArrayList<>();
     KolisionCheck kolisionCheck = new KolisionCheck();
     ArrayList<Box> boxes = new ArrayList<>();
-    ArrayList<DestructableBox> paletten = new ArrayList<>();
+    ArrayList<DestructibleBox> paletten = new ArrayList<>();
     ArrayList<Weapon> weapons = new ArrayList<>();
     ArrayList<Ammunition> ammunitions = new ArrayList<>();
     ArrayList<HealthOrb> healthOrbs = new ArrayList<>();
@@ -60,12 +57,19 @@ public class Shooterman extends ApplicationAdapter {
             boxes.add(new Box());
         }
         for (int i = 0; i < 6; i++) {
-            paletten.add(new DestructableBox(i));
+            String texturePath;
+            if (i % 2 == 0) {
+                texturePath = "palette.png";
+            } else {
+                texturePath = "Palettemitkartons.png";
+            }
+
+            paletten.add(new DestructibleBox(new Texture(texturePath)));
         }
         for (Box box : boxes) {
             box.randomposition(boxes);
         }
-        for (DestructableBox palette : paletten) {
+        for (DestructibleBox palette : paletten) {
             palette.randomposition(boxes,paletten);
         }
 
@@ -134,7 +138,7 @@ public class Shooterman extends ApplicationAdapter {
             sprite.setY(box.getY());
             sprite.draw(batch);
         }
-        for (DestructableBox palette : paletten) {
+        for (DestructibleBox palette : paletten) {
             Sprite sprite = palette.getSprite();
             sprite.setX(palette.getX());
             sprite.setY(palette.getY());
@@ -191,8 +195,8 @@ public class Shooterman extends ApplicationAdapter {
             }
 
         }
-        DestructableBox deletpalette=null;
-        for (DestructableBox palette:paletten) {
+        DestructibleBox deletpalette=null;
+        for (DestructibleBox palette:paletten) {
             if (palette.getHealth()<=0){
                 deletpalette=palette;
             }
