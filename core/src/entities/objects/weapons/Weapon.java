@@ -112,7 +112,7 @@ public abstract class Weapon extends VisualEntity {
         return insideReload;
     }
 
-    public void randomposition(ArrayList<Box> boxes, ArrayList<DestructibleBox> paletten, ArrayList<Weapon> weapons) {
+    public void randomPosition(ArrayList<Box> boxes, ArrayList<DestructibleBox> paletten, ArrayList<Weapon> weapons) {
         int max = 736;
         int min = 156;
         float x = 0;
@@ -122,7 +122,7 @@ public abstract class Weapon extends VisualEntity {
         while (possible) {
             x = min + (int) (Math.random() * ((max - min) + 1));
             y = min + (int) (Math.random() * ((max - min) + 1));
-            if (PlacmentPossible(boxes, x, y,paletten, weapons)) {
+            if (placementPossible(boxes, x, y,paletten, weapons)) {
                 possible=false;
             }
         }
@@ -131,8 +131,8 @@ public abstract class Weapon extends VisualEntity {
     }
 
 
-    public boolean PlacmentPossible(ArrayList<Box> boxes, float x, float y,ArrayList<DestructibleBox> paletten,
-                                    ArrayList<Weapon> weapons) {
+    public boolean placementPossible(ArrayList<Box> boxes, float x, float y, ArrayList<DestructibleBox> paletten,
+                                     ArrayList<Weapon> weapons) {
         boolean boxok=false;
         for (Box box : boxes) {
             if (x <= box.getX() + (box.getSprite().getWidth() / 2)) {

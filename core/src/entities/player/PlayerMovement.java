@@ -18,54 +18,54 @@ public class PlayerMovement {
         float playerY = player.getY();
         //Oben Links
         if (Gdx.input.isKeyPressed(player.getPlayerInput().get(Input.MOVE_UP)) && Gdx.input.isKeyPressed(player.getPlayerInput().get(Input.MOVE_LEFT))) {
-            player.setViewdirection(4);
+            player.setViewDirection(4);
             playerY += player.getMovement();
             playerX -= player.getMovement();
             player.getSprite().setRotation(45f);
         }
         // Unten Links
         else if (Gdx.input.isKeyPressed(player.getPlayerInput().get(Input.MOVE_DOWN)) && Gdx.input.isKeyPressed(player.getPlayerInput().get(Input.MOVE_LEFT))) {
-            player.setViewdirection(5);
+            player.setViewDirection(5);
             playerY -= player.getMovement();
             playerX -= player.getMovement();
             player.getSprite().setRotation(135f);
         }
         // Unten Rechts
         else if (Gdx.input.isKeyPressed(player.getPlayerInput().get(Input.MOVE_DOWN)) && Gdx.input.isKeyPressed(player.getPlayerInput().get(Input.MOVE_RIGHT))) {
-            player.setViewdirection(6);
+            player.setViewDirection(6);
             playerY -= player.getMovement();
             playerX += player.getMovement();
             player.getSprite().setRotation(225f);
         }
         //Oben Rechts
         else if (Gdx.input.isKeyPressed(player.getPlayerInput().get(Input.MOVE_UP)) && Gdx.input.isKeyPressed(player.getPlayerInput().get(Input.MOVE_RIGHT))) {
-            player.setViewdirection(7);
+            player.setViewDirection(7);
             playerY += player.getMovement();
             playerX += player.getMovement();
             player.getSprite().setRotation(315f);
         }
         //Nach oben gehen
         else if (Gdx.input.isKeyPressed(player.getPlayerInput().get(Input.MOVE_UP))) {
-            player.setViewdirection(0);
+            player.setViewDirection(0);
             playerY += player.getMovement();
             player.getSprite().setRotation(0f);
         }
         //Nach links gehen
         else if (Gdx.input.isKeyPressed(player.getPlayerInput().get(Input.MOVE_LEFT))) {
-            player.setViewdirection(1);
+            player.setViewDirection(1);
             playerX -= player.getMovement();
             player.getSprite().setRotation(90f);
         }
         //Nach unten gehen
         else if (Gdx.input.isKeyPressed(player.getPlayerInput().get(Input.MOVE_DOWN))) {
-            player.setViewdirection(2);
+            player.setViewDirection(2);
             playerY -= player.getMovement();
             player.getSprite().setRotation(180f);
         }
 
         //Nach rechts gehen
         else if (Gdx.input.isKeyPressed(player.getPlayerInput().get(Input.MOVE_RIGHT))) {
-            player.setViewdirection(3);
+            player.setViewDirection(3);
             playerX += player.getMovement();
             player.getSprite().setRotation(270f);
         }

@@ -118,12 +118,12 @@ public class Player extends AnimatingEntity {
     public Status getStatus() {
         return status;
     }
-    public int getViewdirection() {
+    public int getViewDirection() {
         return viewDirection;
     }
 
-    public void setViewdirection(int viewdirection) {
-        this.viewDirection = viewdirection;
+    public void setViewDirection(int viewDirection) {
+        this.viewDirection = viewDirection;
     }
 
     public ArrayList<Projektile> getProjektileArrayList() {

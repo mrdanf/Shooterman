@@ -73,10 +73,10 @@ public class Shooterman extends ApplicationAdapter {
             // TODO: Besser ist es beide Bilddateien gleich groß zu skalieren und nur noch eine Methode aufzurufen: paletten.add(new DestructibleBox(new Texture(texturePath)));
         }
         for (Box box : boxes) {
-            box.randomposition(boxes);
+            box.randomPosition(boxes);
         }
         for (DestructibleBox palette : paletten) {
-            palette.randomposition(boxes,paletten);
+            palette.randomPosition(boxes,paletten);
         }
 
         // Create weapons on start
@@ -87,7 +87,7 @@ public class Shooterman extends ApplicationAdapter {
         healthOrbs.add(new HealthOrb());
 
         for (Weapon weapon : weapons) {
-            weapon.randomposition(boxes, paletten, weapons);
+            weapon.randomPosition(boxes, paletten, weapons);
         }
         for (Ammunition ammunition : ammunitions) {
             ammunition.randomposition(boxes, paletten,weapons,ammunitions);
