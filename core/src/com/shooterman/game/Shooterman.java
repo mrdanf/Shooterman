@@ -2,8 +2,6 @@ package com.shooterman.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.*;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -19,10 +17,11 @@ import entities.objects.weapons.Sniperrifle;
 import entities.objects.weapons.Weapon;
 import entities.player.Player;
 import hud.Status;
+import hud.menu.Button;
+import hud.menu.Menu;
 import entities.projektile.Projektile;
 import funktions.KolisionCheck;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 
@@ -41,8 +40,12 @@ public class Shooterman extends ApplicationAdapter {
     ArrayList<Ammunition> ammunitions = new ArrayList<>();
     ArrayList<HealthOrb> healthOrbs = new ArrayList<>();
 
+    Menu menu;
+
     @Override
     public void create() {
+        this.menu = new Menu();
+
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
         camera = new OrthographicCamera(1, h / w);
@@ -157,6 +160,12 @@ public class Shooterman extends ApplicationAdapter {
             sprite.setX(healthOrb.getX());
             sprite.setY(healthOrb.getY());
             sprite.draw(batch);
+        }
+        batch.draw(menu.getBackground(), 0,0);
+        batch.draw(menu.getMenuScreen(), Menu.OFFSET,Menu.OFFSET);
+        for (Button button : menu.getButtons()) {
+            batch.draw(button.getBackground(), button.getxPosition(), button.getyPosition());
+            button.getNameLabel().draw(batch, 1);
         }
         batch.end();
     }
