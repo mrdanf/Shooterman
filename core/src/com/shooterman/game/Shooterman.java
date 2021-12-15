@@ -47,7 +47,9 @@ public class Shooterman extends ApplicationAdapter {
         map = new Texture("Spielfeld.png");
         sprite = new Sprite(TextureRegion.split(map, map.getWidth(), map.getHeight())[0][0]);
         player1 = new Player(100, 1, 100f, 800f, new Texture("player1WalkAnimation.png"));
+        player1.setScale(0.5f);
         player2 = new Player(100, 2, 800f, 100f, new Texture("player2WalkAnimation.png"));
+        player2.setScale(0.5f);
         camera.position.x = sprite.getX() + sprite.getOriginX();
         camera.position.y = sprite.getY() + sprite.getOriginY();
         camera.zoom = 1000f; // Je größer der Zoom, desto weiterweg ist die Kamera
@@ -60,11 +62,15 @@ public class Shooterman extends ApplicationAdapter {
             String texturePath;
             if (i % 2 == 0) {
                 texturePath = "palette.png";
+                paletten.add(new DestructibleBox(new Texture(texturePath)));
+                paletten.get(i).setScale(2f);
             } else {
                 texturePath = "Palettemitkartons.png";
+                paletten.add(new DestructibleBox(new Texture(texturePath)));
+                paletten.get(i).setScale(1f);
             }
 
-            paletten.add(new DestructibleBox(new Texture(texturePath)));
+            // TODO: Besser ist es beide Bilddateien gleich groß zu skalieren und nur noch eine Methode aufzurufen: paletten.add(new DestructibleBox(new Texture(texturePath)));
         }
         for (Box box : boxes) {
             box.randomposition(boxes);
