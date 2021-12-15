@@ -72,10 +72,11 @@ public class PlayerMovement {
         if (Gdx.input.isKeyPressed(player.getPlayerInput().get(Input.SHOOT))) {
             player.Shoot();
         }
-        if (kolision.wallCheck(playerY) && kolision.wallCheck(playerX) && kolision.playerCheck(playerX, playerY, player, players)  ) {
-            if(kolision.playerCheckbox(playerX, playerY, boxes)&&kolision.playerCheckpallette(playerX, playerY,paletten)){
-            player.setX(playerX);
-            player.setY(playerY);}
+        if (kolision.wallCheck(playerY) && kolision.wallCheck(playerX) && kolision.playerCheck(playerX, playerY, player, players)) {
+            if (kolision.playerCheckbox(playerX, playerY, boxes)&&kolision.playerCheckpallette(playerX, playerY,paletten)) {
+                player.setX(playerX);
+                player.setY(playerY);
+            }
         }
 
         // Waffe aufheben

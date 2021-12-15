@@ -1,7 +1,7 @@
 package entities.objects.ground;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import entities.Entity;
+import entities.NonVisualEntity;
 import entities.objects.destructable.Box;
 import entities.objects.destructable.DestructableBox;
 import entities.objects.weapons.Weapon;
@@ -9,7 +9,7 @@ import entities.objects.weapons.Weapon;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class HealthOrb extends Entity {
+public class HealthOrb extends NonVisualEntity {
     HealthOrbSprite healthOrbSprite = new HealthOrbSprite();
     float spriteSizeX = 50;
     float spriteSizeY = 50;

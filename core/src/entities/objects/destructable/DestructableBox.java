@@ -1,13 +1,12 @@
 package entities.objects.destructable;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import entities.Entity;
-import entities.objects.weapons.Weapon;
+import entities.NonVisualEntity;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public class DestructableBox extends Entity {
+public class DestructableBox extends NonVisualEntity {
     DestuctableBoxSprite sprite = new DestuctableBoxSprite();
     float spritegrößex = 80f;
     float spritegrößey = 80f;

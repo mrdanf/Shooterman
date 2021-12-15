@@ -2,16 +2,14 @@ package entities.objects.weapons;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.utils.Timer;
-import entities.Entity;
+import entities.VisualEntity;
 import entities.objects.destructable.Box;
 import entities.objects.destructable.DestructableBox;
-import entities.objects.ground.Ammunition;
-import entities.objects.ground.HealthOrb;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public abstract class Weapon extends Entity {
+public abstract class Weapon extends VisualEntity {
 
     private int power;
     private int totalAmmunition;
@@ -31,6 +29,8 @@ public abstract class Weapon extends Entity {
 
     public Weapon(int power, int totalAmmunition, int magazineSize, int roundsPerMinute, float reloadTime,
                   String spritePath) {
+        super();
+        // TODO: Weapon braucht x und y vom Player
         this.power = power;
         this.totalAmmunition = totalAmmunition;
         this.magazineSize = magazineSize;
@@ -130,7 +130,7 @@ public abstract class Weapon extends Entity {
     }
 
     public Sprite getSprite() {
-        return this.sprite.getSprite();
+        return sprite.getSprite();
     }
 
     public void randomposition(ArrayList<Box> boxes, ArrayList<DestructableBox> paletten, ArrayList<Weapon> weapons) {

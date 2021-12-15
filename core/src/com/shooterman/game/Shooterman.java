@@ -49,8 +49,8 @@ public class Shooterman extends ApplicationAdapter {
         batch = new SpriteBatch();
         map = new Texture("Spielfeld.png");
         sprite = new Sprite(TextureRegion.split(map, map.getWidth(), map.getHeight())[0][0]);
-        player1 = new Player(100, 1, 100f, 800f);
-        player2 = new Player(100, 2, 800f, 100f);
+        player1 = new Player(100, 1, 100f, 800f, new Texture("player1WalkAnimation.png"));
+        player2 = new Player(100, 2, 800f, 100f, new Texture("player2WalkAnimation.png"));
         camera.position.x = sprite.getX() + sprite.getOriginX();
         camera.position.y = sprite.getY() + sprite.getOriginY();
         camera.zoom = 1000f; // Je größer der Zoom, desto weiterweg ist die Kamera

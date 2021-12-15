@@ -3,11 +3,10 @@ package entities.player;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import entities.Entity;
+import entities.AnimatingEntity;
 import entities.objects.destructable.Box;
 import entities.objects.ground.Ammunition;
 import entities.objects.ground.HealthOrb;
-import hud.HealthBar;
 import hud.Status;
 import entities.objects.destructable.DestructableBox;
 import entities.objects.weapons.Pistol;
@@ -17,13 +16,12 @@ import entities.projektile.Projektile;
 import java.util.ArrayList;
 
 
-public class Player extends Entity {
+public class Player extends AnimatingEntity {
     PlayerMovement move = new PlayerMovement();
-    PlayerSprites spriteGenerator = new PlayerSprites();
     private int health;
     boolean alive;
     private float movement = 2f;
-    private int player;
+    private int playerNumber;
     private ArrayList<Integer> playerInput = new ArrayList();
     private Status status;
     private int viewDirection = 0;
@@ -40,14 +38,14 @@ public class Player extends Entity {
     private Weapon activeWeapon;
 
 
-    public Player(int health, int player, float startx, float starty) {
+    public Player(int health, int playerNumber, float startX, float startY, Texture texture) {
+        super(startX, startY, texture, 6, 1);
         this.health = health;
         this.alive = true;
-        this.player = player;
-        this.status = new Status(player);
-        setX(startx);
-        setY(starty);
-        spriteGenerator.Sprite(this);
+        this.playerNumber = playerNumber;
+        this.status = new Status(playerNumber);
+        setX(startX);
+        setY(startY);
         input();
         this.activeWeapon= this.pistol;
     }
@@ -64,7 +62,7 @@ public class Player extends Entity {
      * @Author Marcel Sander
      */
     public void input() {
-        if (player == 1) {
+        if (playerNumber == 1) {
             //Nach oben gehen
             playerInput.add(Input.Keys.W);
             //Nach links gehen
@@ -79,7 +77,7 @@ public class Player extends Entity {
             playerInput.add(Input.Keys.E);
             //Waffenslot wechseln
             playerInput.add(Input.Keys.NUM_1);
-        } else if (player == 2) {
+        } else if (playerNumber == 2) {
             playerInput.add(Input.Keys.I);
             playerInput.add(Input.Keys.J);
             playerInput.add(Input.Keys.K);
@@ -106,12 +104,8 @@ public class Player extends Entity {
         }
     }
 
-    public int getPlayer() {
-        return player;
-    }
-
-    public Sprite getSprite() {
-        return spriteGenerator.getSprite();
+    public int getPlayerNumber() {
+        return playerNumber;
     }
 
     public float getMovement() {

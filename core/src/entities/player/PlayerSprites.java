@@ -13,10 +13,10 @@ public class PlayerSprites {
     private TextureRegion[][] regions;
 
     public void Sprite(Player player) {
-        if (player.getPlayer() == 1) {
+        if (player.getPlayerNumber() == 1) {
             regions = TextureRegion.split(new Texture("player1WalkAnimation.png"), 77, 136);
         }
-        if (player.getPlayer() == 2) {
+        if (player.getPlayerNumber() == 2) {
             regions = TextureRegion.split(new Texture("Spieler1AWPLaufen.png"), (420/6), 173);
         }
         sprite = new Sprite(regions[row][column]);
