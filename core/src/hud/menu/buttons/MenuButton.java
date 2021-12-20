@@ -1,4 +1,4 @@
-package hud.menu;
+package hud.menu.buttons;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -6,14 +6,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
-public class Button {
-    private Texture background;
-    private Label nameLabel;
-    private int xPosition;
-    private int yPosition;
+public class MenuButton extends AbstractButton {
 
-    public Button(String label,  int offset) {
-        Pixmap pixmap = new Pixmap(300, 50, Pixmap.Format.RGBA8888);
+    public MenuButton(String label, int offset) {
+        this.width  = 300;
+        this.height = 50;
+
+        Pixmap pixmap = new Pixmap(width, height, Pixmap.Format.RGBA8888);
         pixmap.setColor(0.5f, 0.5f, 0.5f, 1);
         pixmap.fill();
         this.background = new Texture(pixmap);
@@ -30,21 +29,5 @@ public class Button {
         nameLabel = new Label(label, ls);
         nameLabel.setSize(0, 0);
         nameLabel.setPosition(this.xPosition+10, this.yPosition+25);
-    }
-
-    public Texture getBackground() {
-        return background;
-    }
-
-    public int getxPosition() {
-        return xPosition;
-    }
-
-    public int getyPosition() {
-        return yPosition;
-    }
-
-    public Label getNameLabel() {
-        return nameLabel;
     }
 }

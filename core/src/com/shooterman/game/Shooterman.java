@@ -17,10 +17,12 @@ import entities.objects.weapons.Sniperrifle;
 import entities.objects.weapons.Weapon;
 import entities.player.Player;
 import hud.Status;
-import hud.menu.Button;
-import hud.menu.Menu;
+import hud.menu.AbstractWindow;
+import hud.menu.buttons.AbstractButton;
+import hud.menu.MenuWindow;
 import entities.projektile.Projektile;
 import funktions.KolisionCheck;
+import hud.menu.buttons.HelpWindow;
 
 import java.util.ArrayList;
 
@@ -40,11 +42,11 @@ public class Shooterman extends ApplicationAdapter {
     ArrayList<Ammunition> ammunitions = new ArrayList<>();
     ArrayList<HealthOrb> healthOrbs = new ArrayList<>();
 
-    Menu menu;
+    AbstractWindow activeWindow;
 
     @Override
     public void create() {
-        this.menu = new Menu();
+        this.activeWindow = new MenuWindow();
 
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
@@ -161,11 +163,14 @@ public class Shooterman extends ApplicationAdapter {
             sprite.setY(healthOrb.getY());
             sprite.draw(batch);
         }
-        batch.draw(menu.getBackground(), 0,0);
-        batch.draw(menu.getMenuScreen(), Menu.OFFSET,Menu.OFFSET);
-        for (Button button : menu.getButtons()) {
+        batch.draw(activeWindow.getBackground(), 0 ,0 );
+        batch.draw(activeWindow.getWindow(), activeWindow.getxOffset() , activeWindow.getyOffset());
+        for (AbstractButton button : activeWindow.getButtons()) {
             batch.draw(button.getBackground(), button.getxPosition(), button.getyPosition());
             button.getNameLabel().draw(batch, 1);
+        }
+        if (activeWindow instanceof HelpWindow) {
+            ((HelpWindow) activeWindow).getTextLabel().draw(batch, 1);
         }
         batch.end();
     }
@@ -200,7 +205,7 @@ public class Shooterman extends ApplicationAdapter {
             }
 
         }
-        DestructableBox deletpalette=null;
+        DestructableBox deletpalette = null;
         for (DestructableBox palette:paletten) {
             if (palette.getHealth()<=0){
                 deletpalette=palette;
@@ -218,6 +223,23 @@ public class Shooterman extends ApplicationAdapter {
 
         weapons.remove(deleteWeapon);
 
+        String button;
+        if ( (button = activeWindow.update()) != null) {
+            System.out.println(button+ " pressed!");
+            if (button.equals("Hilfe")) {
+                activeWindow = new HelpWindow();
+            }
+            if (button.equals("x")) {
+                if (activeWindow instanceof MenuWindow) {
+                    System.out.println("FENSTER SCHLIEßEN");
+                } else {
+                    activeWindow = new MenuWindow();
+                }
+            }
+            if (button.equals("Beenden")) {
+                Gdx.app.exit();
+            }
+        }
     }
 
     @Override
