@@ -96,14 +96,14 @@ public class KolisionCheck {
     /**
      * Wand
      *
-     * @param X
-     * @param Y
+     * @param playerX
+     * @param playerY
      * @param boxes
      * @return
      */
-    public boolean playerCheckbox(float X, float Y, ArrayList<Box> boxes) {
+    public boolean playerCheckbox(float playerX, float playerY, ArrayList<Box> boxes) {
         for (Box box : boxes) {
-            if (mathCheckbox(X, Y, box)) {
+            if (mathCheckbox(playerX, playerY, box)) {
                 return false;
             }
         }
@@ -111,11 +111,11 @@ public class KolisionCheck {
     }
 
 
-    public boolean mathCheckbox(float X, float Y, Box box) {
-        if (X >= box.getX() - box.getSprite().getWidth()) {
-            if (X <= box.getX() + box.getSprite().getWidth()) {
-                if (Y >= box.getY() - box.getSprite().getHeight()) {
-                    if (Y <= box.getY() + box.getSprite().getHeight() / 2) {
+    public boolean mathCheckbox(float playerX, float playerY, Box box) {
+        if (playerX >= box.getX() - box.getSprite().getWidth()) {
+            if (playerX <= box.getX() + box.getSprite().getWidth()) {
+                if (playerY >= box.getY() - box.getSprite().getHeight()) {
+                    if (playerY <= box.getY() + box.getSprite().getHeight() / 2) {
                         return true;
                     }
                 }

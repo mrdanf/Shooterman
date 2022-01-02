@@ -8,10 +8,10 @@ import com.badlogic.gdx.utils.Timer;
 public abstract class AnimatingEntity extends NonVisualEntity {
 
     private Sprite sprite;
+    private TextureRegion[][] regions;
 
     public AnimatingEntity(float x, float y, Texture texture, final int columns, final int rows) {
         super(x, y);
-        final TextureRegion[][] regions;
         regions = TextureRegion.split(texture, texture.getWidth() / columns, texture.getHeight() / rows);
         sprite = new Sprite(regions[0][0]);
         // TODO: sprite.setScale(scale);
@@ -41,6 +41,11 @@ public abstract class AnimatingEntity extends NonVisualEntity {
 
     public Sprite getSprite() {
         return sprite;
+    }
+
+    public void setSprite(Texture texture, final int columns, final int rows) {
+        regions = TextureRegion.split(texture, texture.getWidth() / columns, texture.getHeight() / rows);
+        sprite = new Sprite(regions[0][0]);
     }
 
     @Override
