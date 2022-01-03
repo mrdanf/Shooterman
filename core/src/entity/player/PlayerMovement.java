@@ -73,6 +73,17 @@ public class PlayerMovement {
         if (Gdx.input.isKeyPressed(player.getPlayerInput().get(Input.SHOOT))) {
             player.Shoot();
         }
+        if (collisionCheck.wallCheck(playerY) && collisionCheck.wallCheck(playerX) && collisionCheck.playerCheck(playerX,
+                playerY, player,
+                players)) {
+            if (collisionCheck.playerCheckBox(playerX, playerY, boxes) && collisionCheck.playerCheckDestructibleBox(playerX, playerY, destructibleBoxes)) {
+                player.setX(playerX);
+                player.setY(playerY);
+            }
+        }
+
+        // TODO: eventuell besser mit X / Y von BoundingRectangle arbeiten
+        /*
         float pHitX = player.getHitboxX();
         float pHitY = player.getHitboxY();
         if (collisionCheck.wallCheck(pHitY) && collisionCheck.wallCheck(pHitX) && collisionCheck.playerCheck(pHitX, pHitY, player,
@@ -82,6 +93,7 @@ public class PlayerMovement {
                 player.setY(playerY);
             }
         }
+        */
 
         // Waffe aufheben
         if (Gdx.input.isKeyJustPressed(player.getPlayerInput().get(Input.PICK_UP))) {

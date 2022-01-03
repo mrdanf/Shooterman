@@ -14,6 +14,8 @@ public abstract class AnimatingEntity extends NonVisualEntity {
         super(x, y);
         regions = TextureRegion.split(texture, texture.getWidth() / columns, texture.getHeight() / rows);
         sprite = new Sprite(regions[0][0]);
+        sprite.setX(this.x);
+        sprite.setY(this.y);
         // TODO: sprite.setScale(scale);
         Timer.schedule(new Timer.Task() {
             int column = 0;
