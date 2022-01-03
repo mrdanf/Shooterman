@@ -117,6 +117,7 @@ public class KolisionCheck {
         float boxYBottom = box.getY();
         float boxYTop = box.getY() + box.getHeight();
 
+        /*
         if (playerX >= boxXLeft && playerX <= boxXRight && playerY >= boxYBottom && playerY <= boxYTop) {
         // TODO
             System.out.println("-------START-------");
@@ -132,9 +133,11 @@ public class KolisionCheck {
             return true;
         }
 
-        return false;
 
-        /*
+        return false;
+        */
+
+
         if (playerX >= box.getX() - box.getSprite().getWidth()) {
             if (playerX <= box.getX() + box.getSprite().getWidth()) {
                 if (playerY >= box.getY() - box.getSprite().getHeight()) {
@@ -147,7 +150,7 @@ public class KolisionCheck {
         }
         return false;
 
-        */
+
     }
 
     public Projektile hitCheck(ArrayList<Box> boxes, ArrayList<Player> players) {

@@ -15,7 +15,8 @@ public class Ammunition extends VisualEntity {
         super(0, 0, new Texture("AmmoBox.png"));
     }
 
-    public void randomposition(ArrayList<Box> boxes, ArrayList<DestructibleBox> paletten, ArrayList<Weapon> weapons, ArrayList<Ammunition> ammunitions) {
+    public void randomPosition(ArrayList<Box> boxes, ArrayList<DestructibleBox> paletten, ArrayList<Weapon> weapons,
+                               ArrayList<Ammunition> ammunitions) {
         int max = 736;
         int min = 156;
         float x = 0;

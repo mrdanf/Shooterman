@@ -17,7 +17,7 @@ public class HealthOrb extends VisualEntity {
         super(0, 0, new Texture("HealthBox.png"));
     }
 
-    public void randomposition(ArrayList<Box> boxes, ArrayList<DestructibleBox> paletten, ArrayList<Weapon> weapons,
+    public void randomPosition(ArrayList<Box> boxes, ArrayList<DestructibleBox> paletten, ArrayList<Weapon> weapons,
                                ArrayList<Ammunition> ammunitions, ArrayList<HealthOrb> healthOrbs) {
         int max = 736;
         int min = 156;
