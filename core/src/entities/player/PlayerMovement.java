@@ -1,6 +1,7 @@
 package entities.player;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import entities.objects.destructable.Box;
 import entities.objects.destructable.DestructibleBox;
 import entities.objects.weapons.Weapon;
@@ -72,8 +73,11 @@ public class PlayerMovement {
         if (Gdx.input.isKeyPressed(player.getPlayerInput().get(Input.SHOOT))) {
             player.Shoot();
         }
-        if (kolision.wallCheck(playerY) && kolision.wallCheck(playerX) && kolision.playerCheck(playerX, playerY, player, players)) {
-            if (kolision.playerCheckbox(playerX, playerY, boxes)&&kolision.playerCheckpallette(playerX, playerY,paletten)) {
+        float pHitX = player.getHitboxX();
+        float pHitY = player.getHitboxY();
+        if (kolision.wallCheck(pHitY) && kolision.wallCheck(pHitX) && kolision.playerCheck(pHitX, pHitY, player,
+                players)) {
+            if (kolision.playerCheckbox(pHitX, pHitY, boxes)&&kolision.playerCheckpallette(pHitX, pHitY,paletten)) {
                 player.setX(playerX);
                 player.setY(playerY);
             }
@@ -81,6 +85,10 @@ public class PlayerMovement {
 
         // Waffe aufheben
         if (Gdx.input.isKeyJustPressed(player.getPlayerInput().get(Input.PICK_UP))) {
+        // TODO setSprite wieder rausnehmen
+            player.setSprite(new Texture("player2WalkAnimation.png"), 6, 1);
+            player.setScale(0.5f);
+            // TODO END
             for (Weapon weapon : weapons) {
                 if (kolision.playerCheckWeapon(playerX, playerY, weapon)) {
                     // Waffe wird aufgehoben
