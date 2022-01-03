@@ -38,6 +38,11 @@ public class Shooterman extends ApplicationAdapter {
     ArrayList<Ammunition> ammunitions = new ArrayList<>();
     ArrayList<HealthOrb> healthOrbs = new ArrayList<>();
 
+    // TODO TEST
+    Sprite player1Position;
+    Sprite player2Position;
+    // TODO TEST END
+
     @Override
     public void create() {
         float w = Gdx.graphics.getWidth();
@@ -105,6 +110,9 @@ public class Shooterman extends ApplicationAdapter {
             player.setAmmoBoxes(ammunitions);
             player.setHealthBoxes(healthOrbs);
         }
+
+        player1Position = new Sprite(new Texture("roter_Punkt.png"));
+        player2Position = new Sprite(new Texture("roter_Punkt.png"));
     }
 
     @Override
@@ -168,6 +176,12 @@ public class Shooterman extends ApplicationAdapter {
             sprite.setY(healthOrb.getY());
             sprite.draw(batch);
         }
+        player1Position.setX(player1.getHitboxX());
+        player1Position.setY(player1.getHitboxY());
+        player1Position.draw(batch);
+        player2Position.setX(player2.getHitboxX());
+        player2Position.setY(player2.getHitboxY());
+        player2Position.draw(batch);
         batch.end();
     }
 

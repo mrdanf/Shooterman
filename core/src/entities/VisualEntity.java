@@ -28,6 +28,14 @@ public abstract class VisualEntity extends NonVisualEntity {
         this.sprite = sprite;
     }
 
+    public float getWidth() {
+        return sprite.getWidth();
+    }
+
+    public float getHeight() {
+        return sprite.getHeight();
+    }
+
     public void setScale(float scale) {
         sprite.setScale(scale);
     }
