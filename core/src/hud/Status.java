@@ -12,11 +12,12 @@ public class Status {
     private float yPosition = 75;
     private final  HealthBar healthBar;
     private Label ammoLabel;
+    private static final float LABELSIZE = 220f;
 
     public Status(int player) {
         // Screenwidth - (Labelsize*NumberOfPlayers)/2 + LabelSize*(playerNumber-1)
         // TODO get number of players
-        this.xPostion = 550 -((200f*2)/2f) + 200*(player-1);
+        this.xPostion = 570 -((LABELSIZE*2)/2f) + LABELSIZE*(player-1);
 
         Label.LabelStyle ls = new Label.LabelStyle();
         ls.font = new BitmapFont(Gdx.files.internal("msJhengHei.fnt"));

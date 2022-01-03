@@ -2,25 +2,24 @@ package com.shooterman.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import entities.objects.destructable.Box;
-import entities.objects.destructable.DestructibleBox;
+import entities.objects.destructable.DestructableBox;
 import entities.objects.ground.Ammunition;
 import entities.objects.ground.HealthOrb;
-import entities.objects.weapons.Assaultrifle;
-import entities.objects.weapons.Shotgun;
-import entities.objects.weapons.Sniperrifle;
 import entities.objects.weapons.Weapon;
 import entities.player.Player;
 import hud.Status;
+import hud.menu.AbstractWindow;
+import hud.menu.buttons.AbstractButton;
+import hud.menu.MenuWindow;
 import entities.projektile.Projektile;
-import funktions.KolisionCheck;
-
-import java.util.ArrayList;
+import hud.menu.buttons.HelpWindow;
 
 
 public class Shooterman extends ApplicationAdapter {
@@ -28,105 +27,48 @@ public class Shooterman extends ApplicationAdapter {
     Texture map;
     OrthographicCamera camera;
     Sprite sprite;
-    Player player1;
-    Player player2;
-    ArrayList<Player> players = new ArrayList<>();
-    KolisionCheck kolisionCheck = new KolisionCheck();
-    ArrayList<Box> boxes = new ArrayList<>();
-    ArrayList<DestructibleBox> paletten = new ArrayList<>();
-    ArrayList<Weapon> weapons = new ArrayList<>();
-    ArrayList<Ammunition> ammunitions = new ArrayList<>();
-    ArrayList<HealthOrb> healthOrbs = new ArrayList<>();
+    Game game;
 
-    // TODO TEST
-    Sprite player1Position;
-    Sprite player2Position;
-    // TODO TEST END
+    AbstractWindow activeWindow;
+    boolean paused = false;
 
     @Override
     public void create() {
+        this.activeWindow = new MenuWindow();
+        this.game = new Game();
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
         camera = new OrthographicCamera(1, h / w);
         batch = new SpriteBatch();
         map = new Texture("Spielfeld.png");
         sprite = new Sprite(TextureRegion.split(map, map.getWidth(), map.getHeight())[0][0]);
-        player1 = new Player(100, 1, 100f, 800f, new Texture("player1WalkAnimation.png"));
-        player1.setScale(0.5f);
-        player2 = new Player(100, 2, 800f, 100f, new Texture("player2WalkAnimation.png"));
-        player2.setScale(0.5f);
         camera.position.x = sprite.getX() + sprite.getOriginX();
         camera.position.y = sprite.getY() + sprite.getOriginY();
         camera.zoom = 1000f; // Je größer der Zoom, desto weiterweg ist die Kamera
-        players.add(player1);
-        players.add(player2);
-        for (int i = 0; i <3; i++) {
-            boxes.add(new Box());
-        }
-        for (int i = 0; i < 6; i++) {
-            String texturePath;
-            if (i % 2 == 0) {
-                texturePath = "palette.png";
-                paletten.add(new DestructibleBox(new Texture(texturePath)));
-                paletten.get(i).setScale(2f);
-            } else {
-                texturePath = "Palettemitkartons.png";
-                paletten.add(new DestructibleBox(new Texture(texturePath)));
-                paletten.get(i).setScale(1f);
-            }
-
-            // TODO: Besser ist es beide Bilddateien gleich groß zu skalieren und nur noch eine Methode aufzurufen: paletten.add(new DestructibleBox(new Texture(texturePath)));
-        }
-        for (Box box : boxes) {
-            box.randomPosition(boxes);
-        }
-        for (DestructibleBox palette : paletten) {
-            palette.randomPosition(boxes,paletten);
-        }
-
-        // Create weapons on start
-        weapons.add(new Assaultrifle());
-        weapons.add(new Shotgun());
-        weapons.add(new Sniperrifle());
-        ammunitions.add(new Ammunition());
-        healthOrbs.add(new HealthOrb());
-
-        for (Weapon weapon : weapons) {
-            weapon.randomPosition(boxes, paletten, weapons);
-        }
-        for (Ammunition ammunition : ammunitions) {
-            ammunition.randomposition(boxes, paletten,weapons,ammunitions);
-        }
-        for (HealthOrb healthOrb : healthOrbs) {
-            healthOrb.randomposition(boxes, paletten,weapons,ammunitions,healthOrbs);
-        }
-
-
-        for (Player player : players) {
-            player.setPlayers(players);
-            player.setBoxes(boxes);
-            player.setPaletten(paletten);
-            player.setWeapons(weapons);
-            player.setAmmoBoxes(ammunitions);
-            player.setHealthBoxes(healthOrbs);
-        }
-
-        player1Position = new Sprite(new Texture("roter_Punkt.png"));
-        player2Position = new Sprite(new Texture("roter_Punkt.png"));
     }
 
     @Override
     public void render() {
-        updateAll();
-        batch();
-    }
-
-    private void batch() {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+            paused = !paused;
+        }
+        camera.update();
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         batch.draw(map, 0, 0);
+        if (!paused) {
+            game.update();
+            batchGame();
+        } else {
+            updateMenu();
+            batchMenu();
+        }
+        batch.end();
 
-        for (Player player : players) {
+    }
+
+    private void batchGame() {
+        for (Player player : game.getPlayers()) {
             Sprite sprite = player.getSprite();
             sprite.setX(player.getX());
             sprite.setY(player.getY());
@@ -138,7 +80,7 @@ public class Shooterman extends ApplicationAdapter {
             batch.draw(status.getHealthBar()[1], status.getxPostion(), status.getyPosition()-35);
             status.getAmmoLabel().draw(batch,1 );
         }
-        for (Player player : players) {
+        for (Player player : game.getPlayers()) {
             for (Projektile projektile : player.getProjektileArrayList()) {
                 Sprite sprite = projektile.getSprite();
                 sprite.setX(projektile.getX());
@@ -146,93 +88,74 @@ public class Shooterman extends ApplicationAdapter {
                 sprite.draw(batch);
             }
         }
-        for (Box box : boxes) {
+        for (Box box : game.getBoxes()) {
             Sprite sprite = box.getSprite();
             sprite.setX(box.getX());
             sprite.setY(box.getY());
             sprite.draw(batch);
         }
-        for (DestructibleBox palette : paletten) {
+        for (DestructableBox palette : game.getPaletten()) {
             Sprite sprite = palette.getSprite();
             sprite.setX(palette.getX());
             sprite.setY(palette.getY());
             sprite.draw(batch);}
 
-        for (Weapon weapon : weapons) {
+        for (Weapon weapon : game.getWeapons()) {
             Sprite sprite = weapon.getSprite();
             sprite.setX(weapon.getX());
             sprite.setY(weapon.getY());
             sprite.draw(batch);
         }
-        for (Ammunition ammunition : ammunitions) {
+        for (Ammunition ammunition : game.getAmmunitions()) {
             Sprite sprite = ammunition.getSprite();
             sprite.setX(ammunition.getX());
             sprite.setY(ammunition.getY());
             sprite.draw(batch);
         }
-        for (HealthOrb healthOrb : healthOrbs) {
+        for (HealthOrb healthOrb : game.getHealthOrbs()) {
             Sprite sprite = healthOrb.getSprite();
             sprite.setX(healthOrb.getX());
             sprite.setY(healthOrb.getY());
             sprite.draw(batch);
         }
-        player1Position.setX(player1.getHitboxX());
-        player1Position.setY(player1.getHitboxY());
-        player1Position.draw(batch);
-        player2Position.setX(player2.getHitboxX());
-        player2Position.setY(player2.getHitboxY());
-        player2Position.draw(batch);
-        batch.end();
     }
 
-    private void updateAll() {
-        Projektile delete = null;
-        camera.update();
-        for (Player player : players) {
-            player.update();
+    private void batchMenu() {
+        batch.draw(activeWindow.getBackground(), 0 ,0 );
+        batch.draw(activeWindow.getWindow(), activeWindow.getxOffset() , activeWindow.getyOffset());
+        for (AbstractButton button : activeWindow.getButtons()) {
+            batch.draw(button.getBackground(), button.getxPosition(), button.getyPosition());
+            button.getNameLabel().draw(batch, 1);
         }
-        for (Player player : players) {
-            for (Projektile projektile : player.getProjektileArrayList()) {
-                projektile.update();
-                if (projektile.isDeleteble()) {
-                    delete = projektile;
+        if (activeWindow instanceof HelpWindow) {
+            ((HelpWindow) activeWindow).getTextLabel().draw(batch, 1);
+        }
+    }
+
+
+
+    private void updateMenu() {
+        String button;
+        if ( (button = activeWindow.update()) != null) {
+            System.out.println(button+ " pressed!");
+            if (button.equals("Hilfe")) {
+                activeWindow = new HelpWindow();
+            }
+            if (button.equals("x")) {
+                if (activeWindow instanceof MenuWindow) {
+                    paused = false;
+                } else {
+                    activeWindow = new MenuWindow();
                 }
             }
-            if (delete != null) {
-                player.getProjektileArrayList().remove(delete);
+            if (button.equals("Neues Spiel")) {
+                this.game = new Game();
+                paused = false;
             }
-            delete = kolisionCheck.hitCheck(players);
-            if (delete != null) {
-                player.getProjektileArrayList().remove(delete);
-            }
-            delete = kolisionCheck.hitCheck(boxes, players);
-            if (delete != null) {
-                player.getProjektileArrayList().remove(delete);
-            }
-            delete = kolisionCheck.hitCheckpalette(paletten, players);
-            if (delete != null) {
-                player.getProjektileArrayList().remove(delete);
-            }
-
-        }
-        DestructibleBox deletpalette=null;
-        for (DestructibleBox palette:paletten) {
-            if (palette.getHealth()<=0){
-                deletpalette=palette;
+            if (button.equals("Beenden")) {
+                Gdx.app.exit();
             }
         }
-        if (deletpalette != null) {
-            paletten.remove(deletpalette);}
-
-        Weapon deleteWeapon = null;
-        for (Weapon weapon : weapons) {
-            if (weapon.isOnGround() == false) {
-                deleteWeapon = weapon;
-            }
-        }
-
-        weapons.remove(deleteWeapon);
-
     }
 
     @Override
