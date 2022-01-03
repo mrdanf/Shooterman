@@ -2,12 +2,12 @@ package entities.projektile;
 
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import entities.Entity;
+import entities.NonVisualEntity;
 import funktions.KolisionCheck;
 import entities.player.Player;
 
 
-public class Projektile extends Entity {
+public class Projektile extends NonVisualEntity {
     KolisionCheck kolisionCheck = new KolisionCheck();
     ProjektileSprites spriteGenerator = new ProjektileSprites();
     Player player;

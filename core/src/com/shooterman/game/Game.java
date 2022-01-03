@@ -1,8 +1,10 @@
 package com.shooterman.game;
 
 
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import entities.objects.destructable.Box;
-import entities.objects.destructable.DestructableBox;
+import entities.objects.destructable.DestructibleBox;
 import entities.objects.ground.Ammunition;
 import entities.objects.ground.HealthOrb;
 import entities.objects.weapons.Assaultrifle;
@@ -20,15 +22,22 @@ public class Game {
     Player player2;
     ArrayList<Player> players = new ArrayList<>();
     ArrayList<Box> boxes = new ArrayList<>();
-    ArrayList<DestructableBox> paletten = new ArrayList<>();
+    ArrayList<DestructibleBox> paletten = new ArrayList<>();
     ArrayList<Weapon> weapons = new ArrayList<>();
-    ArrayList<Ammunition> ammunitions = new ArrayList<>();
+    ArrayList<Ammunition> ammunition = new ArrayList<>();
     ArrayList<HealthOrb> healthOrbs = new ArrayList<>();
     KolisionCheck kolisionCheck = new KolisionCheck();
 
+    // TODO TEST
+    Sprite player1Position;
+    Sprite player2Position;
+    // TODO TEST END
+
     public Game() {
-        player1 = new Player(100, 1, 100f, 800f);
-        player2 = new Player(100, 2, 800f, 100f);
+        player1 = new Player(100, 1, 100f, 800f, new Texture("player1WalkAnimation.png"));
+        player1.setScale(0.5f);
+        player2 = new Player(100, 2, 800f, 100f, new Texture("player2WalkAnimation.png"));
+        player2.setScale(0.5f);
         players.add(player1);
         players.add(player2);
 
@@ -36,30 +45,41 @@ public class Game {
             boxes.add(new Box());
         }
         for (int i = 0; i < 6; i++) {
-            paletten.add(new DestructableBox(i));
+            String texturePath;
+            if (i % 2 == 0) {
+                texturePath = "palette.png";
+                paletten.add(new DestructibleBox(new Texture(texturePath)));
+                paletten.get(i).setScale(2f);
+            } else {
+                texturePath = "Palettemitkartons.png";
+                paletten.add(new DestructibleBox(new Texture(texturePath)));
+                paletten.get(i).setScale(1f);
+            }
+
+            // TODO: Besser ist es beide Bilddateien gleich groß zu skalieren und nur noch eine Methode aufzurufen: paletten.add(new DestructibleBox(new Texture(texturePath)));
         }
         for (Box box : boxes) {
-            box.randomposition(boxes);
+            box.randomPosition(boxes);
         }
-        for (DestructableBox palette : paletten) {
-            palette.randomposition(boxes,paletten);
+        for (DestructibleBox palette : paletten) {
+            palette.randomPosition(boxes,paletten);
         }
 
         // Create weapons on start
         weapons.add(new Assaultrifle());
         weapons.add(new Shotgun());
         weapons.add(new Sniperrifle());
-        ammunitions.add(new Ammunition());
+        ammunition.add(new Ammunition());
         healthOrbs.add(new HealthOrb());
 
         for (Weapon weapon : weapons) {
-            weapon.randomposition(boxes, paletten, weapons);
+            weapon.randomPosition(boxes, paletten, weapons);
         }
-        for (Ammunition ammunition : ammunitions) {
-            ammunition.randomposition(boxes, paletten,weapons,ammunitions);
+        for (Ammunition ammunition : ammunition) {
+            ammunition.randomPosition(boxes, paletten,weapons, this.ammunition);
         }
         for (HealthOrb healthOrb : healthOrbs) {
-            healthOrb.randomposition(boxes, paletten,weapons,ammunitions,healthOrbs);
+            healthOrb.randomPosition(boxes, paletten,weapons, ammunition,healthOrbs);
         }
 
         for (Player player : players) {
@@ -67,9 +87,12 @@ public class Game {
             player.setBoxes(boxes);
             player.setPaletten(paletten);
             player.setWeapons(weapons);
-            player.setAmmoBoxes(ammunitions);
+            player.setAmmoBoxes(ammunition);
             player.setHealthBoxes(healthOrbs);
         }
+
+        player1Position = new Sprite(new Texture("roter_Punkt.png"));
+        player2Position = new Sprite(new Texture("roter_Punkt.png"));
     }
 
     public void update() {
@@ -101,8 +124,8 @@ public class Game {
             }
 
         }
-        DestructableBox deletpalette = null;
-        for (DestructableBox palette:paletten) {
+        DestructibleBox deletpalette = null;
+        for (DestructibleBox palette:paletten) {
             if (palette.getHealth()<=0){
                 deletpalette=palette;
             }
@@ -128,7 +151,7 @@ public class Game {
         return boxes;
     }
 
-    public ArrayList<DestructableBox> getPaletten() {
+    public ArrayList<DestructibleBox> getPaletten() {
         return paletten;
     }
 
@@ -140,7 +163,7 @@ public class Game {
         return weapons;
     }
 
-    public ArrayList<Ammunition> getAmmunitions() {
-        return ammunitions;
+    public ArrayList<Ammunition> getAmmunition() {
+        return ammunition;
     }
 }

@@ -1,28 +1,23 @@
 package entities.objects.ground;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import entities.Entity;
+import com.badlogic.gdx.graphics.Texture;
+import entities.VisualEntity;
 import entities.objects.destructable.Box;
-import entities.objects.destructable.DestructableBox;
+import entities.objects.destructable.DestructibleBox;
 import entities.objects.weapons.Weapon;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public class HealthOrb extends Entity {
-    HealthOrbSprite healthOrbSprite = new HealthOrbSprite();
-    float spriteSizeX = 50;
-    float spriteSizeY = 50;
+public class HealthOrb extends VisualEntity {
+
+    private int healthAmount;
 
     public HealthOrb(){
-        healthOrbSprite.Sprite(this);
-        setY(0);
-        setX(0);
+        super(0, 0, new Texture("HealthBox.png"));
     }
 
-
-
-    public void randomposition(ArrayList<Box> boxes, ArrayList<DestructableBox> paletten, ArrayList<Weapon> weapons,
+    public void randomPosition(ArrayList<Box> boxes, ArrayList<DestructibleBox> paletten, ArrayList<Weapon> weapons,
                                ArrayList<Ammunition> ammunitions, ArrayList<HealthOrb> healthOrbs) {
         int max = 736;
         int min = 156;
@@ -41,25 +36,25 @@ public class HealthOrb extends Entity {
         setY(y);
     }
 
-    public boolean PlacmentPossible(ArrayList<Box> boxes, float x, float y,ArrayList<DestructableBox> paletten,
+    public boolean PlacmentPossible(ArrayList<Box> boxes, float x, float y,ArrayList<DestructibleBox> paletten,
                                     ArrayList<Weapon> weapons, ArrayList<Ammunition> ammunitions,ArrayList<HealthOrb> healthOrbs) {
         boolean boxok=false;
         for (Box box : boxes) {
-            if (x <= box.getX() + (box.getSpritegrößex()/2 )) {
-                if (x >= box.getX() - (box.getSpritegrößex()/2)) {
-                    if (y <= box.getY() + (box.getSpritegrößex()/2 )) {
-                        if (y >= box.getY() - (box.getSpritegrößex()/2 )) {
+            if (x <= box.getX() + (box.getSprite().getWidth() / 2)) {
+                if (x >= box.getX() - (box.getSprite().getWidth() / 2)) {
+                    if (y <= box.getY() + (box.getSprite().getHeight() / 2)) {
+                        if (y >= box.getY() - (box.getSprite().getHeight() / 2)) {
                             return false;
                         }
                     }
                 }
             }
         }
-        for (DestructableBox palette : paletten) {
-            if (x <= palette.getX() + (palette.getSpritegrößex()/2 )) {
-                if (x >= palette.getX() - (palette.getSpritegrößex()/2 )) {
-                    if (y <= palette.getY() + (palette.getSpritegrößex()/2 )) {
-                        if (y >= palette.getY() - (palette.getSpritegrößex()/2 )) {
+        for (DestructibleBox palette : paletten) {
+            if (x <= palette.getX() + (palette.getSprite().getWidth() / 2)) {
+                if (x >= palette.getX() - (palette.getSprite().getWidth() / 2)) {
+                    if (y <= palette.getY() + (palette.getSprite().getHeight() / 2)) {
+                        if (y >= palette.getY() - (palette.getSprite().getHeight() / 2)) {
                             return false;
                         }
                     }
@@ -67,10 +62,10 @@ public class HealthOrb extends Entity {
             }
         }
         for (Weapon weapon : weapons) {
-            if (x <= weapon.getX() + (weapon.getSpritegrößex()/2 )) {
-                if (x >= weapon.getX() - (weapon.getSpritegrößex()/2 )) {
-                    if (y <= weapon.getY() + (weapon.getSpritegrößey()/2 )) {
-                        if (y >= weapon.getY() - (weapon.getSpritegrößey()/2 )) {
+            if (x <= weapon.getX() + (weapon.getSprite().getWidth() / 2)) {
+                if (x >= weapon.getX() - (weapon.getSprite().getWidth() / 2)) {
+                    if (y <= weapon.getY() + (weapon.getSprite().getHeight() / 2)) {
+                        if (y >= weapon.getY() - (weapon.getSprite().getHeight() / 2)) {
                             return false;
                         }
                     }
@@ -78,10 +73,10 @@ public class HealthOrb extends Entity {
             }
         }
         for (Ammunition ammunition : ammunitions) {
-            if (x <= ammunition.getX() + (ammunition.getSpriteSizeX()/2 )) {
-                if (x >= ammunition.getX() - (ammunition.getSpriteSizeX()/2 )) {
-                    if (y <= ammunition.getY() + (ammunition.getSpriteSizeY()/2 )) {
-                        if (y >= ammunition.getY() - (ammunition.getSpriteSizeY()/2 )) {
+            if (x <= ammunition.getX() + (ammunition.getSprite().getWidth() / 2)) {
+                if (x >= ammunition.getX() - (ammunition.getSprite().getWidth() / 2)) {
+                    if (y <= ammunition.getY() + (ammunition.getSprite().getHeight() / 2)) {
+                        if (y >= ammunition.getY() - (ammunition.getSprite().getHeight() / 2 )) {
                             return false;
                         }
                     }
@@ -89,10 +84,10 @@ public class HealthOrb extends Entity {
             }
         }
         for (HealthOrb healthOrb : healthOrbs) {
-            if (x <= healthOrb.getX() + (spriteSizeX/2 )) {
-                if (x >= healthOrb.getX() - (spriteSizeX/2 )) {
-                    if (y <= healthOrb.getY() + (spriteSizeY/2 )) {
-                        if (y >= healthOrb.getY() - (spriteSizeY/2 )) {
+            if (x <= healthOrb.getX() + (getSprite().getWidth() / 2)) {
+                if (x >= healthOrb.getX() - (getSprite().getWidth() / 2)) {
+                    if (y <= healthOrb.getY() + (getSprite().getHeight() / 2)) {
+                        if (y >= healthOrb.getY() - (getSprite().getHeight() / 2)) {
                             return false;
                         }
                     }
@@ -102,23 +97,9 @@ public class HealthOrb extends Entity {
         return true;
     }
 
-    private int healthAmount;
-
     @Override
     public void update() {
 
     }
 
-    @Override
-    public Sprite getSprite() {
-        return healthOrbSprite.getSprite();
-    }
-
-    public float getSpriteSizeX() {
-        return spriteSizeX;
-    }
-
-    public float getSpriteSizeY() {
-        return spriteSizeY;
-    }
 }

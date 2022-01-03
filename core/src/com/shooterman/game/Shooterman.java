@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import entities.objects.destructable.Box;
-import entities.objects.destructable.DestructableBox;
+import entities.objects.destructable.DestructibleBox;
 import entities.objects.ground.Ammunition;
 import entities.objects.ground.HealthOrb;
 import entities.objects.weapons.Weapon;
@@ -94,7 +94,7 @@ public class Shooterman extends ApplicationAdapter {
             sprite.setY(box.getY());
             sprite.draw(batch);
         }
-        for (DestructableBox palette : game.getPaletten()) {
+        for (DestructibleBox palette : game.getPaletten()) {
             Sprite sprite = palette.getSprite();
             sprite.setX(palette.getX());
             sprite.setY(palette.getY());
@@ -106,7 +106,7 @@ public class Shooterman extends ApplicationAdapter {
             sprite.setY(weapon.getY());
             sprite.draw(batch);
         }
-        for (Ammunition ammunition : game.getAmmunitions()) {
+        for (Ammunition ammunition : game.getAmmunition()) {
             Sprite sprite = ammunition.getSprite();
             sprite.setX(ammunition.getX());
             sprite.setY(ammunition.getY());
@@ -118,6 +118,13 @@ public class Shooterman extends ApplicationAdapter {
             sprite.setY(healthOrb.getY());
             sprite.draw(batch);
         }
+
+        game.player1Position.setX(game.player1.getHitboxX());
+        game.player1Position.setY(game.player1.getHitboxY());
+        game.player1Position.draw(batch);
+        game.player2Position.setX(game.player2.getHitboxX());
+        game.player2Position.setY(game.player2.getHitboxY());
+        game.player2Position.draw(batch);
     }
 
     private void batchMenu() {
