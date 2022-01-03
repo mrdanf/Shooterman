@@ -2,7 +2,6 @@ package com.shooterman.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -19,10 +18,13 @@ import entities.objects.weapons.Sniperrifle;
 import entities.objects.weapons.Weapon;
 import entities.player.Player;
 import hud.Status;
+import hud.menu.AbstractWindow;
+import hud.menu.buttons.AbstractButton;
+import hud.menu.MenuWindow;
 import entities.projektile.Projektile;
 import funktions.KolisionCheck;
+import hud.menu.buttons.HelpWindow;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 
@@ -41,8 +43,13 @@ public class Shooterman extends ApplicationAdapter {
     ArrayList<Ammunition> ammunitions = new ArrayList<>();
     ArrayList<HealthOrb> healthOrbs = new ArrayList<>();
 
+    AbstractWindow activeWindow;
+    boolean paused = false;
+
     @Override
     public void create() {
+        this.activeWindow = new MenuWindow();
+
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
         camera = new OrthographicCamera(1, h / w);
@@ -99,15 +106,24 @@ public class Shooterman extends ApplicationAdapter {
 
     @Override
     public void render() {
-        updateAll();
-        batch();
-    }
-
-    private void batch() {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+            paused = !paused;
+        }
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         batch.draw(map, 0, 0);
+        if (!paused) {
+            updateAll();
+            batch();
+        } else {
+            updateMenu();
+            batchMenu();
+        }
+        batch.end();
 
+    }
+
+    private void batch() {
         for (Player player : players) {
             Sprite sprite = player.getSprite();
             sprite.setX(player.getX());
@@ -158,7 +174,18 @@ public class Shooterman extends ApplicationAdapter {
             sprite.setY(healthOrb.getY());
             sprite.draw(batch);
         }
-        batch.end();
+    }
+
+    private void batchMenu() {
+        batch.draw(activeWindow.getBackground(), 0 ,0 );
+        batch.draw(activeWindow.getWindow(), activeWindow.getxOffset() , activeWindow.getyOffset());
+        for (AbstractButton button : activeWindow.getButtons()) {
+            batch.draw(button.getBackground(), button.getxPosition(), button.getyPosition());
+            button.getNameLabel().draw(batch, 1);
+        }
+        if (activeWindow instanceof HelpWindow) {
+            ((HelpWindow) activeWindow).getTextLabel().draw(batch, 1);
+        }
     }
 
     private void updateAll() {
@@ -191,7 +218,7 @@ public class Shooterman extends ApplicationAdapter {
             }
 
         }
-        DestructableBox deletpalette=null;
+        DestructableBox deletpalette = null;
         for (DestructableBox palette:paletten) {
             if (palette.getHealth()<=0){
                 deletpalette=palette;
@@ -209,6 +236,26 @@ public class Shooterman extends ApplicationAdapter {
 
         weapons.remove(deleteWeapon);
 
+    }
+
+    private void updateMenu() {
+        String button;
+        if ( (button = activeWindow.update()) != null) {
+            System.out.println(button+ " pressed!");
+            if (button.equals("Hilfe")) {
+                activeWindow = new HelpWindow();
+            }
+            if (button.equals("x")) {
+                if (activeWindow instanceof MenuWindow) {
+                    paused = false;
+                } else {
+                    activeWindow = new MenuWindow();
+                }
+            }
+            if (button.equals("Beenden")) {
+                Gdx.app.exit();
+            }
+        }
     }
 
     @Override
