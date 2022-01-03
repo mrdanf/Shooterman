@@ -1,12 +1,7 @@
 package hud.menu;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
-import hud.menu.buttons.AbstractButton;
-import hud.menu.buttons.CloseButton;
-import hud.menu.buttons.MenuButton;
+import hud.menu.button.MenuButton;
 
 public class MenuWindow extends AbstractWindow {
 

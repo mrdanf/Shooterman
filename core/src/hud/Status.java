@@ -4,33 +4,33 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import entities.objects.weapons.Weapon;
+import entity.object.weapon.Weapon;
 
 public class Status {
-    private final Label PlayerLabel;
+    private final Label playerLabel;
     private final float xPostion;
     private float yPosition = 75;
-    private final  HealthBar healthBar;
+    private final HealthBar healthBar;
     private Label ammoLabel;
     private static final float LABELSIZE = 220f;
 
     public Status(int player) {
         // Screenwidth - (Labelsize*NumberOfPlayers)/2 + LabelSize*(playerNumber-1)
         // TODO get number of players
-        this.xPostion = 570 -((LABELSIZE*2)/2f) + LABELSIZE*(player-1);
+        this.xPostion = 570 - ((LABELSIZE * 2) / 2f) + LABELSIZE * (player - 1);
 
         Label.LabelStyle ls = new Label.LabelStyle();
         ls.font = new BitmapFont(Gdx.files.internal("msJhengHei.fnt"));
 
-        PlayerLabel = new Label("Spieler "+player, ls);
-        PlayerLabel.setSize(0, 0);
-        PlayerLabel.setPosition(xPostion, yPosition);
+        playerLabel = new Label("Spieler " + player, ls);
+        playerLabel.setSize(0, 0);
+        playerLabel.setPosition(xPostion, yPosition);
 
         healthBar = new HealthBar(100);
 
         ammoLabel = new Label("0", ls);
-        ammoLabel.setPosition(xPostion, yPosition-50);
-        ammoLabel.setSize(0,0);
+        ammoLabel.setPosition(xPostion, yPosition - 50);
+        ammoLabel.setSize(0, 0);
         ammoLabel.setFontScale(0.8f);
 
     }
@@ -40,7 +40,7 @@ public class Status {
     }
 
     public Label getPlayerLabel() {
-        return PlayerLabel;
+        return playerLabel;
     }
 
     public Texture[] getHealthBar() {
@@ -58,16 +58,16 @@ public class Status {
         if (health > 0) {
             ammoLabel.setText(activeWeapon.getCurrentAmmunition() + " / " + total);
         } else {
-            yPosition = 80-35;
+            yPosition = 80 - 35;
             ammoLabel.setText("  DEAD");
         }
     }
 
-    public float getxPostion() {
+    public float getXPostion() {
         return xPostion;
     }
 
-    public float getyPosition() {
+    public float getYPosition() {
         return yPosition;
     }
 }

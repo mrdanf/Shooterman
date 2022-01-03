@@ -3,30 +3,30 @@ package com.shooterman.game;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import entities.objects.destructable.Box;
-import entities.objects.destructable.DestructibleBox;
-import entities.objects.ground.Ammunition;
-import entities.objects.ground.HealthOrb;
-import entities.objects.weapons.Assaultrifle;
-import entities.objects.weapons.Shotgun;
-import entities.objects.weapons.Sniperrifle;
-import entities.objects.weapons.Weapon;
-import entities.player.Player;
-import entities.projektile.Projektile;
-import funktions.KolisionCheck;
+import entity.object.obstacle.Box;
+import entity.object.obstacle.DestructibleBox;
+import entity.object.ground.Ammunition;
+import entity.object.ground.HealthOrb;
+import entity.object.weapon.Assaultrifle;
+import entity.object.weapon.Shotgun;
+import entity.object.weapon.Sniperrifle;
+import entity.object.weapon.Weapon;
+import entity.player.Player;
+import entity.projectile.Projectile;
+import function.CollisionCheck;
 
 import java.util.ArrayList;
 
 public class Game {
-    Player player1;
+    Player player1; // TODO: jetzt nicht private wegen debugging
     Player player2;
-    ArrayList<Player> players = new ArrayList<>();
-    ArrayList<Box> boxes = new ArrayList<>();
-    ArrayList<DestructibleBox> paletten = new ArrayList<>();
-    ArrayList<Weapon> weapons = new ArrayList<>();
-    ArrayList<Ammunition> ammunition = new ArrayList<>();
-    ArrayList<HealthOrb> healthOrbs = new ArrayList<>();
-    KolisionCheck kolisionCheck = new KolisionCheck();
+    private ArrayList<Player> players = new ArrayList<>();
+    private ArrayList<Box> boxes = new ArrayList<>();
+    private ArrayList<DestructibleBox> destructibleBoxes = new ArrayList<>();
+    private ArrayList<Weapon> weapons = new ArrayList<>();
+    private ArrayList<Ammunition> ammunitions = new ArrayList<>();
+    private ArrayList<HealthOrb> healthOrbs = new ArrayList<>();
+    private CollisionCheck collisionCheck = new CollisionCheck();
 
     // TODO TEST
     Sprite player1Position;
@@ -41,19 +41,19 @@ public class Game {
         players.add(player1);
         players.add(player2);
 
-        for (int i = 0; i <3; i++) {
+        for (int i = 0; i < 3; i++) {
             boxes.add(new Box());
         }
         for (int i = 0; i < 6; i++) {
             String texturePath;
             if (i % 2 == 0) {
                 texturePath = "palette.png";
-                paletten.add(new DestructibleBox(new Texture(texturePath)));
-                paletten.get(i).setScale(2f);
+                destructibleBoxes.add(new DestructibleBox(new Texture(texturePath)));
+                destructibleBoxes.get(i).setScale(2f);
             } else {
                 texturePath = "Palettemitkartons.png";
-                paletten.add(new DestructibleBox(new Texture(texturePath)));
-                paletten.get(i).setScale(1f);
+                destructibleBoxes.add(new DestructibleBox(new Texture(texturePath)));
+                destructibleBoxes.get(i).setScale(1f);
             }
 
             // TODO: Besser ist es beide Bilddateien gleich groß zu skalieren und nur noch eine Methode aufzurufen: paletten.add(new DestructibleBox(new Texture(texturePath)));
@@ -61,33 +61,33 @@ public class Game {
         for (Box box : boxes) {
             box.randomPosition(boxes);
         }
-        for (DestructibleBox palette : paletten) {
-            palette.randomPosition(boxes,paletten);
+        for (DestructibleBox destructibleBox : destructibleBoxes) {
+            destructibleBox.randomPosition(boxes, destructibleBoxes);
         }
 
         // Create weapons on start
         weapons.add(new Assaultrifle());
         weapons.add(new Shotgun());
         weapons.add(new Sniperrifle());
-        ammunition.add(new Ammunition());
+        ammunitions.add(new Ammunition());
         healthOrbs.add(new HealthOrb());
 
         for (Weapon weapon : weapons) {
-            weapon.randomPosition(boxes, paletten, weapons);
+            weapon.randomPosition(boxes, destructibleBoxes, weapons);
         }
-        for (Ammunition ammunition : ammunition) {
-            ammunition.randomPosition(boxes, paletten,weapons, this.ammunition);
+        for (Ammunition ammunition : ammunitions) {
+            ammunition.randomPosition(boxes, destructibleBoxes, weapons, this.ammunitions);
         }
         for (HealthOrb healthOrb : healthOrbs) {
-            healthOrb.randomPosition(boxes, paletten,weapons, ammunition,healthOrbs);
+            healthOrb.randomPosition(boxes, destructibleBoxes, weapons, ammunitions, healthOrbs);
         }
 
         for (Player player : players) {
             player.setPlayers(players);
             player.setBoxes(boxes);
-            player.setPaletten(paletten);
+            player.setDestructibleBoxes(destructibleBoxes);
             player.setWeapons(weapons);
-            player.setAmmoBoxes(ammunition);
+            player.setAmmoBoxes(ammunitions);
             player.setHealthBoxes(healthOrbs);
         }
 
@@ -96,42 +96,45 @@ public class Game {
     }
 
     public void update() {
-        Projektile delete = null;
         for (Player player : players) {
             player.update();
         }
+
+        Projectile deleteProjectile = null;
         for (Player player : players) {
-            for (Projektile projektile : player.getProjektileArrayList()) {
-                projektile.update();
-                if (projektile.isDeleteble()) {
-                    delete = projektile;
+            for (Projectile projectile : player.getProjectiles()) {
+                projectile.update();
+                if (projectile.isDeletable()) {
+                    deleteProjectile = projectile;
                 }
             }
-            if (delete != null) {
-                player.getProjektileArrayList().remove(delete);
+            if (deleteProjectile != null) {
+                player.getProjectiles().remove(deleteProjectile);
             }
-            delete = kolisionCheck.hitCheck(players);
-            if (delete != null) {
-                player.getProjektileArrayList().remove(delete);
+            deleteProjectile = collisionCheck.hitCheck(players);
+            if (deleteProjectile != null) {
+                player.getProjectiles().remove(deleteProjectile);
             }
-            delete = kolisionCheck.hitCheck(boxes, players);
-            if (delete != null) {
-                player.getProjektileArrayList().remove(delete);
+            deleteProjectile = collisionCheck.hitCheck(boxes, players);
+            if (deleteProjectile != null) {
+                player.getProjectiles().remove(deleteProjectile);
             }
-            delete = kolisionCheck.hitCheckpalette(paletten, players);
-            if (delete != null) {
-                player.getProjektileArrayList().remove(delete);
+            deleteProjectile = collisionCheck.hitCheckDestructibleBox(destructibleBoxes, players);
+            if (deleteProjectile != null) {
+                player.getProjectiles().remove(deleteProjectile);
             }
 
         }
-        DestructibleBox deletpalette = null;
-        for (DestructibleBox palette:paletten) {
-            if (palette.getHealth()<=0){
-                deletpalette=palette;
+
+        DestructibleBox deleteDestructibleBox = null;
+        for (DestructibleBox destructibleBox : destructibleBoxes) {
+            if (destructibleBox.getHealth() <= 0) {
+                deleteDestructibleBox = destructibleBox;
             }
         }
-        if (deletpalette != null) {
-            paletten.remove(deletpalette);}
+        if (deleteDestructibleBox != null) {
+            destructibleBoxes.remove(deleteDestructibleBox);
+        }
 
         Weapon deleteWeapon = null;
         for (Weapon weapon : weapons) {
@@ -151,8 +154,8 @@ public class Game {
         return boxes;
     }
 
-    public ArrayList<DestructibleBox> getPaletten() {
-        return paletten;
+    public ArrayList<DestructibleBox> getDestructibleBoxes() {
+        return destructibleBoxes;
     }
 
     public ArrayList<HealthOrb> getHealthOrbs() {
@@ -163,7 +166,7 @@ public class Game {
         return weapons;
     }
 
-    public ArrayList<Ammunition> getAmmunition() {
-        return ammunition;
+    public ArrayList<Ammunition> getAmmunitions() {
+        return ammunitions;
     }
 }

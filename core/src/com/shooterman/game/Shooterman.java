@@ -8,26 +8,26 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import entities.objects.destructable.Box;
-import entities.objects.destructable.DestructibleBox;
-import entities.objects.ground.Ammunition;
-import entities.objects.ground.HealthOrb;
-import entities.objects.weapons.Weapon;
-import entities.player.Player;
+import entity.object.obstacle.Box;
+import entity.object.obstacle.DestructibleBox;
+import entity.object.ground.Ammunition;
+import entity.object.ground.HealthOrb;
+import entity.object.weapon.Weapon;
+import entity.player.Player;
 import hud.Status;
 import hud.menu.AbstractWindow;
-import hud.menu.buttons.AbstractButton;
+import hud.menu.button.AbstractButton;
 import hud.menu.MenuWindow;
-import entities.projektile.Projektile;
-import hud.menu.buttons.HelpWindow;
+import entity.projectile.Projectile;
+import hud.menu.button.HelpWindow;
 
 
 public class Shooterman extends ApplicationAdapter {
-    SpriteBatch batch;
-    Texture map;
-    OrthographicCamera camera;
-    Sprite sprite;
-    Game game;
+    private SpriteBatch batch;
+    private Texture map;
+    private OrthographicCamera camera;
+    private Sprite mapSprite;
+    private Game game;
 
     AbstractWindow activeWindow;
     boolean paused = false;
@@ -41,9 +41,9 @@ public class Shooterman extends ApplicationAdapter {
         camera = new OrthographicCamera(1, h / w);
         batch = new SpriteBatch();
         map = new Texture("Spielfeld.png");
-        sprite = new Sprite(TextureRegion.split(map, map.getWidth(), map.getHeight())[0][0]);
-        camera.position.x = sprite.getX() + sprite.getOriginX();
-        camera.position.y = sprite.getY() + sprite.getOriginY();
+        mapSprite = new Sprite(TextureRegion.split(map, map.getWidth(), map.getHeight())[0][0]);
+        camera.position.x = mapSprite.getX() + mapSprite.getOriginX();
+        camera.position.y = mapSprite.getY() + mapSprite.getOriginY();
         camera.zoom = 1000f; // Je größer der Zoom, desto weiterweg ist die Kamera
     }
 
@@ -75,16 +75,17 @@ public class Shooterman extends ApplicationAdapter {
             sprite.draw(batch);
 
             Status status = player.getStatus();
-            status.getPlayerLabel().draw(batch,1 );
-            batch.draw(status.getHealthBar()[0], status.getxPostion(), status.getyPosition()-35);
-            batch.draw(status.getHealthBar()[1], status.getxPostion(), status.getyPosition()-35);
-            status.getAmmoLabel().draw(batch,1 );
+            status.getPlayerLabel().draw(batch, 1);
+            batch.draw(status.getHealthBar()[0], status.getXPostion(), status.getYPosition() - 35);
+            batch.draw(status.getHealthBar()[1], status.getXPostion(), status.getYPosition() - 35);
+            status.getAmmoLabel().draw(batch, 1);
         }
+
         for (Player player : game.getPlayers()) {
-            for (Projektile projektile : player.getProjektileArrayList()) {
-                Sprite sprite = projektile.getSprite();
-                sprite.setX(projektile.getX());
-                sprite.setY(projektile.getY());
+            for (Projectile projectile : player.getProjectiles()) {
+                Sprite sprite = projectile.getSprite();
+                sprite.setX(projectile.getX());
+                sprite.setY(projectile.getY());
                 sprite.draw(batch);
             }
         }
@@ -94,11 +95,12 @@ public class Shooterman extends ApplicationAdapter {
             sprite.setY(box.getY());
             sprite.draw(batch);
         }
-        for (DestructibleBox palette : game.getPaletten()) {
-            Sprite sprite = palette.getSprite();
-            sprite.setX(palette.getX());
-            sprite.setY(palette.getY());
-            sprite.draw(batch);}
+        for (DestructibleBox destructibleBox : game.getDestructibleBoxes()) {
+            Sprite sprite = destructibleBox.getSprite();
+            sprite.setX(destructibleBox.getX());
+            sprite.setY(destructibleBox.getY());
+            sprite.draw(batch);
+        }
 
         for (Weapon weapon : game.getWeapons()) {
             Sprite sprite = weapon.getSprite();
@@ -106,7 +108,7 @@ public class Shooterman extends ApplicationAdapter {
             sprite.setY(weapon.getY());
             sprite.draw(batch);
         }
-        for (Ammunition ammunition : game.getAmmunition()) {
+        for (Ammunition ammunition : game.getAmmunitions()) {
             Sprite sprite = ammunition.getSprite();
             sprite.setX(ammunition.getX());
             sprite.setY(ammunition.getY());
@@ -128,8 +130,8 @@ public class Shooterman extends ApplicationAdapter {
     }
 
     private void batchMenu() {
-        batch.draw(activeWindow.getBackground(), 0 ,0 );
-        batch.draw(activeWindow.getWindow(), activeWindow.getxOffset() , activeWindow.getyOffset());
+        batch.draw(activeWindow.getBackground(), 0, 0);
+        batch.draw(activeWindow.getWindow(), activeWindow.getxOffset(), activeWindow.getyOffset());
         for (AbstractButton button : activeWindow.getButtons()) {
             batch.draw(button.getBackground(), button.getxPosition(), button.getyPosition());
             button.getNameLabel().draw(batch, 1);
@@ -140,11 +142,10 @@ public class Shooterman extends ApplicationAdapter {
     }
 
 
-
     private void updateMenu() {
         String button;
-        if ( (button = activeWindow.update()) != null) {
-            System.out.println(button+ " pressed!");
+        if ((button = activeWindow.update()) != null) {
+            System.out.println(button + " pressed!");
             if (button.equals("Hilfe")) {
                 activeWindow = new HelpWindow();
             }
