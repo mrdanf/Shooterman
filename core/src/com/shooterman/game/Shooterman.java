@@ -2,6 +2,7 @@ package com.shooterman.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -43,6 +44,7 @@ public class Shooterman extends ApplicationAdapter {
     ArrayList<HealthOrb> healthOrbs = new ArrayList<>();
 
     AbstractWindow activeWindow;
+    boolean paused = false;
 
     @Override
     public void create() {
@@ -104,15 +106,24 @@ public class Shooterman extends ApplicationAdapter {
 
     @Override
     public void render() {
-        updateAll();
-        batch();
-    }
-
-    private void batch() {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+            paused = !paused;
+        }
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         batch.draw(map, 0, 0);
+        if (!paused) {
+            updateAll();
+            batch();
+        } else {
+            updateMenu();
+            batchMenu();
+        }
+        batch.end();
 
+    }
+
+    private void batch() {
         for (Player player : players) {
             Sprite sprite = player.getSprite();
             sprite.setX(player.getX());
@@ -163,6 +174,9 @@ public class Shooterman extends ApplicationAdapter {
             sprite.setY(healthOrb.getY());
             sprite.draw(batch);
         }
+    }
+
+    private void batchMenu() {
         batch.draw(activeWindow.getBackground(), 0 ,0 );
         batch.draw(activeWindow.getWindow(), activeWindow.getxOffset() , activeWindow.getyOffset());
         for (AbstractButton button : activeWindow.getButtons()) {
@@ -172,7 +186,6 @@ public class Shooterman extends ApplicationAdapter {
         if (activeWindow instanceof HelpWindow) {
             ((HelpWindow) activeWindow).getTextLabel().draw(batch, 1);
         }
-        batch.end();
     }
 
     private void updateAll() {
@@ -223,6 +236,9 @@ public class Shooterman extends ApplicationAdapter {
 
         weapons.remove(deleteWeapon);
 
+    }
+
+    private void updateMenu() {
         String button;
         if ( (button = activeWindow.update()) != null) {
             System.out.println(button+ " pressed!");
@@ -231,7 +247,7 @@ public class Shooterman extends ApplicationAdapter {
             }
             if (button.equals("x")) {
                 if (activeWindow instanceof MenuWindow) {
-                    System.out.println("FENSTER SCHLIEßEN");
+                    paused = false;
                 } else {
                     activeWindow = new MenuWindow();
                 }
