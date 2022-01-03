@@ -48,6 +48,14 @@ public abstract class AnimatingEntity extends NonVisualEntity {
         sprite = new Sprite(regions[0][0]);
     }
 
+    public float getWidth() {
+        return sprite.getWidth();
+    }
+
+    public float getHeight() {
+        return sprite.getHeight();
+    }
+
     @Override
     public void setX(float x) {
         super.setX(x);
@@ -59,4 +67,13 @@ public abstract class AnimatingEntity extends NonVisualEntity {
         super.setY(y);
         sprite.setY(y);
     }
+
+    public float getHitboxX() {
+        return sprite.getBoundingRectangle().getX();
+    }
+
+    public float getHitboxY() {
+        return sprite.getBoundingRectangle().getY();
+    }
+
 }
