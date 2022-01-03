@@ -40,7 +40,7 @@ public class Shooterman extends ApplicationAdapter {
         float h = Gdx.graphics.getHeight();
         camera = new OrthographicCamera(1, h / w);
         batch = new SpriteBatch();
-        map = new Texture("Spielfeld.png");
+        map = new Texture("map/Spielfeld.png");
         mapSprite = new Sprite(TextureRegion.split(map, map.getWidth(), map.getHeight())[0][0]);
         camera.position.x = mapSprite.getX() + mapSprite.getOriginX();
         camera.position.y = mapSprite.getY() + mapSprite.getOriginY();

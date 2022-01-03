@@ -11,9 +11,9 @@ public class DesktopLauncher {
 		config.title = "Shooterman";
 		config.width = 950;
 		config.height = 950;
-		config.addIcon("128x128.png", Files.FileType.Internal);
-		config.addIcon("32x32.png", Files.FileType.Internal);
-		config.addIcon("16x16.png", Files.FileType.Internal);
+		config.addIcon("logo/128x128.png", Files.FileType.Internal);
+		config.addIcon("logo/32x32.png", Files.FileType.Internal);
+		config.addIcon("logo/16x16.png", Files.FileType.Internal);
 		new LwjglApplication(new Shooterman(), config);
 	}
 }

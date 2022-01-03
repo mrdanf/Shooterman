@@ -86,8 +86,7 @@ public class PlayerMovement {
         // Waffe aufheben
         if (Gdx.input.isKeyJustPressed(player.getPlayerInput().get(Input.PICK_UP))) {
             // TODO setSprite wieder rausnehmen
-            player.setSprite(new Texture("player2WalkAnimation.png"), 6, 1);
-            player.setScale(0.5f);
+            player.setSprite(new Texture("spieler/Spieler1AKLaufenNeu.png"), 6, 1);
             // TODO END
             for (Weapon weapon : weapons) {
                 if (collisionCheck.playerCheckWeapon(playerX, playerY, weapon)) {

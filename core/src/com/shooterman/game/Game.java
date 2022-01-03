@@ -34,10 +34,8 @@ public class Game {
     // TODO TEST END
 
     public Game() {
-        player1 = new Player(100, 1, 100f, 800f, new Texture("player1WalkAnimation.png"));
-        player1.setScale(0.5f);
-        player2 = new Player(100, 2, 800f, 100f, new Texture("player2WalkAnimation.png"));
-        player2.setScale(0.5f);
+        player1 = new Player(100, 1, 100f, 800f, new Texture("spieler/Spieler1PistoleLaufenNeu.png"));
+        player2 = new Player(100, 2, 800f, 100f, new Texture("spieler/Spieler2PistoleLaufenNeu.png"));
         players.add(player1);
         players.add(player2);
 
@@ -47,11 +45,11 @@ public class Game {
         for (int i = 0; i < 6; i++) {
             String texturePath;
             if (i % 2 == 0) {
-                texturePath = "palette.png";
+                texturePath = "hindernis/palette.png";
                 destructibleBoxes.add(new DestructibleBox(new Texture(texturePath)));
                 destructibleBoxes.get(i).setScale(2f);
             } else {
-                texturePath = "Palettemitkartons.png";
+                texturePath = "hindernis/Palettemitkartons.png";
                 destructibleBoxes.add(new DestructibleBox(new Texture(texturePath)));
                 destructibleBoxes.get(i).setScale(1f);
             }

@@ -8,7 +8,7 @@ public class ProjectileSprites {
     private Sprite sprite;
 
     public void Sprite(Projectile projectile) {
-        sprite = new Sprite(new Texture("PistolenSchuss.png"));
+        sprite = new Sprite(new Texture("projektil/PistolenSchuss.png"));
         sprite.setScale(0.3f);
 
         projectile.setSprite(sprite);

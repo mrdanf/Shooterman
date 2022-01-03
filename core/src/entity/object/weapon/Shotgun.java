@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class Shotgun extends Weapon {
 
-    public static final String spriteName = "PumpgunKiste30x60.png";
+    public static final String spriteName = "item/PumpgunKiste30x60.png";
 
     public Shotgun() {
         super(35, 20, 10, 15, 3f, new Texture(spriteName));

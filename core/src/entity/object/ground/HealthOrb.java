@@ -14,7 +14,7 @@ public class HealthOrb extends VisualEntity {
     private int healthAmount;
 
     public HealthOrb() {
-        super(0, 0, new Texture("HealthBox.png"));
+        super(0, 0, new Texture("item/HealthBox.png"));
     }
 
     public void randomPosition(ArrayList<Box> boxes, ArrayList<DestructibleBox> destructibleBoxes, ArrayList<Weapon> weapons,
