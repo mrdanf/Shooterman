@@ -13,7 +13,6 @@ public class Projectile extends VisualEntity {
     private Player player;
     private float speed = 5f;
     private int direction;
-    private float rotation;
     private boolean deletable = false;
 
     public Projectile(int direction, float rotation, float x, float y, Player player, Texture texture) {
@@ -21,8 +20,8 @@ public class Projectile extends VisualEntity {
         setX(x);
         setY(y);
         this.direction = direction;
-        this.rotation = rotation;
         this.player = player;
+        sprite.setRotation(rotation);
     }
 
     @Override
@@ -30,62 +29,54 @@ public class Projectile extends VisualEntity {
         float projectileX = getX();
         float projectileY = getY();
         //Nach oben gehen
-        if (direction == 0) {
+        if (direction == ProjectileDirection.UP) {
             setY(getY() + speed);
             projectileY = getY();
-            sprite.setRotation(0f);
         }
         //Nach links gehen
-        if (direction == 1) {
+        if (direction == ProjectileDirection.LEFT) {
             setX(getX() - speed);
             projectileX = getX();
-            sprite.setRotation(90f);
         }
         //Nach unten gehen
-        if (direction == 2) {
+        if (direction == ProjectileDirection.DOWN) {
             setY(getY() - speed);
             projectileY = getY();
-            sprite.setRotation(180f);
         }
         //Nach rechts gehen
-        if (direction == 3) {
+        if (direction == ProjectileDirection.RIGHT) {
             setX(getX() + speed);
             projectileX = getX();
-            sprite.setRotation(270f);
         }
         //Oben Links
-        if (direction == 4) {
+        if (direction == ProjectileDirection.UP_LEFT) {
             setY(getY() + speed);
             setX(getX() - speed);
             projectileX = getX();
             projectileY = getY();
-            sprite.setRotation(45f);
         }
         // Unten Links
-        if (direction == 5) {
+        if (direction == ProjectileDirection.DOWN_LEFT) {
             setY(getY() - speed);
             setX(getX() - speed);
             projectileX = getX();
             projectileY = getY();
-            sprite.setRotation(135f);
 
         }
         // Unten Rechts
-        if (direction == 6) {
+        if (direction == ProjectileDirection.DOWN_RIGHT) {
             setY(getY() - speed);
             setX(getX() + speed);
             projectileX = getX();
             projectileY = getY();
-            sprite.setRotation(225f);
 
         }
         //Oben Rechts
-        if (direction == 7) {
+        if (direction == ProjectileDirection.UP_RIGHT) {
             setY(getY() + speed);
             setX(getX() + speed);
             projectileX = getX();
             projectileY = getY();
-            sprite.setRotation(315f);
         }
 
         if (!collisionCheck.wallCheck(projectileX, projectileY)) {
