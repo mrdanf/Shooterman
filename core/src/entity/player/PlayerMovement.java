@@ -15,8 +15,10 @@ public class PlayerMovement {
 
     public void move(Player player, ArrayList<Player> players, ArrayList<Box> boxes,
                      ArrayList<DestructibleBox> destructibleBoxes, ArrayList<Weapon> weapons) {
-        float playerX = player.getX();
-        float playerY = player.getY();
+        float oldX = player.getX();
+        float oldY = player.getY();
+        float playerX = oldX;
+        float playerY = oldY;
         //Oben Links
         if (Gdx.input.isKeyPressed(player.getPlayerInput().get(Input.MOVE_UP)) && Gdx.input.isKeyPressed(player.getPlayerInput().get(Input.MOVE_LEFT))) {
             player.setViewDirection(4);
@@ -73,14 +75,19 @@ public class PlayerMovement {
         if (Gdx.input.isKeyPressed(player.getPlayerInput().get(Input.SHOOT))) {
             player.Shoot();
         }
-        if (collisionCheck.wallCheck(playerY) && collisionCheck.wallCheck(playerX) && collisionCheck.playerCheck(playerX,
+        player.setX(playerX);
+        player.setY(playerY);
+        if (!(collisionCheck.wallCheck(playerY) && collisionCheck.wallCheck(playerX) && collisionCheck.playerCheck(playerX,
                 playerY, player,
-                players)) {
-            if (collisionCheck.playerCheckBox(playerX, playerY, boxes) && collisionCheck.playerCheckDestructibleBox(playerX, playerY, destructibleBoxes)) {
-                player.setX(playerX);
-                player.setY(playerY);
-            }
+                players))) {
+            player.setX(oldX);
+            player.setY(oldY);
+        } else if (!(collisionCheck.playerCheckBox(player, boxes) && collisionCheck.playerCheckDestructibleBox(playerX,
+                playerY, destructibleBoxes))) {
+            player.setX(oldX);
+            player.setY(oldY);
         }
+
 
         // TODO: eventuell besser mit X / Y von BoundingRectangle arbeiten
         /*

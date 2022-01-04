@@ -9,7 +9,7 @@ public class DestructibleBox extends VisualEntity {
     private int health = 100;
 
     public DestructibleBox(Texture texture) {
-        super(0, 0, texture);
+        super(0, 0, texture, 80, 80);
     }
 
     public void randomPosition(ArrayList<Box> boxes, ArrayList<DestructibleBox> destructibleBoxes) {

@@ -101,9 +101,9 @@ public class CollisionCheck {
      * @param boxes
      * @return
      */
-    public boolean playerCheckBox(float playerX, float playerY, ArrayList<Box> boxes) {
+    public boolean playerCheckBox(Player player, ArrayList<Box> boxes) {
         for (Box box : boxes) {
-            if (mathCheckBox(playerX, playerY, box)) {
+            if (box.isColliding(player)) {
                 return false;
             }
         }
@@ -137,11 +137,10 @@ public class CollisionCheck {
         return false;
         */
 
-
         if (playerX >= box.getX() - box.getSprite().getWidth()) {
             if (playerX <= box.getX() + box.getSprite().getWidth()) {
                 if (playerY >= box.getY() - box.getSprite().getHeight()) {
-                    if (playerY <= box.getY() + box.getSprite().getHeight() / 2) {
+                    if (playerY <= box.getY() + box.getSprite().getHeight()) {
                         return true;
                     }
                 }
@@ -171,7 +170,7 @@ public class CollisionCheck {
         if (projectile.getX() >= box.getX() - box.getSprite().getWidth()) {
             if (projectile.getX() <= box.getX() + box.getSprite().getWidth()) {
                 if (projectile.getY() >= box.getY() - box.getSprite().getHeight()) {
-                    if (projectile.getY() <= box.getY() + box.getSprite().getHeight() / 2) {
+                    if (projectile.getY() <= box.getY() + box.getSprite().getHeight()) {
                         return true;
                     }
                 }
@@ -203,7 +202,7 @@ public class CollisionCheck {
         if (X >= destructibleBox.getX() - destructibleBox.getSprite().getWidth()) {
             if (X <= destructibleBox.getX() + destructibleBox.getSprite().getWidth()) {
                 if (Y >= destructibleBox.getY() - destructibleBox.getSprite().getHeight()) {
-                    if (Y <= destructibleBox.getY() + destructibleBox.getSprite().getHeight() / 2) {
+                    if (Y <= destructibleBox.getY() + destructibleBox.getSprite().getHeight()) {
                         return true;
                     }
                 }
@@ -232,7 +231,7 @@ public class CollisionCheck {
         if (projectile.getX() >= destructibleBox.getX() - destructibleBox.getSprite().getWidth()) {
             if (projectile.getX() <= destructibleBox.getX() + destructibleBox.getSprite().getWidth()) {
                 if (projectile.getY() >= destructibleBox.getY() - destructibleBox.getSprite().getHeight()) {
-                    if (projectile.getY() <= destructibleBox.getY() + destructibleBox.getSprite().getHeight() / 2) {
+                    if (projectile.getY() <= destructibleBox.getY() + destructibleBox.getSprite().getHeight()) {
                         return true;
                     }
                 }
@@ -254,7 +253,7 @@ public class CollisionCheck {
         if (X >= weapon.getX() - weapon.getSprite().getWidth()) {
             if (X <= weapon.getX() + weapon.getSprite().getWidth()) {
                 if (Y >= weapon.getY() - weapon.getSprite().getHeight()) {
-                    if (Y <= weapon.getY() + weapon.getSprite().getHeight() / 2) {
+                    if (Y <= weapon.getY() + weapon.getSprite().getHeight()) {
                         return true;
                     }
                 }

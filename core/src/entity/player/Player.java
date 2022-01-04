@@ -15,6 +15,7 @@ import entity.projectile.Projectile;
 import java.util.ArrayList;
 
 
+
 public class Player extends AnimatingEntity {
     private PlayerMovement move = new PlayerMovement();
     private int health;
@@ -36,9 +37,12 @@ public class Player extends AnimatingEntity {
     private Weapon weapon2;
     private Weapon activeWeapon;
 
+    private float width = 25;
+    private float height = 180;
+
 
     public Player(int health, int playerNumber, float startX, float startY, Texture texture) {
-        super(startX, startY, texture, 6, 1);
+        super(startX, startY, 35, 35, texture, 6, 1);
         this.health = health;
         this.alive = true;
         this.playerNumber = playerNumber;
@@ -86,6 +90,11 @@ public class Player extends AnimatingEntity {
             playerInput.add(Input.Keys.O);
             playerInput.add(Input.Keys.NUM_7);
         }
+    }
+
+    @Override
+    public void updateHitbox() {
+        hitbox.setPosition(x + 5, y + 20);
     }
 
     @Override

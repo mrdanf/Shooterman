@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Box extends VisualEntity {
 
     public Box() {
-        super(0, 0, new Texture("hindernis/Sandsacke.png"));
+        super(0, 0, new Texture("hindernis/Sandsacke.png"), 80, 80);
     }
 
     public void randomPosition(ArrayList<Box> boxes) {

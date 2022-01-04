@@ -12,7 +12,7 @@ import java.util.Random;
 public class Ammunition extends VisualEntity {
 
     public Ammunition() {
-        super(0, 0, new Texture("item/AmmoBox.png"));
+        super(0, 0, new Texture("item/AmmoBox.png"), 50, 50);
     }
 
     public void randomPosition(ArrayList<Box> boxes, ArrayList<DestructibleBox> destructibleBoxes, ArrayList<Weapon> weapons,

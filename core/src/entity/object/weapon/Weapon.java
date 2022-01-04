@@ -24,7 +24,7 @@ public abstract class Weapon extends VisualEntity {
 
     public Weapon(int power, int totalAmmunition, int magazineSize, int roundsPerMinute, float reloadTime,
                   Texture texture) {
-        super(texture);
+        super(texture, 60, 120);
         this.power = power;
         this.totalAmmunition = totalAmmunition;
         this.magazineSize = magazineSize;
