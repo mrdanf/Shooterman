@@ -4,6 +4,7 @@ package com.shooterman.game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import entity.VisualEntity;
+import entity.object.ground.Item;
 import entity.object.obstacle.Box;
 import entity.object.obstacle.DestructibleBox;
 import entity.object.ground.Ammunition;
@@ -25,8 +26,7 @@ public class Game {
     private ArrayList<Box> boxes = new ArrayList<>();
     private ArrayList<DestructibleBox> destructibleBoxes = new ArrayList<>();
     private ArrayList<Weapon> weapons = new ArrayList<>();
-    private ArrayList<Ammunition> ammunitions = new ArrayList<>();
-    private ArrayList<HealthOrb> healthOrbs = new ArrayList<>();
+    private ArrayList<Item> items = new ArrayList<>();
     private CollisionCheck collisionCheck = new CollisionCheck();
 
     // TODO TEST
@@ -79,17 +79,14 @@ public class Game {
         weapons.add(new Assaultrifle());
         weapons.add(new Shotgun());
         weapons.add(new Sniperrifle());
-        ammunitions.add(new Ammunition());
-        healthOrbs.add(new HealthOrb());
+        items.add(new Ammunition());
+        items.add(new HealthOrb());
 
         for (Weapon weapon : weapons) {
             weapon.randomPosition(boxes, destructibleBoxes, weapons);
         }
-        for (Ammunition ammunition : ammunitions) {
-            ammunition.randomPosition(boxes, destructibleBoxes, weapons, this.ammunitions);
-        }
-        for (HealthOrb healthOrb : healthOrbs) {
-            healthOrb.randomPosition(boxes, destructibleBoxes, weapons, ammunitions, healthOrbs);
+        for (Item item : items) {
+            item.randomPosition(boxes, destructibleBoxes, weapons, items);
         }
 
         for (Player player : players) {
@@ -97,8 +94,7 @@ public class Game {
             player.setBoxes(boxes);
             player.setDestructibleBoxes(destructibleBoxes);
             player.setWeapons(weapons);
-            player.setAmmoBoxes(ammunitions);
-            player.setHealthBoxes(healthOrbs);
+            player.setItems(items);
         }
 
         player1Position = new Sprite(new Texture("roter_Punkt.png"));
@@ -156,6 +152,15 @@ public class Game {
         }
 
         weapons.remove(deleteWeapon);
+
+        Item deleteItem = null;
+        for (Item item : items) {
+            if (!item.isOnGround()) {
+                deleteItem = item;
+            }
+        }
+
+        items.remove(deleteItem);
     }
 
     public ArrayList<Player> getPlayers() {
@@ -170,15 +175,12 @@ public class Game {
         return destructibleBoxes;
     }
 
-    public ArrayList<HealthOrb> getHealthOrbs() {
-        return healthOrbs;
+    public ArrayList<Item> getItems() {
+        return items;
     }
 
     public ArrayList<Weapon> getWeapons() {
         return weapons;
     }
 
-    public ArrayList<Ammunition> getAmmunitions() {
-        return ammunitions;
-    }
 }

@@ -1,6 +1,7 @@
 package function;
 
 import entity.VisualEntity;
+import entity.object.ground.Item;
 import entity.object.obstacle.DestructibleBox;
 import entity.object.weapon.Weapon;
 import entity.player.Player;
@@ -81,4 +82,12 @@ public class CollisionCheck {
         return false;
     }
 
+
+    public boolean playerInPickUpRange(Player player, Item item) {
+        if (item.isColliding(player)) {
+            return true;
+        }
+
+        return false;
+    }
 }

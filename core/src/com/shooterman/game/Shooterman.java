@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import entity.object.ground.Item;
 import entity.object.obstacle.Box;
 import entity.object.obstacle.DestructibleBox;
 import entity.object.ground.Ammunition;
@@ -87,16 +88,10 @@ public class Shooterman extends ApplicationAdapter {
             sprite.setY(weapon.getY());
             sprite.draw(batch);
         }
-        for (Ammunition ammunition : game.getAmmunitions()) {
-            Sprite sprite = ammunition.getSprite();
-            sprite.setX(ammunition.getX());
-            sprite.setY(ammunition.getY());
-            sprite.draw(batch);
-        }
-        for (HealthOrb healthOrb : game.getHealthOrbs()) {
-            Sprite sprite = healthOrb.getSprite();
-            sprite.setX(healthOrb.getX());
-            sprite.setY(healthOrb.getY());
+        for (Item item : game.getItems()) {
+            Sprite sprite = item.getSprite();
+            sprite.setX(item.getX());
+            sprite.setY(item.getY());
             sprite.draw(batch);
         }
 

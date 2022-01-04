@@ -191,4 +191,8 @@ public abstract class Weapon extends VisualEntity {
     public void setOnGround(boolean onGround) {
         isOnGround = onGround;
     }
+
+    public void giveAmmo(int ammunitionAmount) {
+        this.totalAmmunition += ammunitionAmount;
+    }
 }

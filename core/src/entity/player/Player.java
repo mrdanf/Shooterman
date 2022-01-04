@@ -3,6 +3,7 @@ package entity.player;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import entity.AnimatingEntity;
+import entity.object.ground.Item;
 import entity.object.obstacle.Box;
 import entity.object.ground.Ammunition;
 import entity.object.ground.HealthOrb;
@@ -29,13 +30,13 @@ public class Player extends AnimatingEntity {
     private ArrayList<Box> boxes = new ArrayList<>();
     private ArrayList<DestructibleBox> destructibleBoxes = new ArrayList<>();
     private ArrayList<Weapon> weapons;
-    private ArrayList<Ammunition> ammunitions;
-    private ArrayList<HealthOrb> healthOrbs;
+    private ArrayList<Item> items;
     private ArrayList<Texture> textures;
 
     private Weapon pistol = new Pistol();
     private Weapon weapon2;
     private Weapon activeWeapon;
+    private boolean hasWeapon2 = false;
 
 
     public Player(int health, int playerNumber, float startX, float startY, Texture texture, ArrayList<Texture> textures) {
@@ -100,7 +101,7 @@ public class Player extends AnimatingEntity {
         status.update(health, activeWeapon);
         activeWeapon.update();
         if (alive) {
-            move.move(this, players, boxes, destructibleBoxes, weapons);
+            move.move(this, players, boxes, destructibleBoxes, weapons, items);
         } else {
             setSprite(textures.get(WeaponType.DEAD)); // 4 ist tot Sprite
             sprite.setScale(0.7f);
@@ -156,14 +157,6 @@ public class Player extends AnimatingEntity {
         this.weapons = weapons;
     }
 
-    public void setAmmoBoxes(ArrayList<Ammunition> ammunitions) {
-        this.ammunitions = ammunitions;
-    }
-
-    public void setHealthBoxes(ArrayList<HealthOrb> healthOrbs) {
-        this.healthOrbs = healthOrbs;
-    }
-
     public void setPlayers(ArrayList<Player> players) {
         this.players = players;
     }
@@ -174,6 +167,10 @@ public class Player extends AnimatingEntity {
 
     public void setDestructibleBoxes(ArrayList<DestructibleBox> destructibleBoxes) {
         this.destructibleBoxes = destructibleBoxes;
+    }
+
+    public void setItems(ArrayList<Item> items) {
+        this.items = items;
     }
 
     public int getHealth() {
@@ -194,6 +191,10 @@ public class Player extends AnimatingEntity {
 
     public Weapon getActiveWeapon() {
         return activeWeapon;
+    }
+
+    public boolean hasWeapon2() {
+        return hasWeapon2;
     }
 
     public void kill() {
@@ -217,9 +218,14 @@ public class Player extends AnimatingEntity {
     public void pickUpWeapon(Weapon weapon) {
         this.weapon2 = weapon;
         this.activeWeapon = weapon;
+        this.hasWeapon2 = true;
         float rotation = sprite.getRotation();
         setSprite(textures.get(activeWeapon.getWeaponType()), 6, 1);
         sprite.setRotation(rotation);
+    }
+
+    public void giveAmmo(int ammunitionAmount) {
+        this.weapon2.giveAmmo(ammunitionAmount);
     }
 }
 
