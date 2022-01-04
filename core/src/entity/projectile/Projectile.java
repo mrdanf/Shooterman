@@ -78,7 +78,7 @@ public class Projectile extends NonVisualEntity {
         }
 
 
-        if (!collisionCheck.wallCheck(projectileX) || !collisionCheck.wallCheck(projectileY)) {
+        if (!collisionCheck.wallCheck(projectileX, projectileY)) {
             deletable = true;
         }
 

@@ -14,11 +14,8 @@ public class CollisionCheck {
 
     private float collisionBoxSize = 42f;
 
-    public boolean wallCheck(float XY) {
-        if (XY <= 56f || XY >= 836f) {
-            return false;
-        }
-        return true;
+    public boolean wallCheck(float x, float y) {
+        return x >= 100f && x <= 860f && y >= 95f && y <= 835f;
     }
 
     /**
@@ -70,40 +67,20 @@ public class CollisionCheck {
         return false;
     }
 
-    public boolean playerCheckPlayer(float X, float Y, Player player, ArrayList<Player> players) {
+    public boolean playerCheckPlayer(Player player, ArrayList<Player> players) {
         for (Player enemyPlayer : players) {
             if (player != enemyPlayer) {
-                if (mathCheckPlayers(X, Y, enemyPlayer)) {
+
+                if (!enemyPlayer.isColliding(player)) {
                     return true;
                 }
+
             }
         }
         return false;
     }
 
-    public boolean mathCheckPlayers(float X, float Y, Player enemyPlayer) {
-        if (X >= enemyPlayer.getX() - collisionBoxSize) {
-            if (X <= enemyPlayer.getX() + collisionBoxSize) {
-                if (Y <= enemyPlayer.getY() + collisionBoxSize) {
-                    if (Y >= enemyPlayer.getY() - collisionBoxSize) {
-                        return false;
-                    }
-                }
-
-            }
-        }
-        return true;
-    }
-
-    /**
-     * Wand
-     *
-     * @param playerX
-     * @param playerY
-     * @param boxes
-     * @return
-     */
-    public boolean playerCollidesEntity(Player player, List<VisualEntity> entities) {
+    public boolean playerCollidesEntity(Player player, ArrayList<VisualEntity> entities) {
         for (VisualEntity entity : entities) {
             if (entity.isColliding(player)) {
                 return false;

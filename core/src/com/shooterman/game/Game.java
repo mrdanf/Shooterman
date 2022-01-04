@@ -34,8 +34,8 @@ public class Game {
     // TODO TEST END
 
     public Game() {
-        player1 = new Player(100, 1, 100f, 800f, new Texture("spieler/Spieler1PistoleLaufenNeu.png"));
-        player2 = new Player(100, 2, 800f, 100f, new Texture("spieler/Spieler2PistoleLaufenNeu.png"));
+        player1 = new Player(100, 1, 150f, 800f, new Texture("spieler/Spieler1PistoleLaufenNeu.png"));
+        player2 = new Player(100, 2, 800f, 150f, new Texture("spieler/Spieler2PistoleLaufenNeu.png"));
         players.add(player1);
         players.add(player2);
 

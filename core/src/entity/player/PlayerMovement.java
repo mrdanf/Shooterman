@@ -124,8 +124,8 @@ public class PlayerMovement {
 
     private boolean movementCollisionFree(float playerX, float playerY, Player player, ArrayList<Player> players,
                                           ArrayList<Box> boxes, ArrayList<DestructibleBox> destructibleBoxes) {
-        return collisionCheck.wallCheck(playerY) && collisionCheck.wallCheck(playerX)
-                && collisionCheck.playerCheckPlayer(playerX, playerY, player, players)
+        return collisionCheck.wallCheck(playerX, playerY)
+                && collisionCheck.playerCheckPlayer(player, players)
                 && collisionCheck.playerCollidesEntity(player, (ArrayList<VisualEntity>) (ArrayList<?>) boxes)
                 && collisionCheck.playerCollidesEntity(player, (ArrayList<VisualEntity>) (ArrayList<?>) destructibleBoxes);
     }
