@@ -3,7 +3,6 @@ package entity.player;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import entity.AnimatingEntity;
-import entity.VisualEntity;
 import entity.object.obstacle.Box;
 import entity.object.ground.Ammunition;
 import entity.object.ground.HealthOrb;
@@ -14,8 +13,6 @@ import entity.object.weapon.Weapon;
 import entity.projectile.Projectile;
 
 import java.util.ArrayList;
-import java.util.List;
-
 
 public class Player extends AnimatingEntity {
     private PlayerMovement move = new PlayerMovement();
@@ -33,16 +30,14 @@ public class Player extends AnimatingEntity {
     private ArrayList<Weapon> weapons;
     private ArrayList<Ammunition> ammunitions;
     private ArrayList<HealthOrb> healthOrbs;
+    private ArrayList<Texture> textures;
 
     private Weapon pistol = new Pistol();
     private Weapon weapon2;
     private Weapon activeWeapon;
 
-    private float width = 25;
-    private float height = 180;
 
-
-    public Player(int health, int playerNumber, float startX, float startY, Texture texture) {
+    public Player(int health, int playerNumber, float startX, float startY, Texture texture, ArrayList<Texture> textures) {
         super(startX, startY, 35, 35, texture, 6, 1);
         this.health = health;
         this.alive = true;
@@ -52,6 +47,7 @@ public class Player extends AnimatingEntity {
         setY(startY);
         input();
         this.activeWeapon = this.pistol;
+        this.textures = textures;
     }
 
     /**
@@ -104,12 +100,16 @@ public class Player extends AnimatingEntity {
         activeWeapon.update();
         if (alive) {
             move.move(this, players, boxes, destructibleBoxes, weapons);
+        } else {
+            setSprite(textures.get(4));
         }
     }
 
-    public void Shoot() {
+    public void shoot() {
         if (activeWeapon.shoot()) {
-            Projectile projectile = new Projectile(viewDirection, getX(), getY(), this);
+            String spriteName = activeWeapon.getProjectileName();
+            Projectile projectile = new Projectile(viewDirection, sprite.getRotation(), getX(), getY(), this,
+                    new Texture(spriteName));
             projectiles.add(projectile);
         }
     }
@@ -193,12 +193,17 @@ public class Player extends AnimatingEntity {
             } else {
                 activeWeapon = pistol;
             }
+
+            setSprite(textures.get(activeWeapon.getWeaponType()), 6, 1);
         }
     }
 
     public void pickUpWeapon(Weapon weapon) {
         this.weapon2 = weapon;
         this.activeWeapon = weapon;
+        float rotation = sprite.getRotation();
+        setSprite(textures.get(activeWeapon.getWeaponType()), 6, 1);
+        sprite.setRotation(rotation);
     }
 }
 

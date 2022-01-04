@@ -19,11 +19,12 @@ public abstract class Weapon extends VisualEntity {
     protected int cooldown;
     private float reloadTime;
     private boolean insideReload;
+    private int weaponType;
 
     private boolean isOnGround = true;
 
     public Weapon(int power, int totalAmmunition, int magazineSize, int roundsPerMinute, float reloadTime,
-                  Texture texture) {
+                  Texture texture, int weaponType) {
         super(texture, 60, 120);
         this.power = power;
         this.totalAmmunition = totalAmmunition;
@@ -32,8 +33,10 @@ public abstract class Weapon extends VisualEntity {
         this.roundsPerMinute = roundsPerMinute;
         this.reloadTime = reloadTime;
         insideReload = false;
-
+        this.weaponType = weaponType;
     }
+
+    public abstract String getProjectileName();
 
     @Override
     public void update() {
@@ -110,6 +113,10 @@ public abstract class Weapon extends VisualEntity {
      */
     public boolean isInsideReload() {
         return insideReload;
+    }
+
+    public int getWeaponType() {
+        return weaponType;
     }
 
     public void randomPosition(ArrayList<Box> boxes, ArrayList<DestructibleBox> destructibleBoxes, ArrayList<Weapon> weapons) {

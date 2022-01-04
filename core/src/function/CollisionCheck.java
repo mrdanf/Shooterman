@@ -12,8 +12,6 @@ import java.util.List;
 
 public class CollisionCheck {
 
-    private float collisionBoxSize = 42f;
-
     public boolean wallCheck(float x, float y) {
         return x >= 100f && x <= 860f && y >= 95f && y <= 835f;
     }
@@ -27,7 +25,7 @@ public class CollisionCheck {
             for (Projectile projectile : player.getProjectiles()) {
                 for (Player playerHit : players) {
                     if (projectile.getPlayer() != playerHit) {
-                        if (mathCheckProjectile(playerHit, projectile)) {
+                        if (projectile.isColliding(playerHit)) {
                             int currentHealth = playerHit.getHealth() - player.getActiveWeapon().getPower();
                             if (currentHealth <= 0) {
                                 playerHit.kill();
@@ -40,31 +38,6 @@ public class CollisionCheck {
             }
         }
         return null;
-    }
-
-    public Player hitCheck(ArrayList<Player> players, Projectile projectile) {
-        for (Player playerHit : players) {
-            if (projectile.getPlayer() != playerHit) {
-                if (mathCheckProjectile(playerHit, projectile)) {
-                    return playerHit;
-                }
-            }
-        }
-        return null;
-    }
-
-    public boolean mathCheckProjectile(Player player, Projectile projectile) {
-        if (projectile.getX() >= player.getX() - collisionBoxSize) {
-            if (projectile.getX() <= player.getX() + collisionBoxSize) {
-                if (projectile.getY() >= player.getY() - collisionBoxSize) {
-                    if (projectile.getY() <= player.getY() + collisionBoxSize) {
-                        return true;
-                    }
-                }
-
-            }
-        }
-        return false;
     }
 
     public boolean playerCheckPlayer(Player player, ArrayList<Player> players) {

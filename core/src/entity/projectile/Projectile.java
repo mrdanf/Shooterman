@@ -1,26 +1,27 @@
 package entity.projectile;
 
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import entity.NonVisualEntity;
+import entity.VisualEntity;
 import function.CollisionCheck;
 import entity.player.Player;
 
 
-public class Projectile extends NonVisualEntity {
-    CollisionCheck collisionCheck = new CollisionCheck();
-    ProjectileSprites spriteGenerator = new ProjectileSprites();
-    Player player;
-    float speed = 5f;
-    int direction;
-    private Sprite sprite;
-    boolean deletable = false;
+public class Projectile extends VisualEntity {
+    private CollisionCheck collisionCheck = new CollisionCheck();
+    private Player player;
+    private float speed = 5f;
+    private int direction;
+    private float rotation;
+    private boolean deletable = false;
 
-    public Projectile(int direction, float x, float y, Player player) {
-        spriteGenerator.Sprite(this);
+    public Projectile(int direction, float rotation, float x, float y, Player player, Texture texture) {
+        super(x, y, texture, 5, 5);
         setX(x);
         setY(y);
         this.direction = direction;
+        this.rotation = rotation;
         this.player = player;
     }
 
@@ -32,21 +33,25 @@ public class Projectile extends NonVisualEntity {
         if (direction == 0) {
             setY(getY() + speed);
             projectileY = getY();
+            sprite.setRotation(0f);
         }
         //Nach links gehen
         if (direction == 1) {
             setX(getX() - speed);
             projectileX = getX();
+            sprite.setRotation(90f);
         }
         //Nach unten gehen
         if (direction == 2) {
             setY(getY() - speed);
             projectileY = getY();
+            sprite.setRotation(180f);
         }
         //Nach rechts gehen
         if (direction == 3) {
             setX(getX() + speed);
             projectileX = getX();
+            sprite.setRotation(270f);
         }
         //Oben Links
         if (direction == 4) {
@@ -54,6 +59,7 @@ public class Projectile extends NonVisualEntity {
             setX(getX() - speed);
             projectileX = getX();
             projectileY = getY();
+            sprite.setRotation(45f);
         }
         // Unten Links
         if (direction == 5) {
@@ -61,6 +67,8 @@ public class Projectile extends NonVisualEntity {
             setX(getX() - speed);
             projectileX = getX();
             projectileY = getY();
+            sprite.setRotation(135f);
+
         }
         // Unten Rechts
         if (direction == 6) {
@@ -68,6 +76,8 @@ public class Projectile extends NonVisualEntity {
             setX(getX() + speed);
             projectileX = getX();
             projectileY = getY();
+            sprite.setRotation(225f);
+
         }
         //Oben Rechts
         if (direction == 7) {
@@ -75,17 +85,13 @@ public class Projectile extends NonVisualEntity {
             setX(getX() + speed);
             projectileX = getX();
             projectileY = getY();
+            sprite.setRotation(315f);
         }
-
 
         if (!collisionCheck.wallCheck(projectileX, projectileY)) {
             deletable = true;
         }
 
-    }
-
-    public Sprite getSprite() {
-        return sprite;
     }
 
     public void setSprite(Sprite sprite) {

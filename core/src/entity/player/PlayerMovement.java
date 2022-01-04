@@ -1,7 +1,6 @@
 package entity.player;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import entity.VisualEntity;
 import entity.object.obstacle.Box;
 import entity.object.obstacle.DestructibleBox;
@@ -9,7 +8,6 @@ import entity.object.weapon.Weapon;
 import function.CollisionCheck;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class PlayerMovement {
@@ -75,7 +73,7 @@ public class PlayerMovement {
             player.getSprite().setRotation(270f);
         }
         if (Gdx.input.isKeyPressed(player.getPlayerInput().get(Input.SHOOT))) {
-            player.Shoot();
+            player.shoot();
         }
 
         player.setX(playerX);
@@ -88,25 +86,8 @@ public class PlayerMovement {
             player.setY(oldY);
         }
 
-
-        // TODO: eventuell besser mit X / Y von BoundingRectangle arbeiten
-        /*
-        float pHitX = player.getHitboxX();
-        float pHitY = player.getHitboxY();
-        if (collisionCheck.wallCheck(pHitY) && collisionCheck.wallCheck(pHitX) && collisionCheck.playerCheck(pHitX, pHitY, player,
-                players)) {
-            if (collisionCheck.playerCheckBox(pHitX, pHitY, boxes) && collisionCheck.playerCheckDestructibleBox(pHitX, pHitY, destructibleBoxes)) {
-                player.setX(playerX);
-                player.setY(playerY);
-            }
-        }
-        */
-
         // Waffe aufheben
         if (Gdx.input.isKeyJustPressed(player.getPlayerInput().get(Input.PICK_UP))) {
-            // TODO setSprite wieder rausnehmen
-            player.setSprite(new Texture("spieler/Spieler1AKLaufenNeu.png"), 6, 1);
-            // TODO END
             for (Weapon weapon : weapons) {
                 if (collisionCheck.playerCheckWeapon(playerX, playerY, weapon)) {
                     // Waffe wird aufgehoben

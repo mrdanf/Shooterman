@@ -34,8 +34,21 @@ public class Game {
     // TODO TEST END
 
     public Game() {
-        player1 = new Player(100, 1, 150f, 800f, new Texture("spieler/Spieler1PistoleLaufenNeu.png"));
-        player2 = new Player(100, 2, 800f, 150f, new Texture("spieler/Spieler2PistoleLaufenNeu.png"));
+        ArrayList<Texture> texturesP1 = new ArrayList<>();
+        texturesP1.add(new Texture("spieler/Spieler1PistoleLaufenNeu.png"));
+        texturesP1.add(new Texture("spieler/Spieler1AKLaufenNeu.png"));
+        texturesP1.add(new Texture("spieler/Spieler1AWPLaufenNeu.png"));
+        texturesP1.add(new Texture("spieler/Spieler1PumpgunLaufenNeu.png"));
+        texturesP1.add(new Texture("spieler/Spieler1Tot.png"));
+        player1 = new Player(100, 1, 150f, 800f, new Texture("spieler/Spieler1PistoleLaufenNeu.png"), texturesP1);
+
+        ArrayList<Texture> texturesP2 = new ArrayList<>();
+        texturesP2.add(new Texture("spieler/Spieler2PistoleLaufenNeu.png"));
+        texturesP2.add(new Texture("spieler/Spieler2AKLaufenNeu.png"));
+        texturesP2.add(new Texture("spieler/Spieler2AWPLaufenNeu.png"));
+        texturesP2.add(new Texture("spieler/Spieler2PumpgunLaufenNeu.png"));
+        texturesP2.add(new Texture("spieler/Spieler2Tot.png"));
+        player2 = new Player(100, 2, 800f, 150f, new Texture("spieler/Spieler2PistoleLaufenNeu.png"), texturesP2);
         players.add(player1);
         players.add(player2);
 
@@ -46,15 +59,10 @@ public class Game {
             String texturePath;
             if (i % 2 == 0) {
                 texturePath = "hindernis/palette.png";
-                destructibleBoxes.add(new DestructibleBox(new Texture(texturePath)));
-                destructibleBoxes.get(i).setScale(2f);
             } else {
                 texturePath = "hindernis/Palettemitkartons.png";
-                destructibleBoxes.add(new DestructibleBox(new Texture(texturePath)));
-                destructibleBoxes.get(i).setScale(1f);
             }
-
-            // TODO: Besser ist es beide Bilddateien gleich groß zu skalieren und nur noch eine Methode aufzurufen: paletten.add(new DestructibleBox(new Texture(texturePath)));
+            destructibleBoxes.add(new DestructibleBox(new Texture(texturePath)));
         }
         for (Box box : boxes) {
             box.randomPosition(boxes);

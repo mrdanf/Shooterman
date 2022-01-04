@@ -41,4 +41,9 @@ public abstract class AnimatingEntity extends VisualEntity {
         regions = TextureRegion.split(texture, texture.getWidth() / columns, texture.getHeight() / rows);
         sprite = new Sprite(regions[0][0]);
     }
+
+    public void setSprite(Texture texture) {
+        sprite = new Sprite(texture);
+    }
+
 }

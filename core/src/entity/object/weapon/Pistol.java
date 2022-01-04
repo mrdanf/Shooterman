@@ -2,8 +2,15 @@ package entity.object.weapon;
 
 public class Pistol extends Weapon {
 
+    public static final String projectileName = "projektil/PistolenSchuss.png";
+
     public Pistol() {
-        super(15, 999, 10, 30, 2f, null);
+        super(15, 999, 10, 30, 2f, null, WeaponType.PISTOL);
+    }
+
+    @Override
+    public String getProjectileName() {
+        return projectileName;
     }
 
     @Override

@@ -68,27 +68,6 @@ public class Shooterman extends ApplicationAdapter {
     }
 
     private void batchGame() {
-        for (Player player : game.getPlayers()) {
-            Sprite sprite = player.getSprite();
-            sprite.setX(player.getX());
-            sprite.setY(player.getY());
-            sprite.draw(batch);
-
-            Status status = player.getStatus();
-            status.getPlayerLabel().draw(batch, 1);
-            batch.draw(status.getHealthBar()[0], status.getXPostion(), status.getYPosition() - 35);
-            batch.draw(status.getHealthBar()[1], status.getXPostion(), status.getYPosition() - 35);
-            status.getAmmoLabel().draw(batch, 1);
-        }
-
-        for (Player player : game.getPlayers()) {
-            for (Projectile projectile : player.getProjectiles()) {
-                Sprite sprite = projectile.getSprite();
-                sprite.setX(projectile.getX());
-                sprite.setY(projectile.getY());
-                sprite.draw(batch);
-            }
-        }
         for (Box box : game.getBoxes()) {
             Sprite sprite = box.getSprite();
             sprite.setX(box.getX());
@@ -121,12 +100,27 @@ public class Shooterman extends ApplicationAdapter {
             sprite.draw(batch);
         }
 
-        game.player1Position.setX(game.player1.getHitboxX());
-        game.player1Position.setY(game.player1.getHitboxY());
-        game.player1Position.draw(batch);
-        game.player2Position.setX(game.player2.getHitboxX());
-        game.player2Position.setY(game.player2.getHitboxY());
-        game.player2Position.draw(batch);
+        for (Player player : game.getPlayers()) {
+            Sprite sprite = player.getSprite();
+            sprite.setX(player.getX());
+            sprite.setY(player.getY());
+            sprite.draw(batch);
+
+            Status status = player.getStatus();
+            status.getPlayerLabel().draw(batch, 1);
+            batch.draw(status.getHealthBar()[0], status.getXPostion(), status.getYPosition() - 35);
+            batch.draw(status.getHealthBar()[1], status.getXPostion(), status.getYPosition() - 35);
+            status.getAmmoLabel().draw(batch, 1);
+        }
+
+        for (Player player : game.getPlayers()) {
+            for (Projectile projectile : player.getProjectiles()) {
+                Sprite sprite = projectile.getSprite();
+                sprite.setX(projectile.getX());
+                sprite.setY(projectile.getY());
+                sprite.draw(batch);
+            }
+        }
     }
 
     private void batchMenu() {
