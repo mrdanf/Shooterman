@@ -89,7 +89,7 @@ public class PlayerMovement {
         // Waffe aufheben
         if (Gdx.input.isKeyJustPressed(player.getPlayerInput().get(Input.PICK_UP))) {
             for (Weapon weapon : weapons) {
-                if (collisionCheck.playerCheckWeapon(playerX, playerY, weapon)) {
+                if (collisionCheck.playerInWeaponRange(player, weapon)) {
                     // Waffe wird aufgehoben
                     player.pickUpWeapon(weapon);
                     weapon.setOnGround(false);
@@ -105,8 +105,8 @@ public class PlayerMovement {
 
     private boolean movementCollisionFree(float playerX, float playerY, Player player, ArrayList<Player> players,
                                           ArrayList<Box> boxes, ArrayList<DestructibleBox> destructibleBoxes) {
-        return collisionCheck.wallCheck(playerX, playerY)
-                && collisionCheck.playerCheckPlayer(player, players)
+        return collisionCheck.outerWallCheck(playerX, playerY)
+                && collisionCheck.playerCollidesPlayer(player, players)
                 && collisionCheck.playerCollidesEntity(player, (ArrayList<VisualEntity>) (ArrayList<?>) boxes)
                 && collisionCheck.playerCollidesEntity(player, (ArrayList<VisualEntity>) (ArrayList<?>) destructibleBoxes);
     }

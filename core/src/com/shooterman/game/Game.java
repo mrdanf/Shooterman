@@ -3,6 +3,7 @@ package com.shooterman.game;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import entity.VisualEntity;
 import entity.object.obstacle.Box;
 import entity.object.obstacle.DestructibleBox;
 import entity.object.ground.Ammunition;
@@ -57,12 +58,15 @@ public class Game {
         }
         for (int i = 0; i < 6; i++) {
             String texturePath;
+            float height;
             if (i % 2 == 0) {
                 texturePath = "hindernis/palette.png";
+                height = 60;
             } else {
                 texturePath = "hindernis/Palettemitkartons.png";
+                height = 80;
             }
-            destructibleBoxes.add(new DestructibleBox(new Texture(texturePath)));
+            destructibleBoxes.add(new DestructibleBox(new Texture(texturePath), height));
         }
         for (Box box : boxes) {
             box.randomPosition(boxes);
@@ -117,15 +121,17 @@ public class Game {
             if (deleteProjectile != null) {
                 player.getProjectiles().remove(deleteProjectile);
             }
-            deleteProjectile = collisionCheck.hitCheck(players);
+            deleteProjectile = collisionCheck.projectileHitsPlayer(players);
             if (deleteProjectile != null) {
                 player.getProjectiles().remove(deleteProjectile);
             }
-            deleteProjectile = collisionCheck.hitCheck(boxes, players);
+            deleteProjectile = collisionCheck.projectileHitsObstacle((ArrayList< VisualEntity>) (ArrayList<?>) boxes,
+                    players);
             if (deleteProjectile != null) {
                 player.getProjectiles().remove(deleteProjectile);
             }
-            deleteProjectile = collisionCheck.hitCheckDestructibleBox(destructibleBoxes, players);
+            deleteProjectile =
+                    collisionCheck.projectileHitsObstacle((ArrayList< VisualEntity>) (ArrayList<?>) destructibleBoxes, players);
             if (deleteProjectile != null) {
                 player.getProjectiles().remove(deleteProjectile);
             }

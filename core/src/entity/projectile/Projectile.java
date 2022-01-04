@@ -81,7 +81,7 @@ public class Projectile extends VisualEntity {
             projectileY = getY();
         }
 
-        if (!collisionCheck.wallCheck(projectileX, projectileY)) {
+        if (!collisionCheck.outerWallCheck(projectileX, projectileY)) {
             deletable = true;
         }
 

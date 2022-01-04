@@ -14,6 +14,7 @@ public abstract class VisualEntity extends NonVisualEntity {
             sprite = new Sprite(texture);
         }
 
+        this.hitbox = new Rectangle(0, 0, width, height);
     }
 
     public VisualEntity(float x, float y, Texture texture, float width, float height) {
@@ -53,14 +54,6 @@ public abstract class VisualEntity extends NonVisualEntity {
         sprite.setY(y);
     }
 
-    public float getHitboxX() {
-        return sprite.getBoundingRectangle().getX();
-    }
-
-    public float getHitboxY() {
-        return sprite.getBoundingRectangle().getY();
-    }
-
     public Rectangle getHitbox() {
         updateHitbox();
         return hitbox;
@@ -71,9 +64,6 @@ public abstract class VisualEntity extends NonVisualEntity {
     }
 
     public boolean isColliding(VisualEntity other) {
-        //return this.sprite.getBoundingRectangle().overlaps(other.getHitbox());
-        // TODO: Würde genau die Sprites umschließen, ist aber etwas zu clunky
-
         // Unsichtbares Viereck im Objekt, eigenständig angepasste Hitbox
         return this.getHitbox().overlaps(other.getHitbox());
     }

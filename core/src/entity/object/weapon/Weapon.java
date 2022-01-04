@@ -25,14 +25,14 @@ public abstract class Weapon extends VisualEntity {
 
     public Weapon(int power, int totalAmmunition, int magazineSize, int roundsPerMinute, float reloadTime,
                   Texture texture, int weaponType) {
-        super(texture, 60, 120);
+        super(texture, 150, 120);
         this.power = power;
         this.totalAmmunition = totalAmmunition;
         this.magazineSize = magazineSize;
         this.currentAmmunition = magazineSize;
         this.roundsPerMinute = roundsPerMinute;
         this.reloadTime = reloadTime;
-        insideReload = false;
+        this.insideReload = false;
         this.weaponType = weaponType;
     }
 
@@ -77,6 +77,13 @@ public abstract class Weapon extends VisualEntity {
                 insideReload = false;
             }
         }, reloadTime);
+    }
+
+    @Override
+    protected void updateHitbox() {
+        float x = sprite.getX() - ((hitbox.width - sprite.getWidth()) / 2);
+        float y = sprite.getY() - ((hitbox.height - sprite.getHeight()) / 2);
+        hitbox.setPosition(x, y);
     }
 
     public int getPower() {

@@ -4,13 +4,16 @@ import com.badlogic.gdx.graphics.Texture;
 import entity.VisualEntity;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class DestructibleBox extends VisualEntity {
     private int health = 100;
 
     public DestructibleBox(Texture texture) {
-        super(0, 0, texture, 80, 80);
+        super(0, 0, texture, 100, 80);
+    }
+
+    public DestructibleBox(Texture texture, float height) {
+        super(0, 0, texture, 100,  height);
     }
 
     public void randomPosition(ArrayList<Box> boxes, ArrayList<DestructibleBox> destructibleBoxes) {
@@ -47,6 +50,11 @@ public class DestructibleBox extends VisualEntity {
     }
 
     @Override
+    protected void updateHitbox() {
+        hitbox.setPosition(x, y + 10);
+    }
+
+    @Override
     public void update() {
 
     }
@@ -57,6 +65,10 @@ public class DestructibleBox extends VisualEntity {
 
     public void setHealth(int health) {
         this.health = health;
+    }
+
+    public void receiveDamage(int power) {
+        this.health -= power;
     }
 }
 

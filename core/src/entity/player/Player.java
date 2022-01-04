@@ -6,6 +6,7 @@ import entity.AnimatingEntity;
 import entity.object.obstacle.Box;
 import entity.object.ground.Ammunition;
 import entity.object.ground.HealthOrb;
+import entity.object.weapon.WeaponType;
 import hud.Status;
 import entity.object.obstacle.DestructibleBox;
 import entity.object.weapon.Pistol;
@@ -101,7 +102,7 @@ public class Player extends AnimatingEntity {
         if (alive) {
             move.move(this, players, boxes, destructibleBoxes, weapons);
         } else {
-            setSprite(textures.get(4));
+            setSprite(textures.get(WeaponType.DEAD)); // 4 ist tot Sprite
             sprite.setScale(0.7f);
         }
     }
@@ -181,6 +182,14 @@ public class Player extends AnimatingEntity {
 
     public void setHealth(int health) {
         this.health = health;
+    }
+
+    public void receiveDamage(int power) {
+        this.health -= power;
+
+        if (health <= 0) {
+            this.kill();
+        }
     }
 
     public Weapon getActiveWeapon() {
