@@ -2,12 +2,14 @@ package entity.player;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import entity.VisualEntity;
 import entity.object.obstacle.Box;
 import entity.object.obstacle.DestructibleBox;
 import entity.object.weapon.Weapon;
 import function.CollisionCheck;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class PlayerMovement {
@@ -124,8 +126,8 @@ public class PlayerMovement {
                                           ArrayList<Box> boxes, ArrayList<DestructibleBox> destructibleBoxes) {
         return collisionCheck.wallCheck(playerY) && collisionCheck.wallCheck(playerX)
                 && collisionCheck.playerCheckPlayer(playerX, playerY, player, players)
-                && collisionCheck.playerCheckBox(player, boxes)
-                && collisionCheck.playerCheckDestructibleBox(playerX, playerY, destructibleBoxes);
+                && collisionCheck.playerCollidesEntity(player, (ArrayList<VisualEntity>) (ArrayList<?>) boxes)
+                && collisionCheck.playerCollidesEntity(player, (ArrayList<VisualEntity>) (ArrayList<?>) destructibleBoxes);
     }
 }
 

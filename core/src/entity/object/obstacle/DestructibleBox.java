@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import entity.VisualEntity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DestructibleBox extends VisualEntity {
     private int health = 100;

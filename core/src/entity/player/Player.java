@@ -3,6 +3,7 @@ package entity.player;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import entity.AnimatingEntity;
+import entity.VisualEntity;
 import entity.object.obstacle.Box;
 import entity.object.ground.Ammunition;
 import entity.object.ground.HealthOrb;
@@ -13,7 +14,7 @@ import entity.object.weapon.Weapon;
 import entity.projectile.Projectile;
 
 import java.util.ArrayList;
-
+import java.util.List;
 
 
 public class Player extends AnimatingEntity {

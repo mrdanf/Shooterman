@@ -1,5 +1,6 @@
 package function;
 
+import entity.VisualEntity;
 import entity.object.obstacle.Box;
 import entity.object.obstacle.DestructibleBox;
 import entity.object.weapon.Weapon;
@@ -7,6 +8,7 @@ import entity.player.Player;
 import entity.projectile.Projectile;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CollisionCheck {
 
@@ -101,55 +103,13 @@ public class CollisionCheck {
      * @param boxes
      * @return
      */
-    public boolean playerCheckBox(Player player, ArrayList<Box> boxes) {
-        for (Box box : boxes) {
-            if (box.isColliding(player)) {
+    public boolean playerCollidesEntity(Player player, List<VisualEntity> entities) {
+        for (VisualEntity entity : entities) {
+            if (entity.isColliding(player)) {
                 return false;
             }
         }
         return true;
-    }
-
-
-    public boolean mathCheckBox(float playerX, float playerY, Box box) {
-        float boxXLeft = box.getX();
-        float boxXRight = box.getX() + box.getWidth();
-        float boxYBottom = box.getY();
-        float boxYTop = box.getY() + box.getHeight();
-
-        /*
-        if (playerX >= boxXLeft && playerX <= boxXRight && playerY >= boxYBottom && playerY <= boxYTop) {
-        // TODO
-            System.out.println("-------START-------");
-            System.out.println("PlayerX: " + playerX);
-            System.out.println("PlayerY: " + playerY);
-
-            System.out.println("BoxXLeft: " + boxXLeft);
-            System.out.println("BoxXRight: " + boxXRight);
-            System.out.println("BoxYBottom: " + boxYBottom);
-            System.out.println("BoxYTop: " + boxYTop);
-            System.out.println("-------END-------");
-            // TODO END
-            return true;
-        }
-
-
-        return false;
-        */
-
-        if (playerX >= box.getX() - box.getSprite().getWidth()) {
-            if (playerX <= box.getX() + box.getSprite().getWidth()) {
-                if (playerY >= box.getY() - box.getSprite().getHeight()) {
-                    if (playerY <= box.getY() + box.getSprite().getHeight()) {
-                        return true;
-                    }
-                }
-
-            }
-        }
-        return false;
-
-
     }
 
     public Projectile hitCheck(ArrayList<Box> boxes, ArrayList<Player> players) {
@@ -171,38 +131,6 @@ public class CollisionCheck {
             if (projectile.getX() <= box.getX() + box.getSprite().getWidth()) {
                 if (projectile.getY() >= box.getY() - box.getSprite().getHeight()) {
                     if (projectile.getY() <= box.getY() + box.getSprite().getHeight()) {
-                        return true;
-                    }
-                }
-
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Paletten
-     *
-     * @param X
-     * @param Y
-     * @param
-     * @return
-     */
-    public boolean playerCheckDestructibleBox(float X, float Y, ArrayList<DestructibleBox> destructibleBoxes) {
-        for (DestructibleBox destructibleBox : destructibleBoxes) {
-            if (mathCheckDestructibleBox(X, Y, destructibleBox)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-
-    public boolean mathCheckDestructibleBox(float X, float Y, DestructibleBox destructibleBox) {
-        if (X >= destructibleBox.getX() - destructibleBox.getSprite().getWidth()) {
-            if (X <= destructibleBox.getX() + destructibleBox.getSprite().getWidth()) {
-                if (Y >= destructibleBox.getY() - destructibleBox.getSprite().getHeight()) {
-                    if (Y <= destructibleBox.getY() + destructibleBox.getSprite().getHeight()) {
                         return true;
                     }
                 }
