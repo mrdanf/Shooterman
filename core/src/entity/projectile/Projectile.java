@@ -3,6 +3,7 @@ package entity.projectile;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Rectangle;
 import entity.VisualEntity;
 import function.CollisionCheck;
 import entity.player.Player;
@@ -16,12 +17,13 @@ public class Projectile extends VisualEntity {
     private boolean deletable = false;
 
     public Projectile(int direction, float rotation, float x, float y, Player player, Texture texture) {
-        super(x, y, texture, 5, 5);
+        super(x, y, texture, 11, 11);
         setX(x);
         setY(y);
         this.direction = direction;
         this.player = player;
         sprite.setRotation(rotation);
+        sprite.setScale(0.4f);
     }
 
     @Override
@@ -83,6 +85,16 @@ public class Projectile extends VisualEntity {
             deletable = true;
         }
 
+    }
+
+    @Override
+    protected void updateHitbox() {
+        hitbox.setPosition(x + 22, y + 22);
+    }
+
+    @Override
+    public Rectangle getHitbox() {
+        return super.getHitbox();
     }
 
     public void setSprite(Sprite sprite) {

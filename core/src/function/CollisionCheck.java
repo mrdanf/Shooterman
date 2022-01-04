@@ -44,7 +44,7 @@ public class CollisionCheck {
         for (Player enemyPlayer : players) {
             if (player != enemyPlayer) {
 
-                if (!enemyPlayer.isColliding(player)) {
+                if (!enemyPlayer.isColliding(player) || !enemyPlayer.isAlive()) {
                     return true;
                 }
 

@@ -102,7 +102,12 @@ public class Player extends AnimatingEntity {
             move.move(this, players, boxes, destructibleBoxes, weapons);
         } else {
             setSprite(textures.get(4));
+            sprite.setScale(0.7f);
         }
+    }
+
+    public boolean isAlive() {
+        return alive;
     }
 
     public void shoot() {
@@ -194,7 +199,9 @@ public class Player extends AnimatingEntity {
                 activeWeapon = pistol;
             }
 
+            float rotation = sprite.getRotation();
             setSprite(textures.get(activeWeapon.getWeaponType()), 6, 1);
+            sprite.setRotation(rotation);
         }
     }
 
