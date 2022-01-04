@@ -75,15 +75,13 @@ public class PlayerMovement {
         if (Gdx.input.isKeyPressed(player.getPlayerInput().get(Input.SHOOT))) {
             player.Shoot();
         }
+
         player.setX(playerX);
         player.setY(playerY);
-        if (!(collisionCheck.wallCheck(playerY) && collisionCheck.wallCheck(playerX) && collisionCheck.playerCheck(playerX,
-                playerY, player,
-                players))) {
-            player.setX(oldX);
-            player.setY(oldY);
-        } else if (!(collisionCheck.playerCheckBox(player, boxes) && collisionCheck.playerCheckDestructibleBox(playerX,
-                playerY, destructibleBoxes))) {
+
+        if (!movementCollisionFree(playerX, playerY, player, players, boxes, destructibleBoxes)) {
+            // Spieler kollidiert gegen etwas, kann sich also nicht bewegen und gesetzte Koordinaten werden
+            // zurückgesetzt
             player.setX(oldX);
             player.setY(oldY);
         }
@@ -120,6 +118,14 @@ public class PlayerMovement {
         if (Gdx.input.isKeyJustPressed(player.getPlayerInput().get(Input.CHANGE_WEAPON))) {
             player.switchWeapon();
         }
+    }
+
+    private boolean movementCollisionFree(float playerX, float playerY, Player player, ArrayList<Player> players,
+                                          ArrayList<Box> boxes, ArrayList<DestructibleBox> destructibleBoxes) {
+        return collisionCheck.wallCheck(playerY) && collisionCheck.wallCheck(playerX)
+                && collisionCheck.playerCheckPlayer(playerX, playerY, player, players)
+                && collisionCheck.playerCheckBox(player, boxes)
+                && collisionCheck.playerCheckDestructibleBox(playerX, playerY, destructibleBoxes);
     }
 }
 

@@ -68,7 +68,7 @@ public class CollisionCheck {
         return false;
     }
 
-    public boolean playerCheck(float X, float Y, Player player, ArrayList<Player> players) {
+    public boolean playerCheckPlayer(float X, float Y, Player player, ArrayList<Player> players) {
         for (Player enemyPlayer : players) {
             if (player != enemyPlayer) {
                 if (mathCheckPlayers(X, Y, enemyPlayer)) {
