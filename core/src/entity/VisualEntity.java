@@ -38,10 +38,6 @@ public abstract class VisualEntity extends NonVisualEntity {
         return sprite.getHeight();
     }
 
-    public void setScale(float scale) {
-        sprite.setScale(scale);
-    }
-
     @Override
     public void setX(float x) {
         super.setX(x);

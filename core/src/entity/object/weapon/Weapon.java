@@ -147,35 +147,19 @@ public abstract class Weapon extends VisualEntity {
     public boolean placementPossible(ArrayList<Box> boxes, float x, float y, ArrayList<DestructibleBox> destructibleBoxes,
                                      ArrayList<Weapon> weapons) {
         for (Box box : boxes) {
-            if (x <= box.getX() + (box.getSprite().getWidth() / 2)) {
-                if (x >= box.getX() - (box.getSprite().getWidth() / 2)) {
-                    if (y <= box.getY() + (box.getSprite().getHeight() / 2)) {
-                        if (y >= box.getY() - (box.getSprite().getHeight() / 2)) {
-                            return false;
-                        }
-                    }
-                }
+            if (box.getSprite().getBoundingRectangle().contains(x, y)) {
+                return false;
             }
         }
         for (DestructibleBox destructibleBox : destructibleBoxes) {
-            if (x <= destructibleBox.getX() + (destructibleBox.getSprite().getWidth() / 2)) {
-                if (x >= destructibleBox.getX() - (destructibleBox.getSprite().getWidth() / 2)) {
-                    if (y <= destructibleBox.getY() + (destructibleBox.getSprite().getHeight() / 2)) {
-                        if (y >= destructibleBox.getY() - (destructibleBox.getSprite().getHeight() / 2)) {
-                            return false;
-                        }
-                    }
-                }
+            if (destructibleBox.getSprite().getBoundingRectangle().contains(x, y)) {
+                return false;
             }
         }
         for (Weapon weapon : weapons) {
-            if (x <= weapon.getX() + (getSprite().getWidth() / 2)) {
-                if (x >= weapon.getX() - (getSprite().getWidth() / 2)) {
-                    if (y <= weapon.getY() + (getSprite().getHeight() / 2)) {
-                        if (y >= weapon.getY() - (getSprite().getHeight() / 2)) {
-                            return false;
-                        }
-                    }
+            if (weapon != this) {
+                if (weapon.getSprite().getBoundingRectangle().contains(x, y)) {
+                    return false;
                 }
             }
         }

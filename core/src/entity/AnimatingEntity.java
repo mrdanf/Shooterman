@@ -16,7 +16,6 @@ public abstract class AnimatingEntity extends VisualEntity {
         sprite = new Sprite(regions[0][0]);
         sprite.setX(this.x);
         sprite.setY(this.y);
-        // TODO: sprite.setScale(scale);
         Timer.schedule(new Timer.Task() {
             int column = 0;
             int row = 0;

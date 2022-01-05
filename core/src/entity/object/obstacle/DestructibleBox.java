@@ -41,8 +41,10 @@ public class DestructibleBox extends VisualEntity {
             }
         }
         for (DestructibleBox destructibleBox : destructibleBoxes) {
-            if (destructibleBox.getSprite().getBoundingRectangle().contains(x, y)) {
-                return false;
+            if (destructibleBox != this) {
+                if (destructibleBox.getSprite().getBoundingRectangle().contains(x, y)) {
+                    return false;
+                }
             }
         }
 
