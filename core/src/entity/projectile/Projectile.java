@@ -1,27 +1,29 @@
 package entity.projectile;
 
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import entity.NonVisualEntity;
+import com.badlogic.gdx.math.Rectangle;
+import entity.VisualEntity;
 import function.CollisionCheck;
 import entity.player.Player;
 
 
-public class Projectile extends NonVisualEntity {
-    CollisionCheck collisionCheck = new CollisionCheck();
-    ProjectileSprites spriteGenerator = new ProjectileSprites();
-    Player player;
-    float speed = 5f;
-    int direction;
-    private Sprite sprite;
-    boolean deletable = false;
+public class Projectile extends VisualEntity {
+    private CollisionCheck collisionCheck = new CollisionCheck();
+    private Player player;
+    private float speed = 5f;
+    private int direction;
+    private boolean deletable = false;
 
-    public Projectile(int direction, float x, float y, Player player) {
-        spriteGenerator.Sprite(this);
+    public Projectile(int direction, float rotation, float x, float y, Player player, Texture texture) {
+        super(x, y, texture, 11, 11);
         setX(x);
         setY(y);
         this.direction = direction;
         this.player = player;
+        sprite.setRotation(rotation);
+        sprite.setScale(0.4f);
     }
 
     @Override
@@ -29,63 +31,70 @@ public class Projectile extends NonVisualEntity {
         float projectileX = getX();
         float projectileY = getY();
         //Nach oben gehen
-        if (direction == 0) {
+        if (direction == ProjectileDirection.UP) {
             setY(getY() + speed);
             projectileY = getY();
         }
         //Nach links gehen
-        if (direction == 1) {
+        if (direction == ProjectileDirection.LEFT) {
             setX(getX() - speed);
             projectileX = getX();
         }
         //Nach unten gehen
-        if (direction == 2) {
+        if (direction == ProjectileDirection.DOWN) {
             setY(getY() - speed);
             projectileY = getY();
         }
         //Nach rechts gehen
-        if (direction == 3) {
+        if (direction == ProjectileDirection.RIGHT) {
             setX(getX() + speed);
             projectileX = getX();
         }
         //Oben Links
-        if (direction == 4) {
+        if (direction == ProjectileDirection.UP_LEFT) {
             setY(getY() + speed);
             setX(getX() - speed);
             projectileX = getX();
             projectileY = getY();
         }
         // Unten Links
-        if (direction == 5) {
+        if (direction == ProjectileDirection.DOWN_LEFT) {
             setY(getY() - speed);
             setX(getX() - speed);
             projectileX = getX();
             projectileY = getY();
+
         }
         // Unten Rechts
-        if (direction == 6) {
+        if (direction == ProjectileDirection.DOWN_RIGHT) {
             setY(getY() - speed);
             setX(getX() + speed);
             projectileX = getX();
             projectileY = getY();
+
         }
         //Oben Rechts
-        if (direction == 7) {
+        if (direction == ProjectileDirection.UP_RIGHT) {
             setY(getY() + speed);
             setX(getX() + speed);
             projectileX = getX();
             projectileY = getY();
         }
 
-
-        if (!collisionCheck.wallCheck(projectileX) || !collisionCheck.wallCheck(projectileY)) {
+        if (!collisionCheck.outerWallCheck(projectileX, projectileY)) {
             deletable = true;
         }
 
     }
 
-    public Sprite getSprite() {
-        return sprite;
+    @Override
+    protected void updateHitbox() {
+        hitbox.setPosition(x + 22, y + 22);
+    }
+
+    @Override
+    public Rectangle getHitbox() {
+        return super.getHitbox();
     }
 
     public void setSprite(Sprite sprite) {

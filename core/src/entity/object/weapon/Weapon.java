@@ -19,21 +19,24 @@ public abstract class Weapon extends VisualEntity {
     protected int cooldown;
     private float reloadTime;
     private boolean insideReload;
+    private int weaponType;
 
     private boolean isOnGround = true;
 
     public Weapon(int power, int totalAmmunition, int magazineSize, int roundsPerMinute, float reloadTime,
-                  Texture texture) {
-        super(texture);
+                  Texture texture, int weaponType) {
+        super(texture, 150, 120);
         this.power = power;
         this.totalAmmunition = totalAmmunition;
         this.magazineSize = magazineSize;
         this.currentAmmunition = magazineSize;
         this.roundsPerMinute = roundsPerMinute;
         this.reloadTime = reloadTime;
-        insideReload = false;
-
+        this.insideReload = false;
+        this.weaponType = weaponType;
     }
+
+    public abstract String getProjectileName();
 
     @Override
     public void update() {
@@ -76,6 +79,13 @@ public abstract class Weapon extends VisualEntity {
         }, reloadTime);
     }
 
+    @Override
+    protected void updateHitbox() {
+        float x = sprite.getX() - ((hitbox.width - sprite.getWidth()) / 2);
+        float y = sprite.getY() - ((hitbox.height - sprite.getHeight()) / 2);
+        hitbox.setPosition(x, y);
+    }
+
     public int getPower() {
         return power;
     }
@@ -112,13 +122,16 @@ public abstract class Weapon extends VisualEntity {
         return insideReload;
     }
 
+    public int getWeaponType() {
+        return weaponType;
+    }
+
     public void randomPosition(ArrayList<Box> boxes, ArrayList<DestructibleBox> destructibleBoxes, ArrayList<Weapon> weapons) {
         int max = 736;
         int min = 156;
         float x = 0;
         float y = 0;
         boolean possible = true;
-        Random rn = new Random();
         while (possible) {
             x = min + (int) (Math.random() * ((max - min) + 1));
             y = min + (int) (Math.random() * ((max - min) + 1));
@@ -133,37 +146,20 @@ public abstract class Weapon extends VisualEntity {
 
     public boolean placementPossible(ArrayList<Box> boxes, float x, float y, ArrayList<DestructibleBox> destructibleBoxes,
                                      ArrayList<Weapon> weapons) {
-        boolean boxok = false;
         for (Box box : boxes) {
-            if (x <= box.getX() + (box.getSprite().getWidth() / 2)) {
-                if (x >= box.getX() - (box.getSprite().getWidth() / 2)) {
-                    if (y <= box.getY() + (box.getSprite().getHeight() / 2)) {
-                        if (y >= box.getY() - (box.getSprite().getHeight() / 2)) {
-                            return false;
-                        }
-                    }
-                }
+            if (box.getSprite().getBoundingRectangle().contains(x, y)) {
+                return false;
             }
         }
         for (DestructibleBox destructibleBox : destructibleBoxes) {
-            if (x <= destructibleBox.getX() + (destructibleBox.getSprite().getWidth() / 2)) {
-                if (x >= destructibleBox.getX() - (destructibleBox.getSprite().getWidth() / 2)) {
-                    if (y <= destructibleBox.getY() + (destructibleBox.getSprite().getHeight() / 2)) {
-                        if (y >= destructibleBox.getY() - (destructibleBox.getSprite().getHeight() / 2)) {
-                            return false;
-                        }
-                    }
-                }
+            if (destructibleBox.getSprite().getBoundingRectangle().contains(x, y)) {
+                return false;
             }
         }
         for (Weapon weapon : weapons) {
-            if (x <= weapon.getX() + (getSprite().getWidth() / 2)) {
-                if (x >= weapon.getX() - (getSprite().getWidth() / 2)) {
-                    if (y <= weapon.getY() + (getSprite().getHeight() / 2)) {
-                        if (y >= weapon.getY() - (getSprite().getHeight() / 2)) {
-                            return false;
-                        }
-                    }
+            if (weapon != this) {
+                if (weapon.getSprite().getBoundingRectangle().contains(x, y)) {
+                    return false;
                 }
             }
         }
@@ -176,5 +172,9 @@ public abstract class Weapon extends VisualEntity {
 
     public void setOnGround(boolean onGround) {
         isOnGround = onGround;
+    }
+
+    public void giveAmmo(int ammunitionAmount) {
+        this.totalAmmunition += ammunitionAmount;
     }
 }

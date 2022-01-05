@@ -3,6 +3,8 @@ package com.shooterman.game;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import entity.VisualEntity;
+import entity.object.ground.Item;
 import entity.object.obstacle.Box;
 import entity.object.obstacle.DestructibleBox;
 import entity.object.ground.Ammunition;
@@ -24,8 +26,7 @@ public class Game {
     private ArrayList<Box> boxes = new ArrayList<>();
     private ArrayList<DestructibleBox> destructibleBoxes = new ArrayList<>();
     private ArrayList<Weapon> weapons = new ArrayList<>();
-    private ArrayList<Ammunition> ammunitions = new ArrayList<>();
-    private ArrayList<HealthOrb> healthOrbs = new ArrayList<>();
+    private ArrayList<Item> items = new ArrayList<>();
     private CollisionCheck collisionCheck = new CollisionCheck();
 
     // TODO TEST
@@ -34,8 +35,21 @@ public class Game {
     // TODO TEST END
 
     public Game() {
-        player1 = new Player(100, 1, 100f, 800f, new Texture("spieler/Spieler1PistoleLaufenNeu.png"));
-        player2 = new Player(100, 2, 800f, 100f, new Texture("spieler/Spieler2PistoleLaufenNeu.png"));
+        ArrayList<Texture> texturesP1 = new ArrayList<>();
+        texturesP1.add(new Texture("spieler/Spieler1PistoleLaufenNeu.png"));
+        texturesP1.add(new Texture("spieler/Spieler1AKLaufenNeu.png"));
+        texturesP1.add(new Texture("spieler/Spieler1AWPLaufenNeu.png"));
+        texturesP1.add(new Texture("spieler/Spieler1PumpgunLaufenNeu.png"));
+        texturesP1.add(new Texture("spieler/Spieler1Tot.png"));
+        player1 = new Player(100, 1, 150f, 800f, new Texture("spieler/Spieler1PistoleLaufenNeu.png"), texturesP1);
+
+        ArrayList<Texture> texturesP2 = new ArrayList<>();
+        texturesP2.add(new Texture("spieler/Spieler2PistoleLaufenNeu.png"));
+        texturesP2.add(new Texture("spieler/Spieler2AKLaufenNeu.png"));
+        texturesP2.add(new Texture("spieler/Spieler2AWPLaufenNeu.png"));
+        texturesP2.add(new Texture("spieler/Spieler2PumpgunLaufenNeu.png"));
+        texturesP2.add(new Texture("spieler/Spieler2Tot.png"));
+        player2 = new Player(100, 2, 800f, 150f, new Texture("spieler/Spieler2PistoleLaufenNeu.png"), texturesP2);
         players.add(player1);
         players.add(player2);
 
@@ -44,17 +58,15 @@ public class Game {
         }
         for (int i = 0; i < 6; i++) {
             String texturePath;
+            float height;
             if (i % 2 == 0) {
                 texturePath = "hindernis/palette.png";
-                destructibleBoxes.add(new DestructibleBox(new Texture(texturePath)));
-                destructibleBoxes.get(i).setScale(2f);
+                height = 60;
             } else {
                 texturePath = "hindernis/Palettemitkartons.png";
-                destructibleBoxes.add(new DestructibleBox(new Texture(texturePath)));
-                destructibleBoxes.get(i).setScale(1f);
+                height = 80;
             }
-
-            // TODO: Besser ist es beide Bilddateien gleich groß zu skalieren und nur noch eine Methode aufzurufen: paletten.add(new DestructibleBox(new Texture(texturePath)));
+            destructibleBoxes.add(new DestructibleBox(new Texture(texturePath), height));
         }
         for (Box box : boxes) {
             box.randomPosition(boxes);
@@ -67,17 +79,14 @@ public class Game {
         weapons.add(new Assaultrifle());
         weapons.add(new Shotgun());
         weapons.add(new Sniperrifle());
-        ammunitions.add(new Ammunition());
-        healthOrbs.add(new HealthOrb());
+        items.add(new Ammunition());
+        items.add(new HealthOrb());
 
         for (Weapon weapon : weapons) {
             weapon.randomPosition(boxes, destructibleBoxes, weapons);
         }
-        for (Ammunition ammunition : ammunitions) {
-            ammunition.randomPosition(boxes, destructibleBoxes, weapons, this.ammunitions);
-        }
-        for (HealthOrb healthOrb : healthOrbs) {
-            healthOrb.randomPosition(boxes, destructibleBoxes, weapons, ammunitions, healthOrbs);
+        for (Item item : items) {
+            item.randomPosition(boxes, destructibleBoxes, weapons, items);
         }
 
         for (Player player : players) {
@@ -85,8 +94,7 @@ public class Game {
             player.setBoxes(boxes);
             player.setDestructibleBoxes(destructibleBoxes);
             player.setWeapons(weapons);
-            player.setAmmoBoxes(ammunitions);
-            player.setHealthBoxes(healthOrbs);
+            player.setItems(items);
         }
 
         player1Position = new Sprite(new Texture("roter_Punkt.png"));
@@ -109,15 +117,17 @@ public class Game {
             if (deleteProjectile != null) {
                 player.getProjectiles().remove(deleteProjectile);
             }
-            deleteProjectile = collisionCheck.hitCheck(players);
+            deleteProjectile = collisionCheck.projectileHitsPlayer(players);
             if (deleteProjectile != null) {
                 player.getProjectiles().remove(deleteProjectile);
             }
-            deleteProjectile = collisionCheck.hitCheck(boxes, players);
+            deleteProjectile = collisionCheck.projectileHitsObstacle((ArrayList< VisualEntity>) (ArrayList<?>) boxes,
+                    players);
             if (deleteProjectile != null) {
                 player.getProjectiles().remove(deleteProjectile);
             }
-            deleteProjectile = collisionCheck.hitCheckDestructibleBox(destructibleBoxes, players);
+            deleteProjectile =
+                    collisionCheck.projectileHitsObstacle((ArrayList< VisualEntity>) (ArrayList<?>) destructibleBoxes, players);
             if (deleteProjectile != null) {
                 player.getProjectiles().remove(deleteProjectile);
             }
@@ -142,6 +152,15 @@ public class Game {
         }
 
         weapons.remove(deleteWeapon);
+
+        Item deleteItem = null;
+        for (Item item : items) {
+            if (!item.isOnGround()) {
+                deleteItem = item;
+            }
+        }
+
+        items.remove(deleteItem);
     }
 
     public ArrayList<Player> getPlayers() {
@@ -156,15 +175,12 @@ public class Game {
         return destructibleBoxes;
     }
 
-    public ArrayList<HealthOrb> getHealthOrbs() {
-        return healthOrbs;
+    public ArrayList<Item> getItems() {
+        return items;
     }
 
     public ArrayList<Weapon> getWeapons() {
         return weapons;
     }
 
-    public ArrayList<Ammunition> getAmmunitions() {
-        return ammunitions;
-    }
 }

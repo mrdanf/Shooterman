@@ -1,7 +1,9 @@
 package entity.player;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
+import entity.VisualEntity;
+import entity.object.ground.Ammunition;
+import entity.object.ground.Item;
 import entity.object.obstacle.Box;
 import entity.object.obstacle.DestructibleBox;
 import entity.object.weapon.Weapon;
@@ -14,9 +16,11 @@ public class PlayerMovement {
     private CollisionCheck collisionCheck = new CollisionCheck();
 
     public void move(Player player, ArrayList<Player> players, ArrayList<Box> boxes,
-                     ArrayList<DestructibleBox> destructibleBoxes, ArrayList<Weapon> weapons) {
-        float playerX = player.getX();
-        float playerY = player.getY();
+                     ArrayList<DestructibleBox> destructibleBoxes, ArrayList<Weapon> weapons, ArrayList<Item> items) {
+        float oldX = player.getX();
+        float oldY = player.getY();
+        float playerX = oldX;
+        float playerY = oldY;
         //Oben Links
         if (Gdx.input.isKeyPressed(player.getPlayerInput().get(Input.MOVE_UP)) && Gdx.input.isKeyPressed(player.getPlayerInput().get(Input.MOVE_LEFT))) {
             player.setViewDirection(4);
@@ -71,40 +75,39 @@ public class PlayerMovement {
             player.getSprite().setRotation(270f);
         }
         if (Gdx.input.isKeyPressed(player.getPlayerInput().get(Input.SHOOT))) {
-            player.Shoot();
-        }
-        if (collisionCheck.wallCheck(playerY) && collisionCheck.wallCheck(playerX) && collisionCheck.playerCheck(playerX,
-                playerY, player,
-                players)) {
-            if (collisionCheck.playerCheckBox(playerX, playerY, boxes) && collisionCheck.playerCheckDestructibleBox(playerX, playerY, destructibleBoxes)) {
-                player.setX(playerX);
-                player.setY(playerY);
-            }
+            player.shoot();
         }
 
-        // TODO: eventuell besser mit X / Y von BoundingRectangle arbeiten
-        /*
-        float pHitX = player.getHitboxX();
-        float pHitY = player.getHitboxY();
-        if (collisionCheck.wallCheck(pHitY) && collisionCheck.wallCheck(pHitX) && collisionCheck.playerCheck(pHitX, pHitY, player,
-                players)) {
-            if (collisionCheck.playerCheckBox(pHitX, pHitY, boxes) && collisionCheck.playerCheckDestructibleBox(pHitX, pHitY, destructibleBoxes)) {
-                player.setX(playerX);
-                player.setY(playerY);
-            }
-        }
-        */
+        player.setX(playerX);
+        player.setY(playerY);
 
-        // Waffe aufheben
+        if (!movementCollisionFree(playerX, playerY, player, players, boxes, destructibleBoxes)) {
+            // Spieler kollidiert gegen etwas, kann sich also nicht bewegen und gesetzte Koordinaten werden
+            // zurückgesetzt
+            player.setX(oldX);
+            player.setY(oldY);
+        }
+
+        // Waffe und Item aufheben
         if (Gdx.input.isKeyJustPressed(player.getPlayerInput().get(Input.PICK_UP))) {
-            // TODO setSprite wieder rausnehmen
-            player.setSprite(new Texture("spieler/Spieler1AKLaufenNeu.png"), 6, 1);
-            // TODO END
             for (Weapon weapon : weapons) {
-                if (collisionCheck.playerCheckWeapon(playerX, playerY, weapon)) {
+                if (collisionCheck.playerInWeaponRange(player, weapon)) {
                     // Waffe wird aufgehoben
                     player.pickUpWeapon(weapon);
                     weapon.setOnGround(false);
+                }
+            }
+
+            for (Item item : items) {
+                if (collisionCheck.playerInPickUpRange(player, item)) {
+                    // Item wird aufgehoben
+                    if (item instanceof Ammunition) {
+                        if (! player.hasWeapon2()){
+                            break;
+                        }
+                    }
+                    item.doEffect(player);
+                    item.setOnGround(false);
                 }
             }
         }
@@ -113,6 +116,14 @@ public class PlayerMovement {
         if (Gdx.input.isKeyJustPressed(player.getPlayerInput().get(Input.CHANGE_WEAPON))) {
             player.switchWeapon();
         }
+    }
+
+    private boolean movementCollisionFree(float playerX, float playerY, Player player, ArrayList<Player> players,
+                                          ArrayList<Box> boxes, ArrayList<DestructibleBox> destructibleBoxes) {
+        return collisionCheck.outerWallCheck(playerX, playerY)
+                && collisionCheck.playerCollidesPlayer(player, players)
+                && collisionCheck.playerCollidesEntity(player, (ArrayList<VisualEntity>) (ArrayList<?>) boxes)
+                && collisionCheck.playerCollidesEntity(player, (ArrayList<VisualEntity>) (ArrayList<?>) destructibleBoxes);
     }
 }
 

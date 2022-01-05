@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import entity.object.ground.Item;
 import entity.object.obstacle.Box;
 import entity.object.obstacle.DestructibleBox;
 import entity.object.ground.Ammunition;
@@ -68,6 +69,32 @@ public class Shooterman extends ApplicationAdapter {
     }
 
     private void batchGame() {
+        for (Box box : game.getBoxes()) {
+            Sprite sprite = box.getSprite();
+            sprite.setX(box.getX());
+            sprite.setY(box.getY());
+            sprite.draw(batch);
+        }
+        for (DestructibleBox destructibleBox : game.getDestructibleBoxes()) {
+            Sprite sprite = destructibleBox.getSprite();
+            sprite.setX(destructibleBox.getX());
+            sprite.setY(destructibleBox.getY());
+            sprite.draw(batch);
+        }
+
+        for (Weapon weapon : game.getWeapons()) {
+            Sprite sprite = weapon.getSprite();
+            sprite.setX(weapon.getX());
+            sprite.setY(weapon.getY());
+            sprite.draw(batch);
+        }
+        for (Item item : game.getItems()) {
+            Sprite sprite = item.getSprite();
+            sprite.setX(item.getX());
+            sprite.setY(item.getY());
+            sprite.draw(batch);
+        }
+
         for (Player player : game.getPlayers()) {
             Sprite sprite = player.getSprite();
             sprite.setX(player.getX());
@@ -89,44 +116,6 @@ public class Shooterman extends ApplicationAdapter {
                 sprite.draw(batch);
             }
         }
-        for (Box box : game.getBoxes()) {
-            Sprite sprite = box.getSprite();
-            sprite.setX(box.getX());
-            sprite.setY(box.getY());
-            sprite.draw(batch);
-        }
-        for (DestructibleBox destructibleBox : game.getDestructibleBoxes()) {
-            Sprite sprite = destructibleBox.getSprite();
-            sprite.setX(destructibleBox.getX());
-            sprite.setY(destructibleBox.getY());
-            sprite.draw(batch);
-        }
-
-        for (Weapon weapon : game.getWeapons()) {
-            Sprite sprite = weapon.getSprite();
-            sprite.setX(weapon.getX());
-            sprite.setY(weapon.getY());
-            sprite.draw(batch);
-        }
-        for (Ammunition ammunition : game.getAmmunitions()) {
-            Sprite sprite = ammunition.getSprite();
-            sprite.setX(ammunition.getX());
-            sprite.setY(ammunition.getY());
-            sprite.draw(batch);
-        }
-        for (HealthOrb healthOrb : game.getHealthOrbs()) {
-            Sprite sprite = healthOrb.getSprite();
-            sprite.setX(healthOrb.getX());
-            sprite.setY(healthOrb.getY());
-            sprite.draw(batch);
-        }
-
-        game.player1Position.setX(game.player1.getHitboxX());
-        game.player1Position.setY(game.player1.getHitboxY());
-        game.player1Position.draw(batch);
-        game.player2Position.setX(game.player2.getHitboxX());
-        game.player2Position.setY(game.player2.getHitboxY());
-        game.player2Position.draw(batch);
     }
 
     private void batchMenu() {

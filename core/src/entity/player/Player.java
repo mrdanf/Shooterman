@@ -3,9 +3,11 @@ package entity.player;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import entity.AnimatingEntity;
+import entity.object.ground.Item;
 import entity.object.obstacle.Box;
 import entity.object.ground.Ammunition;
 import entity.object.ground.HealthOrb;
+import entity.object.weapon.WeaponType;
 import hud.Status;
 import entity.object.obstacle.DestructibleBox;
 import entity.object.weapon.Pistol;
@@ -13,7 +15,6 @@ import entity.object.weapon.Weapon;
 import entity.projectile.Projectile;
 
 import java.util.ArrayList;
-
 
 public class Player extends AnimatingEntity {
     private PlayerMovement move = new PlayerMovement();
@@ -29,16 +30,17 @@ public class Player extends AnimatingEntity {
     private ArrayList<Box> boxes = new ArrayList<>();
     private ArrayList<DestructibleBox> destructibleBoxes = new ArrayList<>();
     private ArrayList<Weapon> weapons;
-    private ArrayList<Ammunition> ammunitions;
-    private ArrayList<HealthOrb> healthOrbs;
+    private ArrayList<Item> items;
+    private ArrayList<Texture> textures;
 
     private Weapon pistol = new Pistol();
     private Weapon weapon2;
     private Weapon activeWeapon;
+    private boolean hasWeapon2 = false;
 
 
-    public Player(int health, int playerNumber, float startX, float startY, Texture texture) {
-        super(startX, startY, texture, 6, 1);
+    public Player(int health, int playerNumber, float startX, float startY, Texture texture, ArrayList<Texture> textures) {
+        super(startX, startY, 35, 35, texture, 6, 1);
         this.health = health;
         this.alive = true;
         this.playerNumber = playerNumber;
@@ -47,6 +49,7 @@ public class Player extends AnimatingEntity {
         setY(startY);
         input();
         this.activeWeapon = this.pistol;
+        this.textures = textures;
     }
 
     /**
@@ -89,17 +92,31 @@ public class Player extends AnimatingEntity {
     }
 
     @Override
+    public void updateHitbox() {
+        hitbox.setPosition(x + 5, y + 20);
+    }
+
+    @Override
     public void update() {
         status.update(health, activeWeapon);
         activeWeapon.update();
         if (alive) {
-            move.move(this, players, boxes, destructibleBoxes, weapons);
+            move.move(this, players, boxes, destructibleBoxes, weapons, items);
+        } else {
+            setSprite(textures.get(WeaponType.DEAD)); // 4 ist tot Sprite
+            sprite.setScale(0.7f);
         }
     }
 
-    public void Shoot() {
+    public boolean isAlive() {
+        return alive;
+    }
+
+    public void shoot() {
         if (activeWeapon.shoot()) {
-            Projectile projectile = new Projectile(viewDirection, getX(), getY(), this);
+            String spriteName = activeWeapon.getProjectileName();
+            Projectile projectile = new Projectile(viewDirection, sprite.getRotation(), getX(), getY(), this,
+                    new Texture(spriteName));
             projectiles.add(projectile);
         }
     }
@@ -140,14 +157,6 @@ public class Player extends AnimatingEntity {
         this.weapons = weapons;
     }
 
-    public void setAmmoBoxes(ArrayList<Ammunition> ammunitions) {
-        this.ammunitions = ammunitions;
-    }
-
-    public void setHealthBoxes(ArrayList<HealthOrb> healthOrbs) {
-        this.healthOrbs = healthOrbs;
-    }
-
     public void setPlayers(ArrayList<Player> players) {
         this.players = players;
     }
@@ -160,6 +169,10 @@ public class Player extends AnimatingEntity {
         this.destructibleBoxes = destructibleBoxes;
     }
 
+    public void setItems(ArrayList<Item> items) {
+        this.items = items;
+    }
+
     public int getHealth() {
         return health;
     }
@@ -168,8 +181,20 @@ public class Player extends AnimatingEntity {
         this.health = health;
     }
 
+    public void receiveDamage(int power) {
+        this.health -= power;
+
+        if (health <= 0) {
+            this.kill();
+        }
+    }
+
     public Weapon getActiveWeapon() {
         return activeWeapon;
+    }
+
+    public boolean hasWeapon2() {
+        return hasWeapon2;
     }
 
     public void kill() {
@@ -183,12 +208,24 @@ public class Player extends AnimatingEntity {
             } else {
                 activeWeapon = pistol;
             }
+
+            float rotation = sprite.getRotation();
+            setSprite(textures.get(activeWeapon.getWeaponType()), 6, 1);
+            sprite.setRotation(rotation);
         }
     }
 
     public void pickUpWeapon(Weapon weapon) {
         this.weapon2 = weapon;
         this.activeWeapon = weapon;
+        this.hasWeapon2 = true;
+        float rotation = sprite.getRotation();
+        setSprite(textures.get(activeWeapon.getWeaponType()), 6, 1);
+        sprite.setRotation(rotation);
+    }
+
+    public void giveAmmo(int ammunitionAmount) {
+        this.weapon2.giveAmmo(ammunitionAmount);
     }
 }
 
