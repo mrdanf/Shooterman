@@ -58,7 +58,6 @@ public abstract class Item extends VisualEntity {
 
     public boolean placementPossible(ArrayList<Box> boxes, float x, float y, ArrayList<DestructibleBox> destructibleBoxes,
                                      ArrayList<Weapon> weapons, ArrayList<Item> items) {
-        boolean boxok = false;
         for (Box box : boxes) {
             if (x <= box.getX() + (box.getSprite().getWidth() / 2)) {
                 if (x >= box.getX() - (box.getSprite().getWidth() / 2)) {

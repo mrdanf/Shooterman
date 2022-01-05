@@ -132,7 +132,6 @@ public abstract class Weapon extends VisualEntity {
         float x = 0;
         float y = 0;
         boolean possible = true;
-        Random rn = new Random();
         while (possible) {
             x = min + (int) (Math.random() * ((max - min) + 1));
             y = min + (int) (Math.random() * ((max - min) + 1));
@@ -147,7 +146,6 @@ public abstract class Weapon extends VisualEntity {
 
     public boolean placementPossible(ArrayList<Box> boxes, float x, float y, ArrayList<DestructibleBox> destructibleBoxes,
                                      ArrayList<Weapon> weapons) {
-        boolean boxok = false;
         for (Box box : boxes) {
             if (x <= box.getX() + (box.getSprite().getWidth() / 2)) {
                 if (x >= box.getX() - (box.getSprite().getWidth() / 2)) {
