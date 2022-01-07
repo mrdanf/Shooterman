@@ -5,7 +5,9 @@ import hud.menu.button.MenuButton;
 
 public class MenuWindow extends AbstractWindow {
 
-
+    /**
+     * Einfache Implementierung des AbstractWindow mit 3 Buttons
+     */
     public MenuWindow() {
         super(750, 750, new Color(0.6f, 0.6f, 0.6f, 1));
 

@@ -6,8 +6,18 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
+/**
+ * Klasse für Buttons im Hauptmenü
+ */
 public class MenuButton extends AbstractButton {
 
+    /**
+     * Beim erstellen sind Größe und Farbe vorgegeben
+     * @param label Angezeigter Text auf dem Button
+     * @param offset Bei einem Offset von 0 wird der Button in der Fenstermitte dargestellt
+     *               wenn man einen positven Wert eingibt, wird dieser um soviele Pixel nach oben verschoben
+     *               und mit einem negativen Wert nach unten
+     */
     public MenuButton(String label, int offset) {
         this.width = 300;
         this.height = 50;

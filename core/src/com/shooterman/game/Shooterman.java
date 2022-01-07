@@ -11,8 +11,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import entity.object.ground.Item;
 import entity.object.obstacle.Box;
 import entity.object.obstacle.DestructibleBox;
-import entity.object.ground.Ammunition;
-import entity.object.ground.HealthOrb;
 import entity.object.weapon.Weapon;
 import entity.player.Player;
 import hud.Status;
@@ -20,7 +18,7 @@ import hud.menu.AbstractWindow;
 import hud.menu.button.AbstractButton;
 import hud.menu.MenuWindow;
 import entity.projectile.Projectile;
-import hud.menu.button.HelpWindow;
+import hud.menu.HelpWindow;
 
 
 public class Shooterman extends ApplicationAdapter {

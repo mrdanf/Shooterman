@@ -8,6 +8,11 @@ public class HealthBar {
     private Pixmap hbPixmap;
     private Texture background;
 
+    /**
+     * Die Lebensanzeige eines Spielers
+     * Besteht aus 2 Elementen, der grüne Lebensbalken und dem schwarzen Hintergrund
+     * @param health bestimmt die Breite in Pixeln
+     */
     public HealthBar(int health) {
         hbPixmap = new Pixmap(health, 15, Pixmap.Format.RGBA8888);
         hbPixmap.setColor(0, 1, 0, 0.75f);
@@ -24,6 +29,11 @@ public class HealthBar {
         return new Texture[]{background, new Texture(hbPixmap),};
     }
 
+    /**
+     * Aktualisiert die Lebensanzeige
+     * Sollten sie unter 0 fallen, wird es zu einem Roten Balken umgeändert
+     * @param health Breite des Lebenbalkens
+     */
     public void updateHealth(int health) {
         if (health > 0) {
             hbPixmap.setColor(Color.CLEAR);

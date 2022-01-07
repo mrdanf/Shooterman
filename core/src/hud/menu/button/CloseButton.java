@@ -7,6 +7,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
+/**
+ * Button um das Fenster zu schließen, wird in AbstractWindow eingebunden
+ */
 public class CloseButton extends AbstractButton {
 
     public CloseButton(int xTopRight, int yTopRight) {
