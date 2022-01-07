@@ -7,7 +7,6 @@ import entity.object.obstacle.Box;
 import entity.object.obstacle.DestructibleBox;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public abstract class Weapon extends VisualEntity {
 
@@ -175,6 +174,11 @@ public abstract class Weapon extends VisualEntity {
     }
 
     public void giveAmmo(int ammunitionAmount) {
-        this.totalAmmunition += ammunitionAmount;
+        if (totalAmmunition == 0) {
+            this.totalAmmunition += ammunitionAmount;
+            currentAmmunition = totalAmmunition;
+        } else {
+            this.totalAmmunition += ammunitionAmount;
+        }
     }
 }
