@@ -20,7 +20,7 @@ public class Player extends AnimatingEntity {
     private PlayerMovement move = new PlayerMovement();
     private int health;
     private boolean alive;
-    private float movement = 2f;
+    private float movement = 3f;
     private int playerNumber;
     private ArrayList<Integer> playerInput = new ArrayList();
     private Status status;
@@ -88,7 +88,7 @@ public class Player extends AnimatingEntity {
             playerInput.add(Input.Keys.J);
             playerInput.add(Input.Keys.K);
             playerInput.add(Input.Keys.L);
-            playerInput.add(Input.Keys.SHIFT_RIGHT);
+            playerInput.add(Input.Keys.CONTROL_RIGHT);
             playerInput.add(Input.Keys.O);
             playerInput.add(Input.Keys.U);
         }
