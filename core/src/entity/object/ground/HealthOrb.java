@@ -17,6 +17,9 @@ public class HealthOrb extends Item {
         super(0, 0, new Texture("item/HealthBox.png"));
     }
 
+    /**
+     * Setzt das Leben des Spieler auf 100% bei berührung
+    **/
     @Override
     public void doEffect(Player player) {
         player.setHealth(100);

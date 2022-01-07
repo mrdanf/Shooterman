@@ -39,6 +39,9 @@ public class Player extends AnimatingEntity {
     private boolean hasWeapon2 = false;
 
 
+    /**
+     *Initaliesiert alle notwendigen Atribute für den Spieler
+     */
     public Player(int health, int playerNumber, float startX, float startY, Texture texture, ArrayList<Texture> textures) {
         super(startX, startY, 35, 35, texture, 6, 1);
         this.health = health;
@@ -91,11 +94,17 @@ public class Player extends AnimatingEntity {
         }
     }
 
+    /**
+     *Erzeugt die Hitbox für die Spieler
+     */
     @Override
     public void updateHitbox() {
         hitbox.setPosition(x + 5, y + 20);
     }
 
+    /**
+     *Fragt ab ob der spieler noch Leben hat und was der nutzer gerade macht und ruft dann die richte metode auf
+     */
     @Override
     public void update() {
         status.update(health, activeWeapon);
@@ -112,6 +121,9 @@ public class Player extends AnimatingEntity {
         return alive;
     }
 
+    /**
+     *Erzeugt ein Proejektiel welches in Blickrichtung des spielers fliegt
+     */
     public void shoot() {
         if (activeWeapon.shoot()) {
             String spriteName = activeWeapon.getProjectileName();

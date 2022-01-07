@@ -26,6 +26,9 @@ public class Projectile extends VisualEntity {
         sprite.setScale(0.4f);
     }
 
+    /**
+     * Setzt Die position Pro frame neu um die Kugel an der richtigen position zu zeichen
+     */
     @Override
     public void update() {
         float projectileX = getX();

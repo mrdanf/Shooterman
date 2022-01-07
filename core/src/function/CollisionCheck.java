@@ -15,6 +15,10 @@ public class CollisionCheck {
         return x >= 100f && x <= 860f && y >= 95f && y <= 835f;
     }
 
+
+    /**
+     * Diese Methode ist zur überfrüfung das spieler Nicht durch einander laufen können
+     */
     public boolean playerCollidesPlayer(Player player, ArrayList<Player> players) {
         for (Player enemyPlayer : players) {
             if (player != enemyPlayer) {
@@ -26,6 +30,10 @@ public class CollisionCheck {
         return false;
     }
 
+    /**
+     * Diese Methode ist zur überfrüfung das spieler Nicht durch Objekte Laufen können
+     * @param
+     */
     public boolean playerCollidesEntity(Player player, ArrayList<VisualEntity> entities) {
         for (VisualEntity entity : entities) {
             if (entity.isColliding(player)) {
@@ -36,6 +44,8 @@ public class CollisionCheck {
     }
 
     /**
+     * Überprüft ob die eine kugel ein Spieler trifft
+     *
      * @param players
      * @return
      */
@@ -55,6 +65,11 @@ public class CollisionCheck {
         return null;
     }
 
+    /**
+     * Überprüft ob die  kugel ein Objekt trifft
+     *
+     * @return
+     */
     public Projectile projectileHitsObstacle(ArrayList<VisualEntity> obstacles, ArrayList<Player> players) {
         for (Player player : players) {
             for (Projectile projectile : player.getProjectiles()) {
@@ -74,6 +89,10 @@ public class CollisionCheck {
         return null;
     }
 
+    /**
+     * Überprüft ob  eine Waffe in reichweite  eines Spieler ist
+     *
+     */
     public boolean playerInWeaponRange(Player player, Weapon weapon) {
         if (weapon.isColliding(player)) {
             return true;
@@ -82,7 +101,10 @@ public class CollisionCheck {
         return false;
     }
 
-
+    /**
+     * Überprüft ob  eine Item in reichweite  eines Spieler ist
+     *
+     */
     public boolean playerInPickUpRange(Player player, Item item) {
         if (item.isColliding(player)) {
             return true;

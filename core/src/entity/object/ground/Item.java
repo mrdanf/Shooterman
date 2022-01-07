@@ -21,6 +21,10 @@ public abstract class Item extends VisualEntity {
         super(x, y, texture, 80, 80);
     }
 
+
+    /**
+     *Setzt die größe der Hitbox auf die sprite größe
+     */
     @Override
     protected void updateHitbox() {
         float x = sprite.getX() - ((hitbox.width - sprite.getWidth()) / 2);
@@ -38,6 +42,10 @@ public abstract class Item extends VisualEntity {
         return onGround;
     }
 
+
+    /**
+     * Setzt das Item an eine random position auf der karte
+     */
     public void randomPosition(ArrayList<Box> boxes, ArrayList<DestructibleBox> destructibleBoxes, ArrayList<Weapon> weapons,
                                ArrayList<Item> items) {
         int max = 736;
@@ -56,6 +64,9 @@ public abstract class Item extends VisualEntity {
         setY(y);
     }
 
+    /**
+     *Prüft ob das platzieren überhaubt möflich ist und kein anderes objekt im weg ist
+     */
     public boolean placementPossible(ArrayList<Box> boxes, float x, float y, ArrayList<DestructibleBox> destructibleBoxes,
                                      ArrayList<Weapon> weapons, ArrayList<Item> items) {
         for (Box box : boxes) {

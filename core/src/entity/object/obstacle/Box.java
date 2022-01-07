@@ -11,6 +11,10 @@ public class Box extends VisualEntity {
         super(0, 0, new Texture("hindernis/Sandsacke.png"), 80, 80);
     }
 
+
+    /**
+     * Setzt die Box an eine random position auf der karte
+     */
     public void randomPosition(ArrayList<Box> boxes) {
         int max = 736;
         int min = 156;
@@ -28,6 +32,9 @@ public class Box extends VisualEntity {
         setY(y);
     }
 
+    /**
+     *Prüft ob das platzieren überhaubt möglich ist und keine anderen objekt im weg sind
+     */
     public boolean placementPossible(ArrayList<Box> boxes, float x, float y) {
         for (Box box : boxes) {
             if (box != this) {
