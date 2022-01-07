@@ -15,6 +15,9 @@ import java.util.ArrayList;
 public class PlayerMovement {
     private CollisionCheck collisionCheck = new CollisionCheck();
 
+    /**
+     * Fragt die eingabe des  nutzers ab und lässt den spieler diese ausführen
+     */
     public void move(Player player, ArrayList<Player> players, ArrayList<Box> boxes,
                      ArrayList<DestructibleBox> destructibleBoxes, ArrayList<Weapon> weapons, ArrayList<Item> items) {
         float oldX = player.getX();
@@ -118,6 +121,9 @@ public class PlayerMovement {
         }
     }
 
+    /**
+     * Fragt ab ob der spieler sich in die richtung in der er sich bewegen möchte bewegen kann
+     */
     private boolean movementCollisionFree(float playerX, float playerY, Player player, ArrayList<Player> players,
                                           ArrayList<Box> boxes, ArrayList<DestructibleBox> destructibleBoxes) {
         return collisionCheck.outerWallCheck(playerX, playerY)

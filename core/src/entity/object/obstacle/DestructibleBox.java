@@ -16,6 +16,9 @@ public class DestructibleBox extends VisualEntity {
         super(0, 0, texture, 100,  height);
     }
 
+    /**
+     * Setzt die Zerstörbarenboxen an eine random position auf der karte
+     */
     public void randomPosition(ArrayList<Box> boxes, ArrayList<DestructibleBox> destructibleBoxes) {
         int max = 736;
         int min = 156;
@@ -34,6 +37,9 @@ public class DestructibleBox extends VisualEntity {
     }
 
 
+    /**
+     *Prüft ob das platzieren überhaubt möglich ist und keine anderen objekt im weg sind
+     */
     public boolean placementPossible(ArrayList<Box> boxes, float x, float y, ArrayList<DestructibleBox> destructibleBoxes) {
         for (Box box : boxes) {
             if (box.getSprite().getBoundingRectangle().contains(x, y)) {
@@ -51,6 +57,9 @@ public class DestructibleBox extends VisualEntity {
         return true;
     }
 
+    /**
+     *Setzt die Hitbox für die Zerstörbare box
+     */
     @Override
     protected void updateHitbox() {
         hitbox.setPosition(x, y + 10);

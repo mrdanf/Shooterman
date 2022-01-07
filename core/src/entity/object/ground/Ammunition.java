@@ -11,6 +11,9 @@ public class Ammunition extends Item {
         super(0, 0, new Texture("item/AmmoBox.png"));
     }
 
+    /**
+     * Weist  dem Player die richtige anzahl an Munition zu
+     */
     @Override
     public void doEffect(Player player) {
         player.giveAmmo(ammunitionAmount);

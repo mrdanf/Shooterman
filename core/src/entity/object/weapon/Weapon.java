@@ -23,6 +23,9 @@ public abstract class Weapon extends VisualEntity {
 
     private boolean isOnGround = true;
 
+    /**
+     *Initialiesiert erstellte Waffen
+     */
     public Weapon(int power, int totalAmmunition, int magazineSize, int roundsPerMinute, float reloadTime,
                   Texture texture, int weaponType) {
         super(texture, 150, 120);
@@ -38,11 +41,17 @@ public abstract class Weapon extends VisualEntity {
 
     public abstract String getProjectileName();
 
+    /**
+     *Zählt den cooldown zwischen den einzlnen schüssen runter
+     */
     @Override
     public void update() {
         cooldown--;
     }
 
+    /**
+     *Erzeugt ein Projektil welches dann in blickrichtung des spieler sich bewegt
+     */
     public boolean shoot() {
         if (cooldown <= 0 && totalAmmunition > 0) {
             if (currentAmmunition > 0) {
@@ -66,6 +75,9 @@ public abstract class Weapon extends VisualEntity {
         }
     }
 
+    /**
+     *Pausiert das schießen um das nachladen zu simulieren
+     */
     protected void reload() {
         insideReload = true;
 
@@ -79,6 +91,9 @@ public abstract class Weapon extends VisualEntity {
         }, reloadTime);
     }
 
+    /**
+     *Erzeugt hitboxen zum aufheben der Waffen
+     */
     @Override
     protected void updateHitbox() {
         float x = sprite.getX() - ((hitbox.width - sprite.getWidth()) / 2);
@@ -126,6 +141,10 @@ public abstract class Weapon extends VisualEntity {
         return weaponType;
     }
 
+
+    /**
+     *Gibt der Waffe eine random Position auf der Karte
+     */
     public void randomPosition(ArrayList<Box> boxes, ArrayList<DestructibleBox> destructibleBoxes, ArrayList<Weapon> weapons) {
         int max = 736;
         int min = 156;
@@ -143,7 +162,9 @@ public abstract class Weapon extends VisualEntity {
         setY(y);
     }
 
-
+    /**
+     * Überprüft ob die Random Position schon vergeben ist
+     */
     public boolean placementPossible(ArrayList<Box> boxes, float x, float y, ArrayList<DestructibleBox> destructibleBoxes,
                                      ArrayList<Weapon> weapons) {
         for (Box box : boxes) {
