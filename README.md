@@ -47,7 +47,7 @@ Das Sturmgewehr fügt geringen schaden zu und hat einen geringen rückstoß was 
 ### Die Schrotflinte
 ![PumpgunKiste30x60](https://user-images.githubusercontent.com/85035651/148624986-d997b59b-a6e4-41aa-9b3b-150ec17d5762.png)
 
-Die Schrotflinte fügt mittleren schaden zu und hat einen mittleren rückstoß 
+Die Schrotflinte fügt mittleren schaden zu und hat einen mittleren rückstoß schießt dafür aber 3 schuss ab
 
 ### Das Scharfschützengewehr
 ![AWPKiste30x70](https://user-images.githubusercontent.com/85035651/148624951-6e235729-9f53-43f9-b5b2-55f1f4f445d5.png)
