@@ -80,6 +80,10 @@ public class Shooterman extends ApplicationAdapter {
      *
      */
     private void batchGame() {
+        if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)){
+            System.out.println(Gdx.input.getX());
+            System.out.println(Math.abs(Gdx.input.getY()-map.getHeight()));
+        }
         for (Box box : game.getBoxes()) {
             Sprite sprite = box.getSprite();
             sprite.setX(box.getX());
