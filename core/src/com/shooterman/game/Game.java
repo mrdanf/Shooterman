@@ -34,6 +34,10 @@ public class Game {
     Sprite player2Position;
     // TODO TEST END
 
+    /**
+     *Initialiesiert alle Objecte und Fügt sie der entsprechenden arraylist hinzu um sie dann
+     * später ordentlich aufrufen zu können und abfragen zu können
+     */
     public Game() {
         ArrayList<Texture> texturesP1 = new ArrayList<>();
         texturesP1.add(new Texture("spieler/Spieler1PistoleLaufenNeu.png"));
@@ -101,6 +105,9 @@ public class Game {
         player2Position = new Sprite(new Texture("roter_Punkt.png"));
     }
 
+    /**
+     * Fragt jeden Frame ab ob es eine änderung gibt für die aktieven objekte auf der karte
+     */
     public void update() {
         for (Player player : players) {
             player.update();

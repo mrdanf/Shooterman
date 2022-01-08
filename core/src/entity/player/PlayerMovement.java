@@ -15,8 +15,14 @@ import java.util.ArrayList;
 public class PlayerMovement {
     private CollisionCheck collisionCheck = new CollisionCheck();
 
-    /**
-     * Fragt die eingabe des  nutzers ab und lässt den spieler diese ausführen
+    /**Fragt die Eingabe des Nutzers ab und lässt den Spieler die gewünschte Aktion ausführen
+     *
+     * @param player Aktueller Spieler der gesteuert werden soll
+     * @param players Liste aller vorhandener Spieler
+     * @param boxes Liste aller Blockaden
+     * @param destructibleBoxes Liste aller zerstörbaren Blockaden
+     * @param weapons Liste aller Waffen
+     * @param items Liste aller Items
      */
     public void move(Player player, ArrayList<Player> players, ArrayList<Box> boxes,
                      ArrayList<DestructibleBox> destructibleBoxes, ArrayList<Weapon> weapons, ArrayList<Item> items) {
@@ -122,7 +128,16 @@ public class PlayerMovement {
     }
 
     /**
-     * Fragt ab ob der spieler sich in die richtung in der er sich bewegen möchte bewegen kann
+     *
+     * @param playerX Nächste Postion des Spielers wo er sich auf der X Achse hinbewegen möchte
+     * @param playerY Nächste Postion des Spielers wo er sich auf der Y Achse hinbewegen möchte
+     * @param player Aktueller Spieler
+     * @param players Liste aller Spieler
+     * @param boxes Liste aller Blockaden
+     * @param destructibleBoxes Lister aller zerstörbaren Blockaden
+     * @return
+     * true = wenn alle Überprüfungen nicht zutreffen sind/
+     * false = wenn eine Blockade schon an der position ist
      */
     private boolean movementCollisionFree(float playerX, float playerY, Player player, ArrayList<Player> players,
                                           ArrayList<Box> boxes, ArrayList<DestructibleBox> destructibleBoxes) {

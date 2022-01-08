@@ -9,6 +9,12 @@ public abstract class VisualEntity extends NonVisualEntity {
     protected Sprite sprite;
     protected Rectangle hitbox;
 
+    /**
+     * Erzeugt die Animationen für Items und Waffen
+     * @param width Weite des einzelnen Bildes
+     * @param height Höhe des einzelnen Bildes
+     * @param texture Aktuelle Texture
+     */
     public VisualEntity(Texture texture, float width, float height) {
         if (texture != null) {
             sprite = new Sprite(texture);
@@ -17,6 +23,14 @@ public abstract class VisualEntity extends NonVisualEntity {
         this.hitbox = new Rectangle(0, 0, width, height);
     }
 
+    /**
+     * Erzeugt die Animationen für Items und Waffen
+     * @param x Aktuelle Position des Items auf der x-Achse
+     * @param y Aktuelle Position des Items auf der y-Achse
+     * @param width Weite des einzelnen Bildes
+     * @param height Höhe des einzelnen Bildes
+     * @param texture Aktuelle Texture
+     */
     public VisualEntity(float x, float y, Texture texture, float width, float height) {
         super(x, y);
         if (texture != null) {

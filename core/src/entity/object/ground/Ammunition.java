@@ -12,7 +12,7 @@ public class Ammunition extends Item {
     }
 
     /**
-     * Weist  dem Player die richtige anzahl an Munition zu
+     * Weist dem Spieler die aktuelle Anzahl an Munition zu.
      */
     @Override
     public void doEffect(Player player) {

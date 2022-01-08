@@ -4,6 +4,9 @@ public class Pistol extends Weapon {
 
     public static final String projectileName = "projektil/PistolenSchuss.png";
 
+    /**
+     *Initialisiert die Pistole
+     */
     public Pistol() {
         super(15, 999, 10, 30, 2f, null, WeaponType.PISTOL);
     }
@@ -13,6 +16,10 @@ public class Pistol extends Weapon {
         return projectileName;
     }
 
+    /**
+     *Behandelt das Schießen mit der Pistole besonders da diese unendlich schuss hat, um ein
+     * leer gehen der standard Waffe zu verhindern
+     */
     @Override
     public boolean shoot() {
         if (cooldown <= 0 && currentAmmunition > 0) {

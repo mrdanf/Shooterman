@@ -18,7 +18,7 @@ public class HealthOrb extends Item {
     }
 
     /**
-     * Setzt das Leben des Spieler auf 100% bei berührung
+     * Setzt das Leben des Spielers auf 100 % bei Berührung
     **/
     @Override
     public void doEffect(Player player) {

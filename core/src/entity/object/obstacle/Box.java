@@ -13,7 +13,9 @@ public class Box extends VisualEntity {
 
 
     /**
-     * Setzt die Box an eine random position auf der karte
+     * Setzt eine Blockade an eine random position auf der Karte.
+     *
+     * @param boxes Ist eine Liste aller Blockaden, die es im Spiel gibt
      */
     public void randomPosition(ArrayList<Box> boxes) {
         int max = 736;
@@ -33,7 +35,17 @@ public class Box extends VisualEntity {
     }
 
     /**
-     *Prüft ob das platzieren überhaubt möglich ist und keine anderen objekt im weg sind
+     *Prüft, ob das Platzieren überhaupt möglich ist und keine andere Blockade, die vorher platziert, wurde im weg ist,
+     *  um ein Überlappen der Objekte zu verhindern
+     *
+     * @param boxes Ist eine Liste aller Blockaden, die es im Spiel gibt
+     * @param x Ist der Punkt auf der X Achse des zu prüfenden Objektes
+     * @param y Ist der Punkt auf der Y Achse des zu prüfenden Objektes
+     * @return
+     * true = wenn alle Überprüfungen nicht zutreffen sind/
+     * false = wenn eine Blockade schon an der position ist
+     *
+     *
      */
     public boolean placementPossible(ArrayList<Box> boxes, float x, float y) {
         for (Box box : boxes) {
