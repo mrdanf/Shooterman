@@ -4,10 +4,14 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 
-public abstract class VisualEntity extends NonVisualEntity {
+public abstract class VisualEntity {
 
+    protected float x;
+    protected float y;
     protected Sprite sprite;
     protected Rectangle hitbox;
+
+    public abstract void update();
 
     /**
      * Erzeugt die Animationen für Items und Waffen
@@ -32,7 +36,6 @@ public abstract class VisualEntity extends NonVisualEntity {
      * @param texture Aktuelle Texture
      */
     public VisualEntity(float x, float y, Texture texture, float width, float height) {
-        super(x, y);
         if (texture != null) {
             sprite = new Sprite(texture);
         }
@@ -52,16 +55,22 @@ public abstract class VisualEntity extends NonVisualEntity {
         return sprite.getHeight();
     }
 
-    @Override
     public void setX(float x) {
-        super.setX(x);
+        this.x = x;
         sprite.setX(x);
     }
 
-    @Override
     public void setY(float y) {
-        super.setY(y);
+        this.y = y;
         sprite.setY(y);
+    }
+
+    public float getX() {
+        return x;
+    }
+
+    public float getY() {
+        return y;
     }
 
     public Rectangle getHitbox() {
@@ -78,8 +87,4 @@ public abstract class VisualEntity extends NonVisualEntity {
         return this.getHitbox().overlaps(other.getHitbox());
     }
 
-    @Override
-    public void update() {
-
-    }
 }
