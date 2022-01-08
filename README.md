@@ -66,7 +66,7 @@ Das Scharfschützengewehr fügt hohen Schaden zu und hat einen hohen Rückstoß,
 Geringer schaden und mittlerer Rückstoß dafür unendlich Munition
 
 
-## Die Hilfsmittel für den kampf
+## Die Hilfsmittel für den Kampf
 ## Items
 ### Lebenskiste
 ![unknown](https://user-images.githubusercontent.com/85035651/148625531-eaa94128-8a3f-4b84-9154-dffe91d3a99f.png)
