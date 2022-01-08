@@ -7,6 +7,7 @@ import entity.object.ground.Item;
 import entity.object.obstacle.Box;
 import entity.object.obstacle.DestructibleBox;
 import entity.object.weapon.Weapon;
+import entity.object.weapon.WeaponType;
 import function.CollisionCheck;
 
 import java.util.ArrayList;
@@ -36,6 +37,7 @@ public class PlayerMovement {
             playerY += player.getMovement();
             playerX -= player.getMovement();
             player.getSprite().setRotation(45f);
+            player.setRotation(45f);
         }
         // Unten Links
         else if (Gdx.input.isKeyPressed(player.getPlayerInput().get(Input.MOVE_DOWN)) && Gdx.input.isKeyPressed(player.getPlayerInput().get(Input.MOVE_LEFT))) {
@@ -43,6 +45,7 @@ public class PlayerMovement {
             playerY -= player.getMovement();
             playerX -= player.getMovement();
             player.getSprite().setRotation(135f);
+            player.setRotation(135f);
         }
         // Unten Rechts
         else if (Gdx.input.isKeyPressed(player.getPlayerInput().get(Input.MOVE_DOWN)) && Gdx.input.isKeyPressed(player.getPlayerInput().get(Input.MOVE_RIGHT))) {
@@ -50,6 +53,7 @@ public class PlayerMovement {
             playerY -= player.getMovement();
             playerX += player.getMovement();
             player.getSprite().setRotation(225f);
+            player.setRotation(225f);
         }
         //Oben Rechts
         else if (Gdx.input.isKeyPressed(player.getPlayerInput().get(Input.MOVE_UP)) && Gdx.input.isKeyPressed(player.getPlayerInput().get(Input.MOVE_RIGHT))) {
@@ -57,24 +61,28 @@ public class PlayerMovement {
             playerY += player.getMovement();
             playerX += player.getMovement();
             player.getSprite().setRotation(315f);
+            player.setRotation(315f);
         }
         //Nach oben gehen
         else if (Gdx.input.isKeyPressed(player.getPlayerInput().get(Input.MOVE_UP))) {
             player.setViewDirection(0);
             playerY += player.getMovement();
             player.getSprite().setRotation(0f);
+            player.setRotation(0f);
         }
         //Nach links gehen
         else if (Gdx.input.isKeyPressed(player.getPlayerInput().get(Input.MOVE_LEFT))) {
             player.setViewDirection(1);
             playerX -= player.getMovement();
             player.getSprite().setRotation(90f);
+            player.setRotation(90f);
         }
         //Nach unten gehen
         else if (Gdx.input.isKeyPressed(player.getPlayerInput().get(Input.MOVE_DOWN))) {
             player.setViewDirection(2);
             playerY -= player.getMovement();
             player.getSprite().setRotation(180f);
+            player.setRotation(180f);
         }
 
         //Nach rechts gehen
@@ -82,6 +90,11 @@ public class PlayerMovement {
             player.setViewDirection(3);
             playerX += player.getMovement();
             player.getSprite().setRotation(270f);
+            player.setRotation(270f);
+        }
+        else{
+            player.setSprite(player.getTextures().get(player.getActiveWeapon().getWeaponType()), 6, 1);
+            player.getSprite().setRotation(player.getRotation());
         }
         if (Gdx.input.isKeyPressed(player.getPlayerInput().get(Input.SHOOT))) {
             player.shoot();

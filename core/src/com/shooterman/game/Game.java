@@ -35,7 +35,7 @@ public class Game {
     // TODO TEST END
 
     /**
-     *Initialiesiert alle Objecte und Fügt sie der entsprechenden arraylist hinzu um sie dann
+     *Initialisiert alle Objekte und fügt sie der entsprechenden Arraylist hinzu um sie dann
      * später ordentlich aufrufen zu können und abfragen zu können
      */
     public Game() {

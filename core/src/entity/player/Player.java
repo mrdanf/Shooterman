@@ -33,6 +33,7 @@ public class Player extends AnimatingEntity {
     private ArrayList<Weapon> weapons;
     private ArrayList<Item> items;
     private ArrayList<Texture> textures;
+    private float rotation=0f;
 
     private Weapon pistol = new Pistol();
     private Weapon weapon2;
@@ -155,6 +156,10 @@ public class Player extends AnimatingEntity {
         return movement;
     }
 
+    public ArrayList<Texture> getTextures() {
+        return textures;
+    }
+
     public ArrayList<Integer> getPlayerInput() {
         return playerInput;
     }
@@ -189,6 +194,14 @@ public class Player extends AnimatingEntity {
 
     public void setBoxes(ArrayList<Box> boxes) {
         this.boxes = boxes;
+    }
+
+    public float getRotation() {
+        return rotation;
+    }
+
+    public void setRotation(float rotation) {
+        this.rotation = rotation;
     }
 
     public void setDestructibleBoxes(ArrayList<DestructibleBox> destructibleBoxes) {
