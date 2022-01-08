@@ -31,6 +31,9 @@ public class Shooterman extends ApplicationAdapter {
     AbstractWindow activeWindow;
     boolean paused = false;
 
+    /**
+     *Initialisiert alles was das Fenster, das Spiel und das Menü betrifft
+     */
     @Override
     public void create() {
         this.activeWindow = new MenuWindow();
@@ -46,6 +49,10 @@ public class Shooterman extends ApplicationAdapter {
         camera.zoom = 1000f; // Je größer der Zoom, desto weiterweg ist die Kamera
     }
 
+    /**
+     *Rendert das Spiel und überprüft, ob das Spiel im Pause-Modus ist oder im Spielen-Modus
+     *
+     */
     @Override
     public void render() {
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
@@ -66,6 +73,12 @@ public class Shooterman extends ApplicationAdapter {
 
     }
 
+
+    /**
+     *Rendert das Spiel und zeichnet die einzelnen Objekte, die zu dem spiel gehören wie Spieler oder Projektile.
+     *Je später ein Objekt gezeichnet wird, desto höher ist die position des gezeichneten Objekts.
+     *
+     */
     private void batchGame() {
         for (Box box : game.getBoxes()) {
             Sprite sprite = box.getSprite();
@@ -116,6 +129,9 @@ public class Shooterman extends ApplicationAdapter {
         }
     }
 
+    /**
+     *Rendert das Pause-Menü und zeichnet dieses
+     */
     private void batchMenu() {
         batch.draw(activeWindow.getBackground(), 0, 0);
         batch.draw(activeWindow.getWindow(), activeWindow.getxOffset(), activeWindow.getyOffset());
@@ -128,7 +144,9 @@ public class Shooterman extends ApplicationAdapter {
         }
     }
 
-
+    /**
+     *Überprüft die Schaltflächen im Pause-Menü und ruft dann das gewünschte Ergebnis auf.
+     */
     private void updateMenu() {
         String button;
         if ((button = activeWindow.update()) != null) {
@@ -153,6 +171,9 @@ public class Shooterman extends ApplicationAdapter {
         }
     }
 
+    /**
+     *
+     */
     @Override
     public void dispose() {
         batch.dispose();

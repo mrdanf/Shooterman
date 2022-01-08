@@ -40,7 +40,7 @@ public class Player extends AnimatingEntity {
 
 
     /**
-     *Initaliesiert alle notwendigen Atribute für den Spieler
+     *Initialisiert alle notwendigen Attribute für den Spieler
      */
     public Player(int health, int playerNumber, float startX, float startY, Texture texture, ArrayList<Texture> textures) {
         super(startX, startY, 35, 35, texture, 6, 1);
@@ -103,7 +103,7 @@ public class Player extends AnimatingEntity {
     }
 
     /**
-     *Fragt ab ob der spieler noch Leben hat und was der nutzer gerade macht und ruft dann die richte metode auf
+     *Fragt ab ob der Spieler noch Leben hat und was der Nutzer gerade macht und ruft dann die richte metode auf
      */
     @Override
     public void update() {
@@ -122,7 +122,7 @@ public class Player extends AnimatingEntity {
     }
 
     /**
-     *Erzeugt ein Proejektiel welches in Blickrichtung des spielers fliegt
+     *Erzeugt ein Projektil welches in der aktuellen Blickrichtung des Spielers fliegt
      */
     public void shoot() {
         if (activeWeapon.shoot()) {
@@ -193,6 +193,10 @@ public class Player extends AnimatingEntity {
         this.health = health;
     }
 
+    /**Zieht dem Spieler leben in höhe der stärke der Waffe ab, mit der der Schuss abgefeuert wurde
+     *
+     * @param power Gibt die Stärke der Waffe an mit der gegnerische Spieler geschossen hat
+     */
     public void receiveDamage(int power) {
         this.health -= power;
 
@@ -213,6 +217,9 @@ public class Player extends AnimatingEntity {
         this.alive = false;
     }
 
+    /**
+     * Wechselt die aktuelle Waffe mit der anderen ausgerüsteten Waffe
+     */
     public void switchWeapon() {
         if (weapon2 != null) {
             if (activeWeapon == pistol) {
@@ -227,6 +234,11 @@ public class Player extends AnimatingEntity {
         }
     }
 
+    /**Hebt eine Waffe auf, die im aufhebe Bereich des Spielers liegt
+     * und rüstet diese aus
+     *
+     * @param weapon Waffe die im Bereich des Spielers liegt
+     */
     public void pickUpWeapon(Weapon weapon) {
         this.weapon2 = weapon;
         this.activeWeapon = weapon;
@@ -236,6 +248,10 @@ public class Player extends AnimatingEntity {
         sprite.setRotation(rotation);
     }
 
+    /**
+     * Fügt der primären Waffe Munition hinzu
+     * @param ammunitionAmount Die Anzahl an Munition, die hinzugefügt wird
+     */
     public void giveAmmo(int ammunitionAmount) {
         this.weapon2.giveAmmo(ammunitionAmount);
     }

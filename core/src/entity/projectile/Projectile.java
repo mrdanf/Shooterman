@@ -27,7 +27,7 @@ public class Projectile extends VisualEntity {
     }
 
     /**
-     * Setzt Die position Pro frame neu um die Kugel an der richtigen position zu zeichen
+     * Setzt die position pro Frame neu, um die Projektile an der richtigen position zu zeichnen
      */
     @Override
     public void update() {
@@ -90,6 +90,9 @@ public class Projectile extends VisualEntity {
 
     }
 
+    /**
+     * Erzeugt eine Hitbox für die Projektile
+     */
     @Override
     protected void updateHitbox() {
         hitbox.setPosition(x + 22, y + 22);

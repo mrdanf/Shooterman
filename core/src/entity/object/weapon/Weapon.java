@@ -23,7 +23,7 @@ public abstract class Weapon extends VisualEntity {
     private boolean isOnGround = true;
 
     /**
-     *Initialiesiert erstellte Waffen
+     *Initialisiert die Waffen
      */
     public Weapon(int power, int totalAmmunition, int magazineSize, int roundsPerMinute, float reloadTime,
                   Texture texture, int weaponType) {
@@ -41,7 +41,7 @@ public abstract class Weapon extends VisualEntity {
     public abstract String getProjectileName();
 
     /**
-     *Zählt den cooldown zwischen den einzlnen schüssen runter
+     *Zählt den cool down zwischen den einzelnen Schüssen runter
      */
     @Override
     public void update() {
@@ -49,7 +49,7 @@ public abstract class Weapon extends VisualEntity {
     }
 
     /**
-     *Erzeugt ein Projektil welches dann in blickrichtung des spieler sich bewegt
+     *Erzeugt ein Projektil welches dann in Blickrichtung des Spielers sich bewegt
      */
     public boolean shoot() {
         if (cooldown <= 0 && totalAmmunition > 0) {
@@ -75,7 +75,7 @@ public abstract class Weapon extends VisualEntity {
     }
 
     /**
-     *Pausiert das schießen um das nachladen zu simulieren
+     *Pausiert das Schießen, um das nachladen zu simulieren
      */
     protected void reload() {
         insideReload = true;
@@ -91,7 +91,7 @@ public abstract class Weapon extends VisualEntity {
     }
 
     /**
-     *Erzeugt hitboxen zum aufheben der Waffen
+     *Erzeugt Hitboxen zum Aufheben der Waffen
      */
     @Override
     protected void updateHitbox() {
@@ -142,7 +142,11 @@ public abstract class Weapon extends VisualEntity {
 
 
     /**
-     *Gibt der Waffe eine random Position auf der Karte
+     * Setzt eine Waffenkiste an eine random position auf der Karte.
+     *
+     * @param boxes Ist eine Liste aller Blockaden, die es im Spiel gibt
+     * @param destructibleBoxes Ist eine Liste aller zerstörbaren Blockaden, die es im Spiel gibt
+     * @param weapons Ist eine Liste aller Waffen, die es im Spiel gibt
      */
     public void randomPosition(ArrayList<Box> boxes, ArrayList<DestructibleBox> destructibleBoxes, ArrayList<Weapon> weapons) {
         int max = 736;
@@ -162,7 +166,20 @@ public abstract class Weapon extends VisualEntity {
     }
 
     /**
-     * Überprüft ob die Random Position schon vergeben ist
+     *Prüft, ob das Platzieren des Objektes überhaupt möglich ist und kein anderes Objekt, das
+     *  vorher platziert, wurde im weg ist, um ein Überlappen der Objekte zu verhindern
+     *
+     * @param boxes Ist eine Liste aller Blockaden, die es im Spiel gibt
+     * @param destructibleBoxes Ist eine Liste aller zerstörbaren Blockaden,
+     *                          die es im Spiel gibt
+     * @param weapons Ist eine Liste aller Waffen, die es im Spiel gibt
+     * @param x Ist der Punkt auf der X Achse des zu prüfenden Objektes
+     * @param y Ist der Punkt auf der Y Achse des zu prüfenden Objektes
+     * @return
+     * true = wenn alle Überprüfungen nicht zutreffen sind/
+     * false = wenn eine Blockade schon an der position ist
+     *
+     *
      */
     public boolean placementPossible(ArrayList<Box> boxes, float x, float y, ArrayList<DestructibleBox> destructibleBoxes,
                                      ArrayList<Weapon> weapons) {
@@ -194,6 +211,8 @@ public abstract class Weapon extends VisualEntity {
         isOnGround = onGround;
     }
 
+    /** Setzt die Munition zum Ausgeben im HUD
+     */
     public void giveAmmo(int ammunitionAmount) {
         if (totalAmmunition == 0) {
             this.totalAmmunition += ammunitionAmount;
