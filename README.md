@@ -13,7 +13,9 @@ der strategischen Fähigkeiten im 2 dimensionalen Shooter Alltag.
 
 
 ### Dies ist unsere grund Karte auf der wir unser Spiel erzeugen
-![Spielfeld](https://user-images.githubusercontent.com/85035651/148624199-d1cf44f2-8a3b-4e7b-81b9-0b4667d3f72c.png)
+
+![SpielfeldHUD](https://user-images.githubusercontent.com/85035651/148628323-ae1449b5-701e-487f-abe9-023befb2119a.png)
+
 
 
 
@@ -23,10 +25,13 @@ Eine zufällig generierten Karte und eine zerstörbare Umgebung sorgen für ein 
 
 ## Dies sind unsere beiden Helden
 ### Spieler 1
-![Spieler1gehen2](https://user-images.githubusercontent.com/85035651/148624707-9073cf3b-53ab-41a0-9356-18b016f87d88.png)
+![148628365-da67c119-3e7d-4933-8177-1891ce4cc4b8](https://user-images.githubusercontent.com/85035651/148628533-4275c0f6-63db-4956-9d91-e0724df64df8.png)
+
 
 ### Spieler 2
-![Spieler2gehen2](https://user-images.githubusercontent.com/85035651/148624710-4f26c829-809c-4608-8071-8c04c0a3cf8e.png)
+![148628370-6c0e38da-528b-4712-9729-373a4438f6d6](https://user-images.githubusercontent.com/85035651/148628536-2fe016d8-2c27-482d-ba40-372c99e463af.png)
+
+
 
 
 ## Die Waffen in unserem und ihre Vor- und Nachteile
@@ -49,11 +54,12 @@ Die Schrotflinte fügt mittleren schaden zu und hat einen mittleren rückstoß
 
 Das scharfschützengewehr fügt hohen schaden zu und hat einen Hohen rückstoß was zu einer geringen schussfrequens fürht
 
-##Start Waffe
-### Ist vom start des spiels im Inventar
+## Start Waffe
+### Ist vom Start des Spiels im Inventar und ausgerüstet
 
 ### Pistole
-![pistoleInKiste2](https://user-images.githubusercontent.com/85035651/148625903-c404405e-0a0c-418a-84c3-ab8c70900c18.png)
+![pistoleInKiste23](https://user-images.githubusercontent.com/85035651/148628228-033ffbbc-467a-4398-a165-fe4227019614.png)
+
 
 Geringer schaden und mittlerer rückstoß dafür undendlich Munition
 
@@ -83,7 +89,12 @@ Gibt Schutz vor Schüssen auf den Spieler kann aber Zerstört Werden
 Gibt Schutz vor Schüssen
 
 ## Menü
+### Das Menü wird mit Escape aufgerufen
+![148627625-39109739-cfeb-4e31-abea-a57fd971dd0d](https://user-images.githubusercontent.com/85035651/148628428-360c57d5-6427-41e4-8e16-451dc0d089bb.jpg)
 
+- Neustart: Startet eine neue Runde 
+- Hilfe : Zeigt die Steuerung an 
+- Beenden : Beendet das Spiel
 
 ## Zur Steuerung
 
@@ -96,4 +107,5 @@ Gibt Schutz vor Schüssen
 | Schießen    |Strg links | Strg rechts |
 | Aufheben |E | O |
 | Waffenslot wechseln |Q | U |
+| Menü |Esc | Esc |
 
