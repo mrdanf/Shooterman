@@ -28,10 +28,10 @@ public abstract class AbstractWindow {
     protected ArrayList<AbstractButton> buttons;
 
     /**
-     * Beim erstellen des Fensters wird Größe und Farbe angegeben
+     * Beim Erstellen des Fensters wird Größe und Farbe angegeben
      * @param width Breite des Fensters, Abstand vom linken Rand wird daraus berechnet
-     * @param height Höhe des Fensters, Abstond vom unteren Rand wird daraus berechnet
-     * @param color Frabe des Fensters wird in RGBA8888 angegeben
+     * @param height Höhe des Fensters, Abstand vom unteren Rand wird daraus berechnet
+     * @param color Farbe des Fensters wird in RGBA8888 angegeben
      */
     public AbstractWindow(int width, int height, Color color) {
         Pixmap pixmap = new Pixmap(width, height, Pixmap.Format.RGBA8888);
@@ -57,9 +57,9 @@ public abstract class AbstractWindow {
 
     /**
      * Update Methode wird in Shooterman aufgerufen
-     * Sie fragt die Koorinaten des Mausinputes ab, und wandelt sie in die 1000*1000 Fenstergröße um
+     * Sie fragt die Koordinaten des Mausinputs ab, und wandelt sie in die 1000 * 1000 Fenstergröße um
      * Die Y-Koordinate muss invertiert werden, da sich ihr Ursprung in der oberen linken Ecke befindet
-     * @return Einen String des gedrückten Buttons
+     * @return einen String des gedrückten Buttons
      */
     public String update() {
         if (Gdx.input.justTouched()) {

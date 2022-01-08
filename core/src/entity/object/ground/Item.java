@@ -23,7 +23,7 @@ public abstract class Item extends VisualEntity {
 
 
     /**
-     *Setzt die größe der Hitbox auf die sprite größe
+     * Setzt die Größe der Hitbox auf die Spritegröße
      */
     @Override
     protected void updateHitbox() {
@@ -44,12 +44,12 @@ public abstract class Item extends VisualEntity {
 
 
     /**
-     * Setzt das Objekt an eine random position auf der Karte.
+     * Setzt das Objekt an eine zufällige Position auf der Karte.
      *
-     * @param boxes Ist eine Liste aller Boxen, die es im Spiel gibt
+     * @param boxes             Ist eine Liste aller Boxen, die es im Spiel gibt
      * @param destructibleBoxes Ist eine Liste aller zerstörbaren Boxen, die es im Spiel gibt
-     * @param items Ist eine Liste aller Items, die es im Spiel gibt
-     * @param weapons Ist eine Liste aller Waffen, die es im Spiel gibt
+     * @param items             Ist eine Liste aller Items, die es im Spiel gibt
+     * @param weapons           Ist eine Liste aller Waffen, die es im Spiel gibt
      */
     public void randomPosition(ArrayList<Box> boxes, ArrayList<DestructibleBox> destructibleBoxes, ArrayList<Weapon> weapons,
                                ArrayList<Item> items) {
@@ -70,15 +70,14 @@ public abstract class Item extends VisualEntity {
     }
 
     /**
-     *Prüft, ob das Platzieren überhaupt möglich ist und kein anderes Objekt im weg ist, um ein Überlappen
-     * der Objekte zu verhindern
+     * Prüft, ob das Platzieren überhaupt möglich ist und kein anderes Objekt im Weg ist, um ein Überlappen der Objekte zu verhindern
      *
-     * @param boxes Ist eine Liste aller Boxen, die es im Spiel gibt
+     * @param boxes             Ist eine Liste aller Boxen, die es im Spiel gibt
      * @param destructibleBoxes Ist eine Liste aller zerstörbaren Boxen, die es im Spiel gibt
-     * @param items Ist eine Liste aller Items, die es im Spiel gibt
-     * @param weapons Ist eine Liste aller Waffen, die es im Spiel gibt
-     * @param x Ist der Punkt auf der X Achse des zu prüfenden Objektes
-     * @param y Ist der Punkt auf der Y Achse des zu prüfenden Objektes
+     * @param items             Ist eine Liste aller Items, die es im Spiel gibt
+     * @param weapons           Ist eine Liste aller Waffen, die es im Spiel gibt
+     * @param x                 Ist der Punkt auf der X Achse des zu prüfenden Objektes
+     * @param y                 Ist der Punkt auf der Y Achse des zu prüfenden Objektes
      * @return true, wenn alle Überprüfungen nicht zutreffen
      */
     public boolean placementPossible(ArrayList<Box> boxes, float x, float y, ArrayList<DestructibleBox> destructibleBoxes,

@@ -33,7 +33,7 @@ public class Player extends AnimatingEntity {
     private ArrayList<Weapon> weapons;
     private ArrayList<Item> items;
     private ArrayList<Texture> textures;
-    private float rotation=0f;
+    private float rotation = 0f;
 
     private Weapon pistol = new Pistol();
     private Weapon weapon2;
@@ -42,7 +42,7 @@ public class Player extends AnimatingEntity {
 
 
     /**
-     *Initialisiert alle notwendigen Attribute für den Spieler
+     * Initialisiert alle notwendigen Attribute für den Spieler
      */
     public Player(int health, int playerNumber, float startX, float startY, Texture texture, ArrayList<Texture> textures) {
         super(startX, startY, 35, 35, texture, 6, 1);
@@ -58,11 +58,11 @@ public class Player extends AnimatingEntity {
     }
 
     /**
-     * Weist  dem Player die richtigen tasten zu um das spiel spielen zu können
-     * 0.add Nach oben bewegen
-     * 1.add Nach links bewegen
-     * 2.add Nach unten bewegen
-     * 3.add Nach rechts bewegen
+     * Weist dem Spieler die richtigen Tasten zu, um das Spiel spielen zu können
+     * 0.add nach oben bewegen
+     * 1.add nach links bewegen
+     * 2.add nach unten bewegen
+     * 3.add nach rechts bewegen
      * 4.add Schießen
      * 5.add Aufheben
      * 6.add Waffe wechseln
@@ -97,7 +97,7 @@ public class Player extends AnimatingEntity {
     }
 
     /**
-     *Erzeugt die Hitbox für die Spieler
+     * Erzeugt die Hitbox für die Spieler
      */
     @Override
     public void updateHitbox() {
@@ -105,7 +105,7 @@ public class Player extends AnimatingEntity {
     }
 
     /**
-     *Fragt ab ob der Spieler noch Leben hat und was der Nutzer gerade macht und ruft dann die richte metode auf
+     * Fragt ab, ob der Spieler noch Leben hat und was der Nutzer gerade macht und ruft dann die richte Methode auf
      */
     @Override
     public void update() {
@@ -124,28 +124,27 @@ public class Player extends AnimatingEntity {
     }
 
     /**
-     *Erzeugt ein Projektil welches in der aktuellen Blickrichtung des Spielers fliegt
+     * Erzeugt ein Projektil welches in die aktuelle Blickrichtung des Spielers fliegt
      */
     public void shoot() {
         if (activeWeapon.shoot()) {
-            if(activeWeapon instanceof Shotgun){
+            if (activeWeapon instanceof Shotgun) {
                 String spriteName = activeWeapon.getProjectileName();
                 System.out.println("cool");
                 for (int i = 0; i < 3; i++) {
                     Projectile projectile = new Projectile(viewDirection, sprite.getRotation(), getX(), getY(), this,
-                        new Texture(spriteName),i);
+                        new Texture(spriteName), i);
                     projectiles.add(projectile);
                 }
 
 
-
+            } else {
+                String spriteName = activeWeapon.getProjectileName();
+                Projectile projectile = new Projectile(viewDirection, sprite.getRotation(), getX(), getY(), this,
+                    new Texture(spriteName), 0);
+                projectiles.add(projectile);
             }
-            else{
-            String spriteName = activeWeapon.getProjectileName();
-            Projectile projectile = new Projectile(viewDirection, sprite.getRotation(), getX(), getY(), this,
-                    new Texture(spriteName),0);
-            projectiles.add(projectile);
-        }}
+        }
     }
 
     public int getPlayerNumber() {
@@ -220,9 +219,10 @@ public class Player extends AnimatingEntity {
         this.health = health;
     }
 
-    /**Zieht dem Spieler leben in höhe der stärke der Waffe ab, mit der der Schuss abgefeuert wurde
+    /**
+     * Zieht dem Spieler Leben in Höhe der Stärke der Waffe ab, mit der der Schuss abgefeuert wurde
      *
-     * @param power Gibt die Stärke der Waffe an mit der gegnerische Spieler geschossen hat
+     * @param power Gibt die Stärke der Waffe an, mit der, der gegnerische Spieler geschossen hat
      */
     public void receiveDamage(int power) {
         this.health -= power;
@@ -261,10 +261,10 @@ public class Player extends AnimatingEntity {
         }
     }
 
-    /**Hebt eine Waffe auf, die im aufhebe Bereich des Spielers liegt
-     * und rüstet diese aus
+    /**
+     * Hebt eine Waffe auf, die in Reichweite des Spielers liegt und rüstet diese aus
      *
-     * @param weapon Waffe die im Bereich des Spielers liegt
+     * @param weapon Waffe die in Reichweite des Spielers liegt
      */
     public void pickUpWeapon(Weapon weapon) {
         this.weapon2 = weapon;
@@ -277,6 +277,7 @@ public class Player extends AnimatingEntity {
 
     /**
      * Fügt der primären Waffe Munition hinzu
+     *
      * @param ammunitionAmount Die Anzahl an Munition, die hinzugefügt wird
      */
     public void giveAmmo(int ammunitionAmount) {

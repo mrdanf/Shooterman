@@ -17,8 +17,8 @@ public class AbstractButton {
     protected int height;
 
     /**
-     * Checkt, ob gegebene Kooridnaten mit in dem Button liegen
-     * @return True wenn der Button gedrückt wurde
+     * Checkt, ob gegebene Koordinaten mit in dem Button liegen
+     * @return True, wenn der Button gedrückt wurde
      */
     public boolean isPressed(int x, int y) {
         if (x >= xPosition && x <= xPosition + width) {

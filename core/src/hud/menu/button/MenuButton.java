@@ -12,10 +12,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 public class MenuButton extends AbstractButton {
 
     /**
-     * Beim erstellen sind Größe und Farbe vorgegeben
-     * @param label Angezeigter Text auf dem Button
-     * @param offset Bei einem Offset von 0 wird der Button in der Fenstermitte dargestellt
-     *               wenn man einen positven Wert eingibt, wird dieser um soviele Pixel nach oben verschoben
+     * Beim Erstellen sind Größe und Farbe vorgegeben
+     * @param label angezeigter Text auf dem Button
+     * @param offset bei einem Offset von 0 wird der Button in der Fenstermitte dargestellt,
+     *               wenn man einen positiven Wert eingibt, wird dieser um so viele Pixel nach oben verschoben
      *               und mit einem negativen Wert nach unten
      */
     public MenuButton(String label, int offset) {

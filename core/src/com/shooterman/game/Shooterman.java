@@ -75,8 +75,8 @@ public class Shooterman extends ApplicationAdapter {
 
 
     /**
-     *Rendert das Spiel und zeichnet die einzelnen Objekte, die zu dem spiel gehören wie Spieler oder Projektile.
-     *Je später ein Objekt gezeichnet wird, desto höher ist die position des gezeichneten Objekts.
+     *Rendert das Spiel und zeichnet die einzelnen Objekte, die zu dem Spiel gehören wie Spieler oder Projektile.
+     *Je später ein Objekt gezeichnet wird, desto höher ist die Position des gezeichneten Objekts.
      *
      */
     private void batchGame() {

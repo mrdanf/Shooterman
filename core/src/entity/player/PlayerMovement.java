@@ -16,14 +16,15 @@ import java.util.ArrayList;
 public class PlayerMovement {
     private CollisionCheck collisionCheck = new CollisionCheck();
 
-    /**Fragt die Eingabe des Nutzers ab und lässt den Spieler die gewünschte Aktion ausführen
+    /**
+     * Fragt die Eingabe des Nutzers ab und lässt den Spieler die gewünschte Aktion ausführen
      *
-     * @param player Aktueller Spieler der gesteuert werden soll
-     * @param players Liste aller vorhandener Spieler
-     * @param boxes Liste aller Blockaden
+     * @param player            Aktueller Spieler der gesteuert werden soll
+     * @param players           Liste aller vorhandener Spieler
+     * @param boxes             Liste aller Blockaden
      * @param destructibleBoxes Liste aller zerstörbaren Blockaden
-     * @param weapons Liste aller Waffen
-     * @param items Liste aller Items
+     * @param weapons           Liste aller Waffen
+     * @param items             Liste aller Items
      */
     public void move(Player player, ArrayList<Player> players, ArrayList<Box> boxes,
                      ArrayList<DestructibleBox> destructibleBoxes, ArrayList<Weapon> weapons, ArrayList<Item> items) {
@@ -91,8 +92,7 @@ public class PlayerMovement {
             playerX += player.getMovement();
             player.getSprite().setRotation(270f);
             player.setRotation(270f);
-        }
-        else{
+        } else {
             player.setSprite(player.getTextures().get(player.getActiveWeapon().getWeaponType()), 6, 1);
             player.getSprite().setRotation(player.getRotation());
         }
@@ -124,7 +124,7 @@ public class PlayerMovement {
                 if (collisionCheck.playerInPickUpRange(player, item)) {
                     // Item wird aufgehoben
                     if (item instanceof Ammunition) {
-                        if (! player.hasWeapon2()){
+                        if (!player.hasWeapon2()) {
                             break;
                         }
                     }
@@ -141,23 +141,23 @@ public class PlayerMovement {
     }
 
     /**
+     * Fragt die einzelnen Kollisionen, um zu verhindern, dass der Spieler sich durch Objekte oder andere Spieler bewegt
      *
-     * @param playerX Nächste Postion des Spielers wo er sich auf der X Achse hinbewegen möchte
-     * @param playerY Nächste Postion des Spielers wo er sich auf der Y Achse hinbewegen möchte
-     * @param player Aktueller Spieler
-     * @param players Liste aller Spieler
-     * @param boxes Liste aller Blockaden
+     * @param playerX           Nächste Postion des Spielers wo er sich auf der X Achse hinbewegen möchte
+     * @param playerY           Nächste Postion des Spielers wo er sich auf der Y Achse hinbewegen möchte
+     * @param player            Aktueller Spieler
+     * @param players           Liste aller Spieler
+     * @param boxes             Liste aller Blockaden
      * @param destructibleBoxes Lister aller zerstörbaren Blockaden
-     * @return
-     * true = wenn alle Überprüfungen nicht zutreffen sind/
+     * @return true = wenn alle Überprüfungen nicht zutreffen sind/
      * false = wenn eine Blockade schon an der position ist
      */
     private boolean movementCollisionFree(float playerX, float playerY, Player player, ArrayList<Player> players,
                                           ArrayList<Box> boxes, ArrayList<DestructibleBox> destructibleBoxes) {
         return collisionCheck.outerWallCheck(playerX, playerY)
-                && collisionCheck.playerCollidesPlayer(player, players)
-                && collisionCheck.playerCollidesEntity(player, (ArrayList<VisualEntity>) (ArrayList<?>) boxes)
-                && collisionCheck.playerCollidesEntity(player, (ArrayList<VisualEntity>) (ArrayList<?>) destructibleBoxes);
+            && collisionCheck.playerCollidesPlayer(player, players)
+            && collisionCheck.playerCollidesEntity(player, (ArrayList<VisualEntity>) (ArrayList<?>) boxes)
+            && collisionCheck.playerCollidesEntity(player, (ArrayList<VisualEntity>) (ArrayList<?>) destructibleBoxes);
     }
 }
 

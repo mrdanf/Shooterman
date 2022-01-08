@@ -10,7 +10,7 @@ public class HealthBar {
 
     /**
      * Die Lebensanzeige eines Spielers
-     * Besteht aus 2 Elementen, der grüne Lebensbalken und dem schwarzen Hintergrund
+     * besteht aus 2 Elementen, der grüne Lebensbalken und dem schwarzen Hintergrund
      * @param health bestimmt die Breite in Pixeln
      */
     public HealthBar(int health) {
@@ -31,8 +31,8 @@ public class HealthBar {
 
     /**
      * Aktualisiert die Lebensanzeige
-     * Sollten sie unter 0 fallen, wird es zu einem Roten Balken umgeändert
-     * @param health Breite des Lebenbalkens
+     * sollten sie unter 0 fallen, wird es zu einem roten Balken umgeändert
+     * @param health Breite des Lebensbalkens
      */
     public void updateHealth(int health) {
         if (health > 0) {

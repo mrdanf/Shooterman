@@ -27,143 +27,76 @@ public class Projectile extends VisualEntity {
         this.player = player;
         sprite.setRotation(rotation);
         sprite.setScale(0.4f);
-        this.shotgunbullet =shotgunbullet;
+        this.shotgunbullet = shotgunbullet;
     }
 
     /**
-     * Setzt die position pro Frame neu, um die Projektile an der richtigen position zu zeichnen
+     * Ruft die Methoden für die unterschiedlichen Schüsse auf
      */
     @Override
     public void update() {
-       if(shotgunbullet==1){
-           shotgun1();
-       }
-       else if(shotgunbullet==2){
-           shotgun2();
-       }
-       else{normalGun();}
+        if (shotgunbullet == 1) {
+            shotgun1();
+        } else if (shotgunbullet == 2) {
+            shotgun2();
+        } else {
+            normalGun();
+        }
     }
 
-public void normalGun(){
-    float projectileX = getX();
-    float projectileY = getY();
-    //Nach oben gehen
-    if (direction == ProjectileDirection.UP) {
-        setY(getY() + speed);
-        projectileY = getY();
-    }
-    //Nach links gehen
-    if (direction == ProjectileDirection.LEFT) {
-        setX(getX() - speed);
-        projectileX = getX();
-    }
-    //Nach unten gehen
-    if (direction == ProjectileDirection.DOWN) {
-        setY(getY() - speed);
-        projectileY = getY();
-    }
-    //Nach rechts gehen
-    if (direction == ProjectileDirection.RIGHT) {
-        setX(getX() + speed);
-        projectileX = getX();
-    }
-    //Oben Links
-    if (direction == ProjectileDirection.UP_LEFT) {
-        setY(getY() + (float) (speed*(Math.sin(Math.toRadians(45)))));
-        setX(getX() - (float) (speed*(Math.cos(Math.toRadians(45)))));
-        projectileX = getX();
-        projectileY = getY();
-    }
-    // Unten Links
-    if (direction == ProjectileDirection.DOWN_LEFT) {
-        setY(getY() - (float) (speed*(Math.sin(Math.toRadians(45)))));
-        setX(getX() - (float) (speed*(Math.cos(Math.toRadians(45)))));
-        projectileX = getX();
-        projectileY = getY();
-
-    }
-    // Unten Rechts
-    if (direction == ProjectileDirection.DOWN_RIGHT) {
-        setY(getY() - (float) (speed*(Math.sin(Math.toRadians(45)))));
-        setX(getX() + (float) (speed*(Math.cos(Math.toRadians(45)))));
-        projectileX = getX();
-        projectileY = getY();
-
-    }
-    //Oben Rechts
-    if (direction == ProjectileDirection.UP_RIGHT) {
-        setY(getY() + (float) (speed*(Math.sin(Math.toRadians(45)))));
-        setX(getX() + (float) (speed*(Math.cos(Math.toRadians(45)))));
-        projectileX = getX();
-        projectileY = getY();
-    }
-
-    if (!collisionCheck.outerWallCheck(projectileX, projectileY)) {
-        deletable = true;
-    }
-
-}
-
-    public void shotgun1(){
+    /**
+     * Setzt die Position pro Frame neu, um die Projektile an der richtigen Position zu zeichnen
+     */
+    public void normalGun() {
         float projectileX = getX();
         float projectileY = getY();
         //Nach oben gehen
         if (direction == ProjectileDirection.UP) {
-            setY(getY() + (float) (speed*(Math.sin(Math.toRadians(80)))));
-            setX(getX() + (float) (speed*(Math.cos(Math.toRadians(80)))));
-            projectileX = getX();
+            setY(getY() + speed);
             projectileY = getY();
         }
         //Nach links gehen
         if (direction == ProjectileDirection.LEFT) {
-
-            setY(getY() + (float) (speed*(Math.sin(Math.toRadians(10)))));
-            setX(getX() - (float) (speed*(Math.cos(Math.toRadians(10)))));
+            setX(getX() - speed);
             projectileX = getX();
-            projectileY = getY();
         }
         //Nach unten gehen
         if (direction == ProjectileDirection.DOWN) {
-
-            setY(getY() - (float) (speed*(Math.sin(Math.toRadians(80)))));
-            setX(getX() - (float) (speed*(Math.cos(Math.toRadians(80)))));
-            projectileX = getX();
+            setY(getY() - speed);
             projectileY = getY();
         }
         //Nach rechts gehen
         if (direction == ProjectileDirection.RIGHT) {
-            setY(getY() - (float) (speed*(Math.sin(Math.toRadians(10)))));
-            setX(getX() + (float) (speed*(Math.cos(Math.toRadians(10)))));
+            setX(getX() + speed);
             projectileX = getX();
-            projectileY = getY();
         }
         //Oben Links
         if (direction == ProjectileDirection.UP_LEFT) {
-            setY(getY() + (float) (speed*(Math.sin(Math.toRadians(35)))));
-            setX(getX() - (float) (speed*(Math.cos(Math.toRadians(35)))));
+            setY(getY() + (float) (speed * (Math.sin(Math.toRadians(45)))));
+            setX(getX() - (float) (speed * (Math.cos(Math.toRadians(45)))));
             projectileX = getX();
             projectileY = getY();
         }
         // Unten Links
         if (direction == ProjectileDirection.DOWN_LEFT) {
-            setY(getY() - (float) (speed*(Math.sin(Math.toRadians(35)))));
-            setX(getX() - (float) (speed*(Math.cos(Math.toRadians(35)))));
+            setY(getY() - (float) (speed * (Math.sin(Math.toRadians(45)))));
+            setX(getX() - (float) (speed * (Math.cos(Math.toRadians(45)))));
             projectileX = getX();
             projectileY = getY();
 
         }
         // Unten Rechts
         if (direction == ProjectileDirection.DOWN_RIGHT) {
-            setY(getY() - (float) (speed*(Math.sin(Math.toRadians(35)))));
-            setX(getX() + (float) (speed*(Math.cos(Math.toRadians(35)))));
+            setY(getY() - (float) (speed * (Math.sin(Math.toRadians(45)))));
+            setX(getX() + (float) (speed * (Math.cos(Math.toRadians(45)))));
             projectileX = getX();
             projectileY = getY();
 
         }
         //Oben Rechts
         if (direction == ProjectileDirection.UP_RIGHT) {
-            setY(getY() + (float) (speed*(Math.sin(Math.toRadians(35)))));
-            setX(getX() + (float) (speed*(Math.cos(Math.toRadians(35)))));
+            setY(getY() + (float) (speed * (Math.sin(Math.toRadians(45)))));
+            setX(getX() + (float) (speed * (Math.cos(Math.toRadians(45)))));
             projectileX = getX();
             projectileY = getY();
         }
@@ -174,67 +107,140 @@ public void normalGun(){
 
     }
 
-
-    public void shotgun2(){
+    /**
+     * Setzt die Position pro Frame neu, um die Projektile für die 2. Schrotflinten kugel an der richtigen Position zu zeichnen.
+     */
+    public void shotgun1() {
         float projectileX = getX();
         float projectileY = getY();
         //Nach oben gehen
         if (direction == ProjectileDirection.UP) {
-            setY(getY() + (float) (speed*(Math.sin(Math.toRadians(100)))));
-            setX(getX() + (float) (speed*(Math.cos(Math.toRadians(100)))));
+            setY(getY() + (float) (speed * (Math.sin(Math.toRadians(80)))));
+            setX(getX() + (float) (speed * (Math.cos(Math.toRadians(80)))));
             projectileX = getX();
             projectileY = getY();
         }
         //Nach links gehen
         if (direction == ProjectileDirection.LEFT) {
-
-            setY(getY() + (float) (speed*(Math.sin(Math.toRadians(350)))));
-            setX(getX() - (float) (speed*(Math.cos(Math.toRadians(350)))));
+            setY(getY() + (float) (speed * (Math.sin(Math.toRadians(10)))));
+            setX(getX() - (float) (speed * (Math.cos(Math.toRadians(10)))));
             projectileX = getX();
             projectileY = getY();
         }
         //Nach unten gehen
         if (direction == ProjectileDirection.DOWN) {
-
-            setY(getY() - (float) (speed*(Math.sin(Math.toRadians(100)))));
-            setX(getX() - (float) (speed*(Math.cos(Math.toRadians(100)))));
+            setY(getY() - (float) (speed * (Math.sin(Math.toRadians(80)))));
+            setX(getX() - (float) (speed * (Math.cos(Math.toRadians(80)))));
             projectileX = getX();
             projectileY = getY();
         }
         //Nach rechts gehen
         if (direction == ProjectileDirection.RIGHT) {
-            setY(getY() - (float) (speed*(Math.sin(Math.toRadians(350)))));
-            setX(getX() + (float) (speed*(Math.cos(Math.toRadians(350)))));
+            setY(getY() - (float) (speed * (Math.sin(Math.toRadians(10)))));
+            setX(getX() + (float) (speed * (Math.cos(Math.toRadians(10)))));
             projectileX = getX();
             projectileY = getY();
         }
         //Oben Links
         if (direction == ProjectileDirection.UP_LEFT) {
-            setY(getY() + (float) (speed*(Math.sin(Math.toRadians(55)))));
-            setX(getX() - (float) (speed*(Math.cos(Math.toRadians(55)))));
+            setY(getY() + (float) (speed * (Math.sin(Math.toRadians(35)))));
+            setX(getX() - (float) (speed * (Math.cos(Math.toRadians(35)))));
             projectileX = getX();
             projectileY = getY();
         }
         // Unten Links
         if (direction == ProjectileDirection.DOWN_LEFT) {
-            setY(getY() - (float) (speed*(Math.sin(Math.toRadians(55)))));
-            setX(getX() - (float) (speed*(Math.cos(Math.toRadians(55)))));
+            setY(getY() - (float) (speed * (Math.sin(Math.toRadians(35)))));
+            setX(getX() - (float) (speed * (Math.cos(Math.toRadians(35)))));
             projectileX = getX();
             projectileY = getY();
 
         }
         // Unten Rechts
         if (direction == ProjectileDirection.DOWN_RIGHT) {
-            setY(getY() - (float) (speed*(Math.sin(Math.toRadians(55)))));
-            setX(getX() + (float) (speed*(Math.cos(Math.toRadians(55)))));
+            setY(getY() - (float) (speed * (Math.sin(Math.toRadians(35)))));
+            setX(getX() + (float) (speed * (Math.cos(Math.toRadians(35)))));
             projectileX = getX();
             projectileY = getY();
 
         }
         //Oben Rechts
         if (direction == ProjectileDirection.UP_RIGHT) {
-            setY(getY() + (float) (speed*(Math.sin(Math.toRadians(55)))));
-            setX(getX() + (float) (speed*(Math.cos(Math.toRadians(55)))));
+            setY(getY() + (float) (speed * (Math.sin(Math.toRadians(35)))));
+            setX(getX() + (float) (speed * (Math.cos(Math.toRadians(35)))));
+            projectileX = getX();
+            projectileY = getY();
+        }
+
+        if (!collisionCheck.outerWallCheck(projectileX, projectileY)) {
+            deletable = true;
+        }
+
+    }
+
+    /**
+     * Setzt die Position pro Frame neu, um die Projektile für die 3. Schrotflinten kugel an der richtigen Position zu zeichnen.
+     */
+    public void shotgun2() {
+        float projectileX = getX();
+        float projectileY = getY();
+        //Nach oben gehen
+        if (direction == ProjectileDirection.UP) {
+            setY(getY() + (float) (speed * (Math.sin(Math.toRadians(100)))));
+            setX(getX() + (float) (speed * (Math.cos(Math.toRadians(100)))));
+            projectileX = getX();
+            projectileY = getY();
+        }
+        //Nach links gehen
+        if (direction == ProjectileDirection.LEFT) {
+
+            setY(getY() + (float) (speed * (Math.sin(Math.toRadians(350)))));
+            setX(getX() - (float) (speed * (Math.cos(Math.toRadians(350)))));
+            projectileX = getX();
+            projectileY = getY();
+        }
+        //Nach unten gehen
+        if (direction == ProjectileDirection.DOWN) {
+
+            setY(getY() - (float) (speed * (Math.sin(Math.toRadians(100)))));
+            setX(getX() - (float) (speed * (Math.cos(Math.toRadians(100)))));
+            projectileX = getX();
+            projectileY = getY();
+        }
+        //Nach rechts gehen
+        if (direction == ProjectileDirection.RIGHT) {
+            setY(getY() - (float) (speed * (Math.sin(Math.toRadians(350)))));
+            setX(getX() + (float) (speed * (Math.cos(Math.toRadians(350)))));
+            projectileX = getX();
+            projectileY = getY();
+        }
+        //Oben Links
+        if (direction == ProjectileDirection.UP_LEFT) {
+            setY(getY() + (float) (speed * (Math.sin(Math.toRadians(55)))));
+            setX(getX() - (float) (speed * (Math.cos(Math.toRadians(55)))));
+            projectileX = getX();
+            projectileY = getY();
+        }
+        // Unten Links
+        if (direction == ProjectileDirection.DOWN_LEFT) {
+            setY(getY() - (float) (speed * (Math.sin(Math.toRadians(55)))));
+            setX(getX() - (float) (speed * (Math.cos(Math.toRadians(55)))));
+            projectileX = getX();
+            projectileY = getY();
+
+        }
+        // Unten Rechts
+        if (direction == ProjectileDirection.DOWN_RIGHT) {
+            setY(getY() - (float) (speed * (Math.sin(Math.toRadians(55)))));
+            setX(getX() + (float) (speed * (Math.cos(Math.toRadians(55)))));
+            projectileX = getX();
+            projectileY = getY();
+
+        }
+        //Oben Rechts
+        if (direction == ProjectileDirection.UP_RIGHT) {
+            setY(getY() + (float) (speed * (Math.sin(Math.toRadians(55)))));
+            setX(getX() + (float) (speed * (Math.cos(Math.toRadians(55)))));
             projectileX = getX();
             projectileY = getY();
         }
@@ -247,7 +253,7 @@ public void normalGun(){
 
 
     /**
-     * Erzeugt eine Hitbox für die Projektile
+     * Erzeugt eine Hitbox für das Projektile
      */
     @Override
     protected void updateHitbox() {

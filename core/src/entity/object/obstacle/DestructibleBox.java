@@ -13,13 +13,13 @@ public class DestructibleBox extends VisualEntity {
     }
 
     public DestructibleBox(Texture texture, float height) {
-        super(0, 0, texture, 100,  height);
+        super(0, 0, texture, 100, height);
     }
 
     /**
      * Setzt eine zerstörbare Blockade an eine random position auf der Karte.
      *
-     * @param boxes Ist eine Liste aller Blockaden, die es im Spiel gibt
+     * @param boxes             Ist eine Liste aller Blockaden, die es im Spiel gibt
      * @param destructibleBoxes Ist eine Liste aller zerstörbaren Blockaden, die es im Spiel gibt
      */
     public void randomPosition(ArrayList<Box> boxes, ArrayList<DestructibleBox> destructibleBoxes) {
@@ -41,20 +41,16 @@ public class DestructibleBox extends VisualEntity {
 
 
     /**
-     *Prüft, ob das Platzieren überhaupt möglich ist und keine andere Blockade, die
-     *  vorher platziert, wurde im weg ist,
-     *  um ein Überlappen der Objekte zu verhindern
+     * Prüft, ob das Platzieren überhaupt möglich ist und keine andere Blockade,
+     * die vorher platziert, wurde im Weg ist, um ein Überlappen der Objekte zu verhindern
      *
-     * @param boxes Ist eine Liste aller Blockaden, die es im Spiel gibt
+     * @param boxes             Ist eine Liste aller Blockaden, die es im Spiel gibt
      * @param destructibleBoxes Ist eine Liste aller zerstörbaren Blockaden,
      *                          die es im Spiel gibt
-     * @param x Ist der Punkt auf der X Achse des zu prüfenden Objektes
-     * @param y Ist der Punkt auf der Y Achse des zu prüfenden Objektes
-     * @return
-     * true = wenn alle Überprüfungen nicht zutreffen sind/
+     * @param x                 Ist der Punkt auf der X Achse des zu prüfenden Objektes
+     * @param y                 Ist der Punkt auf der Y Achse des zu prüfenden Objektes
+     * @return true = wenn alle Überprüfungen nicht zutreffen sind/
      * false = wenn eine Blockade schon an der position ist
-     *
-     *
      */
     public boolean placementPossible(ArrayList<Box> boxes, float x, float y, ArrayList<DestructibleBox> destructibleBoxes) {
         for (Box box : boxes) {
@@ -74,7 +70,7 @@ public class DestructibleBox extends VisualEntity {
     }
 
     /**
-     *Setzt die Hitbox für die Zerstörbare box
+     * Setzt die Hitbox für die Zerstörbare Blockaden
      */
     @Override
     protected void updateHitbox() {

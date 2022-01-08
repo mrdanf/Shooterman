@@ -18,11 +18,11 @@ public class CollisionCheck {
 
     /**
      * Diese Methode ist zur Überprüfung, dass Spieler nicht durch andere Spieler laufen können
-     * @param player Aktueller Spieler
+     *
+     * @param player  aktueller Spieler
      * @param players Liste aller Spieler
-     * @return
-     * true = wenn alle Überprüfungen nicht zutreffen sind/
-     * false = wenn eine Blockade schon an der position ist
+     * @return true = wenn alle Überprüfungen nicht zutreffen sind/
+     * false = wenn eine Blockade schon an der Position ist.
      */
     public boolean playerCollidesPlayer(Player player, ArrayList<Player> players) {
         for (Player enemyPlayer : players) {
@@ -36,13 +36,12 @@ public class CollisionCheck {
     }
 
     /**
-     * Diese Methode ist zur Überprüfung das Spieler nicht durch Objekte Laufen können
+     * Diese Methode ist zur Überprüfung, dass Spieler nicht durch Objekte laufen können
      *
-     * @param player Aktueller Spieler
+     * @param player   aktueller Spieler
      * @param entities Liste aller Blockaden und zerstörbaren Blockade
-     * @return
-     * true = wenn alle Überprüfungen nicht zutreffen sind/
-     * false = wenn eine Blockade schon an der position ist
+     * @return true = wenn alle Überprüfungen nicht zutreffen sind/
+     * false = wenn eine Blockade schon an der Position ist.
      */
     public boolean playerCollidesEntity(Player player, ArrayList<VisualEntity> entities) {
         for (VisualEntity entity : entities) {
@@ -55,6 +54,7 @@ public class CollisionCheck {
 
     /**
      * Überprüft, ob die ein Projektil einen Spieler trifft
+     *
      * @param players Liste aller Spieler
      * @return projectile, wenn das Projektile ein Spieler trifft
      */
@@ -78,7 +78,7 @@ public class CollisionCheck {
      * Überprüft, ob ein Projektile eine Blockade trifft
      *
      * @param obstacles Liste aller Blockaden und zerstörbaren Blockade
-     * @param players Liste aller Spieler
+     * @param players   Liste aller Spieler
      * @return projectile, wenn das Projektile eine Blockade oder zerstörbare Blockade trifft
      */
     public Projectile projectileHitsObstacle(ArrayList<VisualEntity> obstacles, ArrayList<Player> players) {
@@ -101,13 +101,12 @@ public class CollisionCheck {
     }
 
     /**
-     * Überprüft ob eine Waffe in reichweite des Spieler ist
-
-     * @param player Aktueller Spieler
-     * @param weapon Waffe die am Boden liegt
-     * @return
-     * true = wenn die Überprüfungen zutrifft/
-     * false = wenn die Überprüfungen nicht zutrifft
+     * Überprüft, ob eine Waffe in Reichweite des Spielers ist
+     *
+     * @param player aktueller Spieler
+     * @param weapon Waffe, die am Boden liegt
+     * @return true = wenn die Überprüfungen zutrifft/
+     * false = wenn die Überprüfungen nicht zutrifft.
      */
     public boolean playerInWeaponRange(Player player, Weapon weapon) {
         if (weapon.isColliding(player)) {
@@ -118,13 +117,12 @@ public class CollisionCheck {
     }
 
     /**
-     * Überprüft ob eine Waffe in reichweite des Spieler ist
-
-     * @param player Aktueller Spieler
-     * @param item Items die am Boden liegt
-     * @return
-     * true = wenn die Überprüfungen zutrifft/
-     * false = wenn die Überprüfungen nicht zutrifft
+     * Überprüft, ob eine Waffe in Reichweite des Spielers ist
+     *
+     * @param player aktueller Spieler
+     * @param item   Items, die am Boden liegt
+     * @return true = wenn die Überprüfungen zutrifft/
+     * false = wenn die Überprüfungen nicht zutrifft.
      */
     public boolean playerInPickUpRange(Player player, Item item) {
         if (item.isColliding(player)) {

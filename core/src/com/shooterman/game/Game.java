@@ -35,8 +35,7 @@ public class Game {
     // TODO TEST END
 
     /**
-     *Initialisiert alle Objekte und fügt sie der entsprechenden Arraylist hinzu um sie dann
-     * später ordentlich aufrufen zu können und abfragen zu können
+     * Initialisiert alle Objekte und fügt sie der entsprechenden Arraylist hinzu, um sie dann ​später ordentlich aufrufen zu können und abfragen zu können
      */
     public Game() {
         ArrayList<Texture> texturesP1 = new ArrayList<>();
@@ -106,7 +105,7 @@ public class Game {
     }
 
     /**
-     * Fragt jeden Frame ab ob es eine änderung gibt für die aktieven objekte auf der karte
+     * Fragt jeden Frame ab, ob es eine Änderung gibt für die aktiven Objekte auf der Karte
      */
     public void update() {
         for (Player player : players) {
@@ -128,13 +127,13 @@ public class Game {
             if (deleteProjectile != null) {
                 player.getProjectiles().remove(deleteProjectile);
             }
-            deleteProjectile = collisionCheck.projectileHitsObstacle((ArrayList< VisualEntity>) (ArrayList<?>) boxes,
-                    players);
+            deleteProjectile = collisionCheck.projectileHitsObstacle((ArrayList<VisualEntity>) (ArrayList<?>) boxes,
+                players);
             if (deleteProjectile != null) {
                 player.getProjectiles().remove(deleteProjectile);
             }
             deleteProjectile =
-                    collisionCheck.projectileHitsObstacle((ArrayList< VisualEntity>) (ArrayList<?>) destructibleBoxes, players);
+                collisionCheck.projectileHitsObstacle((ArrayList<VisualEntity>) (ArrayList<?>) destructibleBoxes, players);
             if (deleteProjectile != null) {
                 player.getProjectiles().remove(deleteProjectile);
             }

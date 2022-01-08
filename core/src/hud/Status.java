@@ -16,7 +16,7 @@ public class Status {
 
     /**
      * Die Statusanzeige eines Spielers
-     * Enthält alle Elemente eines Spielers, die am unteren Bildschrimrand
+     * enthält alle Elemente eines Spielers, die am unteren Bildschirmrand
      * ausgegeben werden
      * @param player Spielernummer, wird genutzt, um Abhängig von der Gesamtanzahl der Spieler,
      *               den Status zu verschieben
@@ -55,10 +55,10 @@ public class Status {
     }
 
     /**
-     * Aktualisiert den Lebensbalken und Munitionsanzeige
-     * Wenn die Lebenspunkte unter 0 sinken, wird die Ammoanzeige zu einem 'DEAD' umgewandelt
-     * @param health Setzt die Breite des Lebensbalkens
-     * @param activeWeapon Hollt sich die Werte der aktiven Waffe des Spielers
+     * Aktualisiert den Lebensbalken und Munitionsanzeige,
+     * wenn die Lebenspunkte unter 0 sinken, wird die Munitionsanzeige zu einem 'DEAD' umgewandelt
+     * @param health setzt die Breite des Lebensbalkens
+     * @param activeWeapon holt sich die Werte der aktiven Waffe des Spielers
      */
     public void update(int health, Weapon activeWeapon) {
         this.healthBar.updateHealth(health);
