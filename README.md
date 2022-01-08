@@ -5,7 +5,7 @@ Softwareprojekt für Softwareprojektmanagement
 
 
 
-## Zum Spiel:
+## Zum Spiel
 Shooterman ist ein selbst entworfenes 2 dimensionales Videospiel, welches mit der GDX Library entwickelt wurde.
 Mit unserem 4 Mann starken Team haben wir uns dieser Herausforderung gestellt und gemeistert. 
 Unser Projekt dient zum Zeitvertreib und zur Belustigung  zweier Personen, aber auch zum Weiterentwickeln 
@@ -19,7 +19,7 @@ der strategischen Fähigkeiten im 2 dimensionalen Shooter Alltag.
 
 
 
-## Zur Geschichte:
+## Zur Geschichte
 2 Soldaten werden in eine Arena geworfen und müssen auf Leben und Tod gegeneinander kämpfen. 
 In jeder neuen Runde sorgen eine zufällig generierten Karte , eine zerstörbare Umgebung, ein kleines Waffenarsenal sowie Hilfsmittel 
 für ein immer neues Erlebnis, um zu beweisen, wer der wahre Shooterman ist.
