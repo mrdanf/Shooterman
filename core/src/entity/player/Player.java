@@ -128,9 +128,8 @@ public class Player extends AnimatingEntity {
      */
     public void shoot() {
         if (activeWeapon.shoot()) {
+            String spriteName = activeWeapon.getProjectileName();
             if (activeWeapon instanceof Shotgun) {
-                String spriteName = activeWeapon.getProjectileName();
-                System.out.println("cool");
                 for (int i = 0; i < 3; i++) {
                     Projectile projectile = new Projectile(viewDirection, sprite.getRotation(), getX(), getY(), this,
                         new Texture(spriteName), i);
@@ -139,7 +138,6 @@ public class Player extends AnimatingEntity {
 
 
             } else {
-                String spriteName = activeWeapon.getProjectileName();
                 Projectile projectile = new Projectile(viewDirection, sprite.getRotation(), getX(), getY(), this,
                     new Texture(spriteName), 0);
                 projectiles.add(projectile);

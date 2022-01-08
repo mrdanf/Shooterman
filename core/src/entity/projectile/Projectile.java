@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 import entity.VisualEntity;
 import entity.object.weapon.Shotgun;
+import entity.object.weapon.Sniperrifle;
 import entity.object.weapon.Weapon;
 import function.CollisionCheck;
 import entity.player.Player;
@@ -28,6 +29,9 @@ public class Projectile extends VisualEntity {
         sprite.setRotation(rotation);
         sprite.setScale(0.4f);
         this.shotgunbullet = shotgunbullet;
+        if (player.getActiveWeapon() instanceof Sniperrifle) {
+            this.speed = 10f;
+        }
     }
 
     /**

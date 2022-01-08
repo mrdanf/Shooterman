@@ -11,7 +11,7 @@ public class Sniperrifle extends Weapon {
      * Initialisiert das Scharfschützengewehr
      */
     public Sniperrifle() {
-        super(50, 10, 5, 5, 3f, new Texture(spriteName), WeaponType.SNIPERRIFLE);
+        super(50, 10, 5, 5, 4f, new Texture(spriteName), WeaponType.SNIPERRIFLE);
     }
 
     @Override

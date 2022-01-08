@@ -11,7 +11,7 @@ public class Shotgun extends Weapon {
      * Initialisiert der Schrotflinte
      */
     public Shotgun() {
-        super(35, 20, 10, 15, 3f, new Texture(spriteName), WeaponType.SHOTGUN);
+        super(15, 20, 10, 15, 4f, new Texture(spriteName), WeaponType.SHOTGUN);
     }
 
     @Override

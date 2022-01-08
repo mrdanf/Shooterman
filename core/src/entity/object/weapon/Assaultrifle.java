@@ -16,6 +16,6 @@ public class Assaultrifle extends Weapon {
      * Initialisiert das Sturmgewehr
      */
     public Assaultrifle() {
-        super(15, 40, 20, 45, 3f, new Texture(spriteName), WeaponType.ASSAULTRIFLE);
+        super(15, 40, 20, 40, 2f, new Texture(spriteName), WeaponType.ASSAULTRIFLE);
     }
 }
