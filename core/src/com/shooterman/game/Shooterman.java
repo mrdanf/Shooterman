@@ -80,10 +80,6 @@ public class Shooterman extends ApplicationAdapter {
      *
      */
     private void batchGame() {
-        if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)){
-            System.out.println(Gdx.input.getX());
-            System.out.println(Math.abs(Gdx.input.getY()-map.getHeight()));
-        }
         for (Box box : game.getBoxes()) {
             Sprite sprite = box.getSprite();
             sprite.setX(box.getX());
@@ -154,7 +150,6 @@ public class Shooterman extends ApplicationAdapter {
     private void updateMenu() {
         String button;
         if ((button = activeWindow.update()) != null) {
-            System.out.println(button + " pressed!");
             if (button.equals("Hilfe")) {
                 activeWindow = new HelpWindow();
             }
