@@ -7,6 +7,7 @@ import entity.object.ground.Item;
 import entity.object.obstacle.Box;
 import entity.object.ground.Ammunition;
 import entity.object.ground.HealthOrb;
+import entity.object.weapon.Shotgun;
 import entity.object.weapon.WeaponType;
 import hud.Status;
 import entity.object.obstacle.DestructibleBox;
@@ -126,11 +127,24 @@ public class Player extends AnimatingEntity {
      */
     public void shoot() {
         if (activeWeapon.shoot()) {
+            if(activeWeapon instanceof Shotgun){
+                String spriteName = activeWeapon.getProjectileName();
+                System.out.println("cool");
+                for (int i = 0; i < 3; i++) {
+                    Projectile projectile = new Projectile(viewDirection, sprite.getRotation(), getX(), getY(), this,
+                        new Texture(spriteName),i);
+                    projectiles.add(projectile);
+                }
+
+
+
+            }
+            else{
             String spriteName = activeWeapon.getProjectileName();
             Projectile projectile = new Projectile(viewDirection, sprite.getRotation(), getX(), getY(), this,
-                    new Texture(spriteName));
+                    new Texture(spriteName),0);
             projectiles.add(projectile);
-        }
+        }}
     }
 
     public int getPlayerNumber() {
